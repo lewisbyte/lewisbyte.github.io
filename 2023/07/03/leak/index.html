@@ -6,15 +6,15 @@
   
   <title>句柄泄露 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="java-handle-leak-demo(java句柄泄露样例) 本仓库为样例仓库吗，通过java来复现linux里的句柄泄露问题  工程使用说明：  jdk-8  此样例工程只能在linux或者macos下使用，不能在window系统使用。  本样例工程主要展示：linux的句柄泄露相关的演示  执行命令 mvn clean test，观察日志输出打印  单元测试日志   1234567891">
+  <meta name="description" content="本仓库为样例仓库吗，通过java来复现linux里的句柄泄露问题  工程使用说明：  jdk-8  此样例工程只能在linux或者macos下使用，不能在window系统使用。  本样例工程主要展示：linux的句柄泄露相关的演示  执行命令 mvn clean test，观察日志输出打印  单元测试日志   1234567891011121314[main] INFO com.github.l">
 <meta property="og:type" content="article">
 <meta property="og:title" content="句柄泄露">
-<meta property="og:url" content="https://lewisbyte.github.io/2023/07/03/hello-world/index.html">
+<meta property="og:url" content="https://lewisbyte.github.io/2023/07/03/leak/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="java-handle-leak-demo(java句柄泄露样例) 本仓库为样例仓库吗，通过java来复现linux里的句柄泄露问题  工程使用说明：  jdk-8  此样例工程只能在linux或者macos下使用，不能在window系统使用。  本样例工程主要展示：linux的句柄泄露相关的演示  执行命令 mvn clean test，观察日志输出打印  单元测试日志   1234567891">
+<meta property="og:description" content="本仓库为样例仓库吗，通过java来复现linux里的句柄泄露问题  工程使用说明：  jdk-8  此样例工程只能在linux或者macos下使用，不能在window系统使用。  本样例工程主要展示：linux的句柄泄露相关的演示  执行命令 mvn clean test，观察日志输出打印  单元测试日志   1234567891011121314[main] INFO com.github.l">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-07-03T06:49:33.737Z">
-<meta property="article:modified_time" content="2023-07-03T06:59:22.468Z">
+<meta property="article:modified_time" content="2023-07-03T07:02:34.231Z">
 <meta property="article:author" content="lewis">
 <meta name="twitter:card" content="summary">
   
@@ -75,9 +75,9 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-leak" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/07/03/hello-world/" class="article-date">
+    <a href="/2023/07/03/leak/" class="article-date">
   <time class="dt-published" datetime="2023-07-03T06:49:33.737Z" itemprop="datePublished">2023-07-03</time>
 </a>
     
@@ -97,7 +97,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="java-handle-leak-demo-java句柄泄露样例"><a href="#java-handle-leak-demo-java句柄泄露样例" class="headerlink" title="java-handle-leak-demo(java句柄泄露样例)"></a>java-handle-leak-demo(java句柄泄露样例)</h1><ul>
+        <ul>
 <li><p>本仓库为样例仓库吗，通过java来复现linux里的句柄泄露问题</p>
 </li>
 <li><p>工程使用说明：</p>
@@ -135,7 +135,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/03/hello-world/" data-id="cljmihq6g0001fcq96ymn0722" data-title="句柄泄露" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/03/leak/" data-id="cljmil03d0000piq9992a49fm" data-title="句柄泄露" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -145,15 +145,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2023/07/03/linux/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          linux 性能调优篇
-        
-      </div>
-    </a>
   
+    <a href="/2023/07/03/linux/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">linux 性能调优篇</div>
+    </a>
   
 </nav>
 
@@ -190,11 +186,11 @@
       <ul>
         
           <li>
-            <a href="/2023/07/03/linux/">linux 性能调优篇</a>
+            <a href="/2023/07/03/leak/">句柄泄露</a>
           </li>
         
           <li>
-            <a href="/2023/07/03/hello-world/">句柄泄露</a>
+            <a href="/2023/07/03/linux/">linux 性能调优篇</a>
           </li>
         
       </ul>

@@ -73,6 +73,78 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-leak" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/07/03/leak/" class="article-date">
+  <time class="dt-published" datetime="2023-07-03T06:49:33.737Z" itemprop="datePublished">2023-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/07/03/leak/">句柄泄露</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><p>本仓库为样例仓库吗，通过java来复现linux里的句柄泄露问题</p>
+</li>
+<li><p>工程使用说明：</p>
+</li>
+<li><p>jdk-8</p>
+</li>
+<li><p>此样例工程只能在linux或者macos下使用，不能在window系统使用。</p>
+</li>
+<li><p>本样例工程主要展示：linux的句柄泄露相关的演示</p>
+</li>
+<li><p>执行命令 <code>mvn clean test</code>，观察日志输出打印</p>
+</li>
+<li><p>单元测试日志</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - 创建临时文件: /private/var/folders/l9/dwlgkqdj119dkrsm7yqfqvlc0000gn/T/hutool5657758728333737466.tmp</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - ------------开始test001WithOpenFileAndCloseResource-测试打开文件，关闭文件资源------------</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExample - 当前进程 pid: [22236] 句柄数量：[65]</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExample - 当前进程 pid: [22236] 句柄数量：[65]</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - 打开[1000]个文件资源，进程句柄增加: [0]</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - ------------结束test001WithOpenFileAndCloseResource-测试打开文件，关闭文件资源------------</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - 删除临时文件: /private/var/folders/l9/dwlgkqdj119dkrsm7yqfqvlc0000gn/T/hutool5657758728333737466.tmp</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - 创建临时文件: /private/var/folders/l9/dwlgkqdj119dkrsm7yqfqvlc0000gn/T/hutool2971625087013833248.tmp</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - ------------开始test002WithOpenFile-测试打开文件，不关闭文件资源------------</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExample - 当前进程 pid: [22236] 句柄数量：[67]</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExample - 当前进程 pid: [22236] 句柄数量：[1067]</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - 打开[1000]个文件资源，进程句柄增加: [1000]</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - ------------结束test002WithOpenFile-测试打开文件，不关闭文件资源------------</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - 删除临时文件: /private/var/folders/l9/dwlgkqdj119dkrsm7yqfqvlc0000gn/T/hutool2971625087013833248.tmp</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>日志说明</p>
+</li>
+<li><p>通过日志可以观察到：</p>
+</li>
+<li><p>在打开文件之后，进行关闭操作的测试方法中，句柄的数量没有增加。文件句柄被及时关闭</p>
+</li>
+<li><p>在打开文件之后，没有进行关闭操作的测试方法中，句柄的数量出现了1000个数量的增长，符合预期</p>
+</li>
+<li><p>调试native方法：java.io.FileInputStream.close0</p>
+</li>
+</ul>
+<p>ref</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://gorden5566.com/post/1027.html">如何查找 jdk 中的 native 实现</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lewisbyte.github.io/2023/07/03/leak/" data-id="cljmil03d0000piq9992a49fm" data-title="句柄泄露" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-linux" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/07/03/linux/" class="article-date">
@@ -95,7 +167,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="linux-性能调优篇"><a href="#linux-性能调优篇" class="headerlink" title="linux 性能调优篇"></a>linux 性能调优篇</h1><ul>
+        <ul>
 <li>主要总结、收集 linux 与系统应用调优相关的技巧与知识</li>
 </ul>
 <h2 id="命令技巧"><a href="#命令技巧" class="headerlink" title="命令技巧"></a>命令技巧</h2><h2 id="系统信息"><a href="#系统信息" class="headerlink" title="系统信息"></a>系统信息</h2><h3 id="x2F-etc-x2F-proc"><a href="#x2F-etc-x2F-proc" class="headerlink" title="&#x2F;etc&#x2F;proc"></a>&#x2F;etc&#x2F;proc</h3><ul>
@@ -147,79 +219,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="cljmihq610000fcq99p9t5d18" data-title="linux 性能调优篇" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/07/03/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2023-07-03T06:49:33.737Z" itemprop="datePublished">2023-07-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/07/03/hello-world/">句柄泄露</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="java-handle-leak-demo-java句柄泄露样例"><a href="#java-handle-leak-demo-java句柄泄露样例" class="headerlink" title="java-handle-leak-demo(java句柄泄露样例)"></a>java-handle-leak-demo(java句柄泄露样例)</h1><ul>
-<li><p>本仓库为样例仓库吗，通过java来复现linux里的句柄泄露问题</p>
-</li>
-<li><p>工程使用说明：</p>
-</li>
-<li><p>jdk-8</p>
-</li>
-<li><p>此样例工程只能在linux或者macos下使用，不能在window系统使用。</p>
-</li>
-<li><p>本样例工程主要展示：linux的句柄泄露相关的演示</p>
-</li>
-<li><p>执行命令 <code>mvn clean test</code>，观察日志输出打印</p>
-</li>
-<li><p>单元测试日志</p>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - 创建临时文件: /private/var/folders/l9/dwlgkqdj119dkrsm7yqfqvlc0000gn/T/hutool5657758728333737466.tmp</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - ------------开始test001WithOpenFileAndCloseResource-测试打开文件，关闭文件资源------------</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExample - 当前进程 pid: [22236] 句柄数量：[65]</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExample - 当前进程 pid: [22236] 句柄数量：[65]</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - 打开[1000]个文件资源，进程句柄增加: [0]</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - ------------结束test001WithOpenFileAndCloseResource-测试打开文件，关闭文件资源------------</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - 删除临时文件: /private/var/folders/l9/dwlgkqdj119dkrsm7yqfqvlc0000gn/T/hutool5657758728333737466.tmp</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - 创建临时文件: /private/var/folders/l9/dwlgkqdj119dkrsm7yqfqvlc0000gn/T/hutool2971625087013833248.tmp</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - ------------开始test002WithOpenFile-测试打开文件，不关闭文件资源------------</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExample - 当前进程 pid: [22236] 句柄数量：[67]</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExample - 当前进程 pid: [22236] 句柄数量：[1067]</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - 打开[1000]个文件资源，进程句柄增加: [1000]</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - ------------结束test002WithOpenFile-测试打开文件，不关闭文件资源------------</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - 删除临时文件: /private/var/folders/l9/dwlgkqdj119dkrsm7yqfqvlc0000gn/T/hutool2971625087013833248.tmp</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>日志说明</p>
-</li>
-<li><p>通过日志可以观察到：</p>
-</li>
-<li><p>在打开文件之后，进行关闭操作的测试方法中，句柄的数量没有增加。文件句柄被及时关闭</p>
-</li>
-<li><p>在打开文件之后，没有进行关闭操作的测试方法中，句柄的数量出现了1000个数量的增长，符合预期</p>
-</li>
-<li><p>调试native方法：java.io.FileInputStream.close0</p>
-</li>
-</ul>
-<p>ref</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://gorden5566.com/post/1027.html">如何查找 jdk 中的 native 实现</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/03/hello-world/" data-id="cljmihq6g0001fcq96ymn0722" data-title="句柄泄露" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="cljmil03j0001piq91obyd8gf" data-title="linux 性能调优篇" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -262,11 +262,11 @@
       <ul>
         
           <li>
-            <a href="/2023/07/03/linux/">linux 性能调优篇</a>
+            <a href="/2023/07/03/leak/">句柄泄露</a>
           </li>
         
           <li>
-            <a href="/2023/07/03/hello-world/">句柄泄露</a>
+            <a href="/2023/07/03/linux/">linux 性能调优篇</a>
           </li>
         
       </ul>
