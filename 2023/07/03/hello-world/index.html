@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>句柄泄露 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="java-handle-leak-demo(java句柄泄露样例) 本仓库为样例仓库吗，通过java来复现linux里的句柄泄露问题  工程使用说明：  jdk-8  此样例工程只能在linux或者macos下使用，不能在window系统使用。  本样例工程主要展示：linux的句柄泄露相关的演示  执行命令 mvn clean test，观察日志输出打印  单元测试日志   1234567891">
+<meta property="og:type" content="article">
+<meta property="og:title" content="句柄泄露">
+<meta property="og:url" content="https://lewisbyte.github.io/2023/07/03/hello-world/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="java-handle-leak-demo(java句柄泄露样例) 本仓库为样例仓库吗，通过java来复现linux里的句柄泄露问题  工程使用说明：  jdk-8  此样例工程只能在linux或者macos下使用，不能在window系统使用。  本样例工程主要展示：linux的句柄泄露相关的演示  执行命令 mvn clean test，观察日志输出打印  单元测试日志   1234567891">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-07-03T06:49:33.737Z">
+<meta property="article:modified_time" content="2023-07-03T06:59:22.468Z">
+<meta property="article:author" content="lewis">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://lewisbyte.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/07/03/hello-world/" class="article-date">
+  <time class="dt-published" datetime="2023-07-03T06:49:33.737Z" itemprop="datePublished">2023-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      句柄泄露
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="java-handle-leak-demo-java句柄泄露样例"><a href="#java-handle-leak-demo-java句柄泄露样例" class="headerlink" title="java-handle-leak-demo(java句柄泄露样例)"></a>java-handle-leak-demo(java句柄泄露样例)</h1><ul>
+<li><p>本仓库为样例仓库吗，通过java来复现linux里的句柄泄露问题</p>
+</li>
+<li><p>工程使用说明：</p>
+</li>
+<li><p>jdk-8</p>
+</li>
+<li><p>此样例工程只能在linux或者macos下使用，不能在window系统使用。</p>
+</li>
+<li><p>本样例工程主要展示：linux的句柄泄露相关的演示</p>
+</li>
+<li><p>执行命令 <code>mvn clean test</code>，观察日志输出打印</p>
+</li>
+<li><p>单元测试日志</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - 创建临时文件: /private/var/folders/l9/dwlgkqdj119dkrsm7yqfqvlc0000gn/T/hutool5657758728333737466.tmp</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - ------------开始test001WithOpenFileAndCloseResource-测试打开文件，关闭文件资源------------</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExample - 当前进程 pid: [22236] 句柄数量：[65]</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExample - 当前进程 pid: [22236] 句柄数量：[65]</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - 打开[1000]个文件资源，进程句柄增加: [0]</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - ------------结束test001WithOpenFileAndCloseResource-测试打开文件，关闭文件资源------------</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - 删除临时文件: /private/var/folders/l9/dwlgkqdj119dkrsm7yqfqvlc0000gn/T/hutool5657758728333737466.tmp</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - 创建临时文件: /private/var/folders/l9/dwlgkqdj119dkrsm7yqfqvlc0000gn/T/hutool2971625087013833248.tmp</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - ------------开始test002WithOpenFile-测试打开文件，不关闭文件资源------------</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExample - 当前进程 pid: [22236] 句柄数量：[67]</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExample - 当前进程 pid: [22236] 句柄数量：[1067]</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - 打开[1000]个文件资源，进程句柄增加: [1000]</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - ------------结束test002WithOpenFile-测试打开文件，不关闭文件资源------------</span><br><span class="line">[main] INFO com.github.lewisbyte.ConnectionResourceLeakExampleTest - 删除临时文件: /private/var/folders/l9/dwlgkqdj119dkrsm7yqfqvlc0000gn/T/hutool2971625087013833248.tmp</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>日志说明</p>
+</li>
+<li><p>通过日志可以观察到：</p>
+</li>
+<li><p>在打开文件之后，进行关闭操作的测试方法中，句柄的数量没有增加。文件句柄被及时关闭</p>
+</li>
+<li><p>在打开文件之后，没有进行关闭操作的测试方法中，句柄的数量出现了1000个数量的增长，符合预期</p>
+</li>
+<li><p>调试native方法：java.io.FileInputStream.close0</p>
+</li>
+</ul>
+<p>ref</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://gorden5566.com/post/1027.html">如何查找 jdk 中的 native 实现</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lewisbyte.github.io/2023/07/03/hello-world/" data-id="cljmihq6g0001fcq96ymn0722" data-title="句柄泄露" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/07/03/linux/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          linux 性能调优篇
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/07/03/linux/">linux 性能调优篇</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/03/hello-world/">句柄泄露</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 lewis<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
