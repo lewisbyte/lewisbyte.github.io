@@ -128,7 +128,7 @@
 <li>添加远程JVM调试，主机填<code>localhost</code>,端口配置为<code>8000</code>,JDK选择 <code>5-8</code>，点击确定启动debug</li>
 </ol>
 </li>
-<li><img src="/image/002-cpu.png" alt="CPU问题分析"></li>
+<li><img src="/image/003-debug.png" alt="debug 配置"></li>
 <li><ol start="6">
 <li>可以观察日志，服务已经正常启动 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[elasticsearch] [2023-07-26T16:19:14,233][INFO ][o.e.t.TransportService   ] [node-0] publish_address &#123;127.0.0.1:9300&#125;, bound_addresses &#123;[::1]:9300&#125;, &#123;127.0.0.1:9300&#125;</span><br><span class="line">[elasticsearch] [2023-07-26T16:19:17,300][INFO ][o.e.c.s.MasterService    ] [node-0] zen-disco-elected-as-master ([0] nodes joined), reason: new_master &#123;node-0&#125;&#123;48qziOzRTdOSQo0nQhQ_PQ&#125;&#123;udw-kDLxTNCvBvup2R2Nqw&#125;&#123;127.0.0.1&#125;&#123;127.0.0.1:9300&#125;&#123;testattr=test&#125;</span><br><span class="line">[elasticsearch] [2023-07-26T16:19:17,304][INFO ][o.e.c.s.ClusterApplierService] [node-0] new_master &#123;node-0&#125;&#123;48qziOzRTdOSQo0nQhQ_PQ&#125;&#123;udw-kDLxTNCvBvup2R2Nqw&#125;&#123;127.0.0.1&#125;&#123;127.0.0.1:9300&#125;&#123;testattr=test&#125;, reason: apply cluster state (from master [master &#123;node-0&#125;&#123;48qziOzRTdOSQo0nQhQ_PQ&#125;&#123;udw-kDLxTNCvBvup2R2Nqw&#125;&#123;127.0.0.1&#125;&#123;127.0.0.1:9300&#125;&#123;testattr=test&#125; committed version [1] source [zen-disco-elected-as-master ([0] nodes joined)]])</span><br><span class="line">[elasticsearch] [2023-07-26T16:19:17,329][INFO ][o.e.g.GatewayService     ] [node-0] recovered [0] indices into cluster_state</span><br><span class="line">[elasticsearch] [2023-07-26T16:19:17,331][INFO ][o.e.h.n.Netty4HttpServerTransport] [node-0] publish_address &#123;127.0.0.1:9200&#125;, bound_addresses &#123;[::1]:9200&#125;, &#123;127.0.0.1:9200&#125;</span><br><span class="line">[elasticsearch] [2023-07-26T16:19:17,333][INFO ][o.e.n.Node               ] [node-0] started</span><br><span class="line">&lt;============-&gt; 96% EXECUTING [11m 35s]</span><br><span class="line">&gt; :distribution:run#start</span><br><span class="line">&gt; IDLE</span><br></pre></td></tr></table></figure></li>
 </ol>
@@ -142,7 +142,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/25/elasticsearch/" data-id="clkjgxlfd00000eq95hwk9o0m" data-title="elasticsearch源码学习" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/25/elasticsearch/" data-id="clkjh1sjn00006xq99l5kbgsg" data-title="elasticsearch源码学习" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -367,7 +367,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clkjgxlfm00010eq90dxd634a" data-title="Linux应用性能调优" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clkjh1sjw00016xq93wjo15hi" data-title="Linux应用性能调优" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
