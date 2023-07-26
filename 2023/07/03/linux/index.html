@@ -6,17 +6,17 @@
   
   <title>Linux实用命令 | 保持好奇心</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="总结、收集 Linux 实用命令、系统应用调优相关的技巧 本文基于 Ubuntu-22.04、Centos-7 版本  场景 内存问题分析 CPU问题分析  目录 系统信息-top 系统信息-watch 系统信息-pidstat 系统信息-mpstat 系统信息-vmstat 系统信息-dstat 系统信息-cachestat 系统信息-cachetop 系统信息-strace 系统信息-per">
+  <meta name="description" content="总结、收集 Linux 实用命令、系统应用调优相关的技巧 本文基于 Ubuntu-22.04、Centos-7 版本  场景 内存问题分析 CPU问题分析  目录 系统信息-top 系统信息-watch 系统信息-pidstat 系统信息-mpstat 系统信息-vmstat 系统信息-dstat 系统信息-cachestat 系统信息-cachetop 系统信息-slabtop 系统信息-st">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux实用命令">
 <meta property="og:url" content="https://lewisbyte.github.io/2023/07/03/linux/index.html">
 <meta property="og:site_name" content="保持好奇心">
-<meta property="og:description" content="总结、收集 Linux 实用命令、系统应用调优相关的技巧 本文基于 Ubuntu-22.04、Centos-7 版本  场景 内存问题分析 CPU问题分析  目录 系统信息-top 系统信息-watch 系统信息-pidstat 系统信息-mpstat 系统信息-vmstat 系统信息-dstat 系统信息-cachestat 系统信息-cachetop 系统信息-strace 系统信息-per">
+<meta property="og:description" content="总结、收集 Linux 实用命令、系统应用调优相关的技巧 本文基于 Ubuntu-22.04、Centos-7 版本  场景 内存问题分析 CPU问题分析  目录 系统信息-top 系统信息-watch 系统信息-pidstat 系统信息-mpstat 系统信息-vmstat 系统信息-dstat 系统信息-cachestat 系统信息-cachetop 系统信息-slabtop 系统信息-st">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lewisbyte.github.io/image/002-cpu.png">
 <meta property="og:image" content="https://lewisbyte.github.io/image/001-mem.png">
 <meta property="article:published_time" content="2023-07-03T06:49:33.737Z">
-<meta property="article:modified_time" content="2023-07-24T07:42:33.949Z">
+<meta property="article:modified_time" content="2023-07-26T01:47:28.830Z">
 <meta property="article:author" content="lewis">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://lewisbyte.github.io/image/002-cpu.png">
@@ -121,6 +121,7 @@
 <li><a href="#dstat">系统信息-dstat</a></li>
 <li><a href="#cachestat">系统信息-cachestat</a></li>
 <li><a href="#cachetop">系统信息-cachetop</a></li>
+<li><a href="#slabtop">系统信息-slabtop</a></li>
 <li><a href="#strace">系统信息-strace</a></li>
 <li><a href="#perf">系统信息-perf</a></li>
 <li><a href="#pstree">系统信息-pstree</a></li>
@@ -199,6 +200,10 @@
 <h3 id="cachetop"><a href="#cachetop" class="headerlink" title="cachetop"></a>cachetop</h3><ul>
 <li>[简介] 缓存命中率：输出跟 top 类似，默认按照缓存的命中次数（HITS）排序，展示了每个进程的缓存命中情况。具体到每一个指标，这里的 HITS、MISSES 和 DIRTIES ，跟 cachestat 里的含义一样，分别代表间隔时间内的缓存命中次数、未命中次数以及新增到缓存中的脏页数。</li>
 <li>[样例] <code>cachetop</code></li>
+</ul>
+<h3 id="slabtop"><a href="#slabtop" class="headerlink" title="slabtop"></a>slabtop</h3><ul>
+<li>[简介] 实时显示内核slab内存缓存信息，使用 slabtop ，来找到占用内存最多的缓存类型。内核的模块在分配资源的时候，为了提高效率和资源的利用率，都是透过slab来分配的。通过slab的信息，再配合源码能粗粗了解系统的运行情况，比如说什么资源有没有不正常的多，或者什么资源有没有泄漏。linux系统透过&#x2F;proc&#x2F;slabinfo来向用户暴露slab的使用情况。Linux 所使用的 slab 分配器的基础是 Jeff Bonwick 为 SunOS 操作系统首次引入的一种算法。Jeff 的分配器是围绕对象缓存进行的。在内核中，会为有限的对象集（例如文件描述符和其他常见结构）分配大量内存。Jeff 发现对内核中普通对象进行初始化所需的时间超过了对其进行分配和释放所需的时间。因此他的结论是不应该将内存释放回一个全局的内存池，而是将内存保持为针对特定目而初始化的状态。Linux slab 分配器使用了这种思想和其他一些思想来构建一个在空间和时间上都具有高效性的内存分配器。保存着监视系统中所有活动的 slab 缓存的信息的文件为&#x2F;proc&#x2F;slabinfo。</li>
+<li>[样例] <code>slabtop</code></li>
 </ul>
 <h3 id="strace"><a href="#strace" class="headerlink" title="strace"></a>strace</h3><ul>
 <li>[简介] 跟进程系统调用的工具,观察对应pid进程的系统调用</li>
@@ -290,7 +295,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clki2gt7t0001v5q99iu7giew" data-title="Linux实用命令" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clkj2jh790001knq9g3zjcf2s" data-title="Linux实用命令" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
