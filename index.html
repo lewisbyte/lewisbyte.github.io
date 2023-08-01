@@ -142,7 +142,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/25/elasticsearch/" data-id="clklwuqz900009cq9bspx0wx4" data-title="elasticsearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/25/elasticsearch/" data-id="clkrwqjbt0000rnq9d04zd8e4" data-title="elasticsearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -193,6 +193,7 @@
 <li><a href="#dstat">系统信息-dstat</a></li>
 <li><a href="#iostat">磁盘信息-iostat</a></li>
 <li><a href="#iotop">磁盘信息-iotop</a></li>
+<li><a href="#lsof">文件信息-lsof</a></li>
 <li><a href="#cachestat">系统信息-cachestat</a></li>
 <li><a href="#cachetop">系统信息-cachetop</a></li>
 <li><a href="#slabtop">系统信息-slabtop</a></li>
@@ -265,6 +266,11 @@
 <h3 id="iotop"><a href="#iotop" class="headerlink" title="iotop"></a>iotop</h3><ul>
 <li>[简介] 一个类似于 top 的工具，你可以按照 I&#x2F;O 大小对进程排序，然后找到 I&#x2F;O 较大的那些进程</li>
 <li>[样例] <code>iotop</code></li>
+</ul>
+<h3 id="lsof"><a href="#lsof" class="headerlink" title="lsof"></a>lsof</h3><ul>
+<li>[简介] 用于查看你进程打开的文件，打开文件的进程，进程打开的端口(TCP、UDP)。 找回&#x2F;恢复删除的文件</li>
+<li>[样例] <code>lsof -p $pid</code> 查看对应进程关联打开的 网络、文件、设备、socket链接 等</li>
+<li>[样例] <code>lsof -i $port</code> 查看对应端口的占用情况</li>
 </ul>
 <h3 id="mpstat"><a href="#mpstat" class="headerlink" title="mpstat"></a>mpstat</h3><ul>
 <li>[简介]</li>
@@ -386,7 +392,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clklwuqzv00019cq9guasb19w" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clkrwqjc50001rnq99dw5gnku" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
