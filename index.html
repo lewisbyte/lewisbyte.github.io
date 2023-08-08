@@ -79,8 +79,8 @@
   
     <article id="post-elasticsearch" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/07/25/elasticsearch/" class="article-date">
-  <time class="dt-published" datetime="2023-07-25T08:55:44.884Z" itemprop="datePublished">2023-07-25</time>
+    <a href="/2023/08/08/elasticsearch/" class="article-date">
+  <time class="dt-published" datetime="2023-08-08T06:28:03.797Z" itemprop="datePublished">2023-08-08</time>
 </a>
     
   </div>
@@ -91,7 +91,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/07/25/elasticsearch/">elasticsearch源码学习-LTS</a>
+      <a class="p-name article-title" href="/2023/08/08/elasticsearch/">elasticsearch源码学习-LTS</a>
     </h1>
   
 
@@ -106,6 +106,8 @@
 </ul>
 <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
 <li><a href="#%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95">如何调试</a></li>
+<li><a href="#ES%E9%9B%86%E7%BE%A4%E5%90%AF%E5%8A%A8%E6%AD%A5%E9%AA%A4">ES集群启动步骤</a></li>
+<li><a href="#ES%E8%8A%82%E7%82%B9%E5%90%AF%E5%8A%A8">ES节点启动</a></li>
 </ul>
 <h3 id="如何调试"><a href="#如何调试" class="headerlink" title="如何调试"></a>如何调试</h3><ul>
 <li><ol>
@@ -138,11 +140,39 @@
 </ol>
 </li>
 </ul>
+<h3 id="ES集群启动步骤"><a href="#ES集群启动步骤" class="headerlink" title="ES集群启动步骤"></a>ES集群启动步骤</h3><ul>
+<li><ol>
+<li>选举主节点（过半数为master节点）</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>选举集群元信息</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>allocation分配数据分片</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>index recovery 索引重启恢复</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>集群启动</li>
+</ol>
+</li>
+</ul>
+<h3 id="ES节点启动"><a href="#ES节点启动" class="headerlink" title="ES节点启动"></a>ES节点启动</h3><ul>
+<li><ol>
+<li></li>
+</ol>
+</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/25/elasticsearch/" data-id="clkvwnb880000f0q9hnqabrb0" data-title="elasticsearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="cll1x8iy800008oq986pm0m7p" data-title="elasticsearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -393,7 +423,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clkvwnb8q0001f0q9f6msfhtc" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="cll1x8iym00018oq93us57vmt" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -423,7 +453,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a></li></ul>
     </div>
   </div>
 
@@ -436,7 +466,7 @@
       <ul>
         
           <li>
-            <a href="/2023/07/25/elasticsearch/">elasticsearch源码学习-LTS</a>
+            <a href="/2023/08/08/elasticsearch/">elasticsearch源码学习-LTS</a>
           </li>
         
           <li>
