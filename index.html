@@ -172,7 +172,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="cll1x8iy800008oq986pm0m7p" data-title="elasticsearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="clllmobie0000k1xaeov59mix" data-title="elasticsearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -213,17 +213,17 @@
 <h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
 <li><a href="#%E5%86%85%E5%AD%98%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90">内存问题分析</a></li>
 <li><a href="#CPU%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90">CPU问题分析</a></li>
+<li><a href="#%E7%A3%81%E7%9B%98%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90">磁盘问题分析</a></li>
+<li><a href="#%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90">网络问题分析</a></li>
 </ul>
 <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><a href="#%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF">系统信息</a><ul>
 <li><a href="#top">系统信息-top</a></li>
 <li><a href="#watch">系统信息-watch</a></li>
 <li><a href="#pidstat">系统信息-pidstat</a></li>
 <li><a href="#mpstat">系统信息-mpstat</a></li>
 <li><a href="#vmstat">系统信息-vmstat</a></li>
 <li><a href="#dstat">系统信息-dstat</a></li>
-<li><a href="#iostat">磁盘信息-iostat</a></li>
-<li><a href="#iotop">磁盘信息-iotop</a></li>
-<li><a href="#lsof">文件信息-lsof</a></li>
 <li><a href="#cachestat">系统信息-cachestat</a></li>
 <li><a href="#cachetop">系统信息-cachetop</a></li>
 <li><a href="#slabtop">系统信息-slabtop</a></li>
@@ -231,17 +231,34 @@
 <li><a href="#perf">系统信息-perf</a></li>
 <li><a href="#pstree">系统信息-pstree</a></li>
 <li><a href="#valgrind">系统信息-valgrind</a></li>
-<li><a href="#tcpdump">网络信息-tcpdump</a></li>
+<li><a href="#procfs">系统信息-procfs</a></li>
+</ul>
+</li>
+<li><a href="#%E6%96%87%E4%BB%B6%E7%A3%81%E7%9B%98">文件磁盘</a><ul>
+<li><a href="#iostat">磁盘信息-iostat</a></li>
+<li><a href="#iotop">磁盘信息-iotop</a></li>
+<li><a href="#lsof">文件信息-lsof</a><br>-<a href="#%E7%B3%BB%E7%BB%9F%E6%B5%8B%E8%AF%95">系统测试</a></li>
 <li><a href="#stress">测试-cpu-stress</a></li>
 <li><a href="#sysbench">测试-系统-sysbench</a></li>
-<li><a href="#iperf">测试-网络-iperf</a></li>
 <li><a href="#dd">测试-磁盘-dd</a></li>
 <li><a href="#fio">测试-磁盘-fio</a></li>
-<li><a href="#procfs">内核信息-procfs</a></li>
 </ul>
-<h3 id="CPU问题分析"><a href="#CPU问题分析" class="headerlink" title="CPU问题分析"></a>CPU问题分析</h3><p><img src="/image/002-cpu.png" alt="CPU问题分析"></p>
-<h3 id="内存问题分析"><a href="#内存问题分析" class="headerlink" title="内存问题分析"></a>内存问题分析</h3><p><img src="/image/001-mem.png" alt="内存问题分析"></p>
-<h3 id="磁盘问题分析"><a href="#磁盘问题分析" class="headerlink" title="磁盘问题分析"></a>磁盘问题分析</h3><p><img src="/image/005-disk.png" alt="磁盘问题分析"></p>
+</li>
+<li><a href="#%E7%BD%91%E7%BB%9C">网络</a><ul>
+<li><a href="#nslookup">网络调试-nslookup</a></li>
+<li><a href="#dig">网络调试-dig</a></li>
+<li><a href="#ping">网络测试-ping</a></li>
+<li><a href="#iperf">网络测试-iperf</a></li>
+<li><a href="#tcpdump">网络信息-tcpdump</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="CPU问题分析"><a href="#CPU问题分析" class="headerlink" title="CPU问题分析"></a>CPU问题分析</h3><p><img src="/image/002-cpu.png" alt="CPU问题分析图"></p>
+<h3 id="内存问题分析"><a href="#内存问题分析" class="headerlink" title="内存问题分析"></a>内存问题分析</h3><p><img src="/image/001-mem.png" alt="内存问题分析图"></p>
+<h3 id="磁盘问题分析"><a href="#磁盘问题分析" class="headerlink" title="磁盘问题分析"></a>磁盘问题分析</h3><p><img src="/image/005-disk.png" alt="磁盘问题分析图"></p>
+<h3 id="网络问题分析"><a href="#网络问题分析" class="headerlink" title="网络问题分析"></a>网络问题分析</h3><ul>
+<li>todo</li>
+</ul>
 <h2 id="系统信息"><a href="#系统信息" class="headerlink" title="系统信息"></a>系统信息</h2><h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><ul>
 <li><p>[简介]: top （table of processes）是一个任务管理器程序，它可运行于许多类Unix操作系统上，它用于显示有关CPU和内存利用率的信息。</p>
 </li>
@@ -285,7 +302,7 @@
 <li>[简介] dstat 是一个新的性能工具，它吸收了 vmstat、iostat、ifstat 等几种工具的优点，可以同时观察系统的 CPU、磁盘 I&#x2F;O、网络以及内存使用情况。</li>
 <li>安装执行命令 <code>apt install dstat -y</code></li>
 </ul>
-<h3 id="iostat"><a href="#iostat" class="headerlink" title="iostat"></a>iostat</h3><ul>
+<h2 id="文件磁盘"><a href="#文件磁盘" class="headerlink" title="文件磁盘"></a>文件磁盘</h2><h3 id="iostat"><a href="#iostat" class="headerlink" title="iostat"></a>iostat</h3><ul>
 <li>[简介] iostat 是最常用的磁盘 I&#x2F;O 性能观测工具，它提供了每个磁盘的使用率、IOPS、吞吐量等各种常见的性能指标，当然，这些指标实际上来自 &#x2F;proc&#x2F;diskstats。</li>
 <li>[样例] <code>iostat -d -x 1</code></li>
 <li><a href="image/004-iostat.png">参数含义</a></li>
@@ -300,14 +317,14 @@
 </ul>
 <h3 id="lsof"><a href="#lsof" class="headerlink" title="lsof"></a>lsof</h3><ul>
 <li>[简介] 用于查看你进程打开的文件，打开文件的进程，进程打开的端口(TCP、UDP)。 找回&#x2F;恢复删除的文件</li>
-<li>[样例] <code>lsof -p $pid</code> 查看对应进程关联打开的 网络、文件、设备、socket链接 等</li>
+<li>[样例] <code>lsof -p $pid</code> 查看对应进程关联打开的 网络、文件、设备、socket链接 等。如果要查看某个pid的TCP类型文件，执行<code>lsof -p $pid | grep TCP</code> 即可查看到监听的TCP网络及端口相关信息</li>
 <li>[样例] <code>lsof -i $port</code> 查看对应端口的占用情况</li>
 </ul>
 <h3 id="mpstat"><a href="#mpstat" class="headerlink" title="mpstat"></a>mpstat</h3><ul>
-<li>[简介]</li>
+<li>[简介] todo</li>
 </ul>
 <h3 id="vmstat"><a href="#vmstat" class="headerlink" title="vmstat"></a>vmstat</h3><ul>
-<li>[简介]</li>
+<li>[简介] todo</li>
 </ul>
 <h3 id="cachestat"><a href="#cachestat" class="headerlink" title="cachestat"></a>cachestat</h3><ul>
 <li>[简介] 缓存命中率</li>
@@ -336,8 +353,8 @@
 <li>[样例]: 运行 strace 命令，并用 -p 参数指定 PID 号 <code>strace -p 6082</code></li>
 </ul>
 <h3 id="perf"><a href="#perf" class="headerlink" title="perf"></a>perf</h3><ul>
-<li>[简介]</li>
-<li>[安装]</li>
+<li>[简介] todo</li>
+<li>[安装] todo</li>
 <li>[样例]: 采样操作系统函数调用 <code>perf record -g</code>，获取调用报告 <code>perf report</code></li>
 </ul>
 <h3 id="pstree"><a href="#pstree" class="headerlink" title="pstree"></a>pstree</h3><ul>
@@ -345,11 +362,12 @@
 <li>[样例] <code>pstree -aps 3084</code>; a 表示输出命令行选项 ; p 表 PID; s 表示指定进程的父进程</li>
 </ul>
 <h3 id="valgrind"><a href="#valgrind" class="headerlink" title="valgrind"></a>valgrind</h3><ul>
-<li>[简介] 内存泄露检测工具，应用最广泛的工具，一个重量级的内存检查器，能够发现开发中绝大多数内存错误使用情况</li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/56538645">内存检测王者之剑—valgrind</a></li>
-</ul>
-<h2 id="网络信息"><a href="#网络信息" class="headerlink" title="网络信息"></a>网络信息</h2><h3 id="tcpdump"><a href="#tcpdump" class="headerlink" title="tcpdump"></a>tcpdump</h3><ul>
-<li>[简介]</li>
+<li><p>[简介] 内存泄露检测工具，应用最广泛的工具，一个重量级的内存检查器，能够发现开发中绝大多数内存错误使用情况</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/56538645">内存检测王者之剑—valgrind</a></p>
+</li>
+<li><p>[简介]</p>
+</li>
 </ul>
 <h2 id="系统测试"><a href="#系统测试" class="headerlink" title="系统测试"></a>系统测试</h2><h3 id="stress"><a href="#stress" class="headerlink" title="stress"></a>stress</h3><ul>
 <li>[简介] cpu、io 压测测试</li>
@@ -369,7 +387,7 @@
 <h3 id="fio"><a href="#fio" class="headerlink" title="fio"></a>fio</h3><ul>
 <li>[简介]: 测试磁盘的 IOPS、吞吐量以及响应时间等核心指标</li>
 </ul>
-<h2 id="内核信息"><a href="#内核信息" class="headerlink" title="内核信息"></a>内核信息</h2><h3 id="procfs"><a href="#procfs" class="headerlink" title="procfs"></a>procfs</h3><ul>
+<h2 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h2><h3 id="procfs"><a href="#procfs" class="headerlink" title="procfs"></a>procfs</h3><ul>
 <li><p>[简介]: 在许多类 Unix 计算机系统中， procfs 是 进程 文件系统 (file system) 的缩写，包含一个伪文件系统（启动时动态生成的文件系统），用于通过内核访问进程信息。这个文件系统通常被挂载到 &#x2F;proc 目录。由于 &#x2F;proc 不是一个真正的文件系统，它也就不占用存储空间，只是占用有限的内存。</p>
 </li>
 <li><p>执行命令 <code>ls /etc/proc</code> ，即可查阅系统进程的文件信息</p>
@@ -398,7 +416,7 @@
 <li>&#x2F;proc&#x2F;diskstats, 给出了每一块逻辑磁盘设备的一些信息</li>
 <li>&#x2F;proc&#x2F;filesystems, 当前时刻内核支持的文件系统的列表</li>
 <li>&#x2F;proc&#x2F;interrupts, &#x2F;proc&#x2F;iomem, &#x2F;proc&#x2F;ioports, &#x2F;proc&#x2F;irq, 设备的一些与中断、内存访问有  - 关的信息</li>
-<li>&#x2F;proc&#x2F;kmsg, 用于跟踪读取内核消息 </li>
+<li>&#x2F;proc&#x2F;kmsg, 用于跟踪读取内核消息</li>
 <li>&#x2F;proc&#x2F;meminfo, 包含内核管理内存的一些汇总信息</li>
 <li>&#x2F;proc&#x2F;modules, 是&#x2F;proc最重要的文件之一, 包含了当前加载的内核模块列表</li>
 <li>&#x2F;proc&#x2F;mounts, 包含了当前安装设备及安装点的符号链接</li>
@@ -419,11 +437,23 @@
 </ul>
 </li>
 </ul>
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><h3 id="nslookup"><a href="#nslookup" class="headerlink" title="nslookup"></a>nslookup</h3><ul>
+<li>[简介] 用于分析 DNS 的解析过程</li>
+</ul>
+<h3 id="dig"><a href="#dig" class="headerlink" title="dig"></a>dig</h3><ul>
+<li>[简介] 用于分析 DNS 的解析过程</li>
+</ul>
+<h3 id="ping"><a href="#ping" class="headerlink" title="ping"></a>ping</h3><ul>
+<li>[简介] 用于测试服务器延时</li>
+</ul>
+<h3 id="tcpdump"><a href="#tcpdump" class="headerlink" title="tcpdump"></a>tcpdump</h3><ul>
+<li>todo</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="cll1x8iym00018oq93us57vmt" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clllmobis0001k1xa62lm1qrs" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
