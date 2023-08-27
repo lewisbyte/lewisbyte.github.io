@@ -184,12 +184,24 @@
 <li>一旦所有的副分片成功执行操作并回复主分片，主分片会把 请求执行成功的信息返回给协调节点，协调节点返回给客户端</li>
 </ul>
 </li>
+<li>4 故障处理<ul>
+<li>出现主分片错误：如离线、磁盘损坏等，会超时（1分钟）之后主动降级，提升一个副分片为主分片</li>
+<li>出错的主分片操作会被副分片拒绝：来自陈旧的主分片的操作将会被副分片拒绝。当它接收来自副分片的拒绝其请求的响应时，它将会访问一下（新）主节点，然后就会知道自己已被替换。最后将操作路由到新的主分片。</li>
+</ul>
+</li>
+<li>5 读取模型<ul>
+<li>把读请求转发到相关分片</li>
+<li>从副本组中选择一个相关分片的活跃副本</li>
+<li>发送分片级的读请求到被选中的副本</li>
+<li>合并结果并给客户端返回响应</li>
+</ul>
+</li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="cllt72zvw0000imxa7o8m1qy1" data-title="elasticsearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="cllt88z9h0000xyxadbhudqfv" data-title="elasticsearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -471,7 +483,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="cllt72zw60001imxabvl6hupo" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="cllt88z9v0001xyxagtvehvrd" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
