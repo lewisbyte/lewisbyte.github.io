@@ -6,15 +6,15 @@
   
   <title>分布式技术原理与算法解析 | 保持好奇心</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="分布式技术原理与算法解析  目录 1">
+  <meta name="description" content="分布式技术原理与算法解析  目录 选举  Bully 算法是一种霸道的集群选主算法，为什么说是霸道呢？因为它的选举原则是“长者”为大，即在所有活着的节点中，选取 ID 最大的节点作为主节点。它的假设条件是，集群中每个节点均知道其他节点的 ID  Raft 算法是典型的多数派投票选举算法，其选举机制与我们日常生活中的民主投票机制类似，核心思想是“少数服从多数”。也就是说，Raft 算法中，获得投票">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分布式技术原理与算法解析">
 <meta property="og:url" content="https://lewisbyte.github.io/2024/02/20/distribute_alg/index.html">
 <meta property="og:site_name" content="保持好奇心">
-<meta property="og:description" content="分布式技术原理与算法解析  目录 1">
+<meta property="og:description" content="分布式技术原理与算法解析  目录 选举  Bully 算法是一种霸道的集群选主算法，为什么说是霸道呢？因为它的选举原则是“长者”为大，即在所有活着的节点中，选取 ID 最大的节点作为主节点。它的假设条件是，集群中每个节点均知道其他节点的 ID  Raft 算法是典型的多数派投票选举算法，其选举机制与我们日常生活中的民主投票机制类似，核心思想是“少数服从多数”。也就是说，Raft 算法中，获得投票">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-02-20T08:03:25.871Z">
-<meta property="article:modified_time" content="2024-02-20T08:05:11.793Z">
+<meta property="article:modified_time" content="2024-02-20T08:12:34.179Z">
 <meta property="article:author" content="lewis">
 <meta name="twitter:card" content="summary">
   
@@ -105,13 +105,18 @@
 <li>分布式技术原理与算法解析</li>
 </ul>
 <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
-<li><a href="1">1</a></li>
+<li><p><a href="%E9%80%89%E4%B8%BE">选举</a></p>
+</li>
+<li><p>Bully 算法是一种霸道的集群选主算法，为什么说是霸道呢？因为它的选举原则是“长者”为大，即在所有活着的节点中，选取 ID 最大的节点作为主节点。它的假设条件是，集群中每个节点均知道其他节点的 ID</p>
+</li>
+<li><p>Raft 算法是典型的多数派投票选举算法，其选举机制与我们日常生活中的民主投票机制类似，核心思想是“少数服从多数”。也就是说，Raft 算法中，获得投票最多的节点成为主。</p>
+</li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/02/20/distribute_alg/" data-id="clsu2z26u0002zqxafjoc18ug" data-title="分布式技术原理与算法解析" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/02/20/distribute_alg/" data-id="clsu3eqom0002vtxaebfwd00v" data-title="分布式技术原理与算法解析" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
