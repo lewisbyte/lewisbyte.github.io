@@ -205,41 +205,34 @@
 </li>
 </ul>
 </li>
+<li><p>优化分析：</p>
+<ul>
+<li>在搞清原因之后，咨询DBA了解到，neo4j不建议使用长语句，最好是使用短语句来插入数据，长语句会产生堆积，进而导致内存不足。但是短语句的矛盾就在于性能低下，我们这里需要使用批量插入的模式提高性能。</li>
+<li>于是在参考了neo4j-spark的源码实现，得到了启发。neo4j官方sprak的导数实现是使用批量插入的模式，不是通过拼接语句的模式。通过使用参数传递模式进行批量插入，以实体插入为例：</li>
+<li>scala源码实现（org.neo4j.spark.service.Neo4jQueryWriteStrategy#createStatementForNodes）：</li>
+<li>编译后的语句：</li>
+<li>with query: UNWIND $events AS event MERGE (node:Human {object_key: event.keys.object_key}) SET node +&#x3D; event.properties</li>
+<li>这里官方实现使用了unwind关键字，这里引用 博文 解释为什么unwind可以加速插入：</li>
+<li>高效的做法是利用Neo4j提供的参数（Parameter）机制和UNWIND子句：在一次数据更新中，进行一次连接，打开一次事务，批量更新数据；参数用于提供列表格式的数据，UNWIND子句是把列表数据展开成一行一行的数据，每行数据都会执行结构相同的Cypher语句。再批量更新图形数据之前，用户必须构造结构固定的、参数化的Cypher语句。当Cypher语句的结构相同时，Neo4j数据库直接从缓存中复用已生成的执行计划，而不需要重新生成，这也能够提高查询性能。</li>
+<li>UNWIND子句把列表式的数据展开成一行一行的数据，每一个行都包含更新所需要的全部信息，列表式的数据，可以通过参数来传递。</li>
+<li>例如，定义参数events，该参数是一个JSON字符串，键events是参数名，其值是一个数组，包含两个数组元素。</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line"><span class="attr">&quot;events&quot;</span> <span class="punctuation">:</span> <span class="punctuation">[</span> <span class="punctuation">&#123;</span>  <span class="attr">&quot;year&quot;</span> <span class="punctuation">:</span> <span class="number">2014</span><span class="punctuation">,</span> <span class="attr">&quot;id&quot;</span> <span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">&#125;</span><span class="punctuation">,</span> <span class="punctuation">&#123;</span><span class="attr">&quot;year&quot;</span> <span class="punctuation">:</span> <span class="number">2014</span><span class="punctuation">,</span> <span class="attr">&quot;id&quot;</span> <span class="punctuation">:</span> <span class="number">2</span> <span class="punctuation">&#125;</span> <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过$events引用参数，UNWIND子句把events数组中的两个元素展开，每个元素执行一次Cypher语句，由于Cypher的语句结构固定，因此，执行计划被缓存起来，在执行数据更新任务时，参数被UNWIND子句展开，复用执行计划，提高数据更新的速度。</li>
+<li>实施方法：实体数据批量插入cypher，采用overwrite模式进行数据创建和合并，依据object_key作为唯一键进行对象合并：</li>
+<li>关系边数据批量插入cypher，采用overwrite模式进行数据的创建和合并，依据object_key作为唯一键进行对象合并：</li>
 </ul>
 </li>
 </ul>
-<p>优化分析：<br>    - 在搞清原因之后，咨询DBA了解到，neo4j不建议使用长语句，最好是使用短语句来插入数据，长语句会产生堆积，进而导致内存不足。但是短语句的矛盾就在于性能低下，我们这里需要使用批量插入的模式提高性能。</p>
-<pre><code>- 于是在参考了neo4j-spark的源码实现，得到了启发。neo4j官方sprak的导数实现是使用批量插入的模式，不是通过拼接语句的模式。通过使用参数传递模式进行批量插入，以实体插入为例：
-
-- scala源码实现（org.neo4j.spark.service.Neo4jQueryWriteStrategy#createStatementForNodes）：
-
-- 编译后的语句：
-
-- with query: UNWIND $events AS event MERGE (node:Human &#123;object_key: event.keys.object_key&#125;) SET node += event.properties
-
-- 这里官方实现使用了unwind关键字，这里引用 博文 解释为什么unwind可以加速插入：
-
-- 高效的做法是利用Neo4j提供的参数（Parameter）机制和UNWIND子句：在一次数据更新中，进行一次连接，打开一次事务，批量更新数据；参数用于提供列表格式的数据，UNWIND子句是把列表数据展开成一行一行的数据，每行数据都会执行结构相同的Cypher语句。再批量更新图形数据之前，用户必须构造结构固定的、参数化的Cypher语句。当Cypher语句的结构相同时，Neo4j数据库直接从缓存中复用已生成的执行计划，而不需要重新生成，这也能够提高查询性能。
-
-- UNWIND子句把列表式的数据展开成一行一行的数据，每一个行都包含更新所需要的全部信息，列表式的数据，可以通过参数来传递。
-
-- 例如，定义参数events，该参数是一个JSON字符串，键events是参数名，其值是一个数组，包含两个数组元素。
-</code></pre>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;events&quot;</span> <span class="punctuation">:</span> <span class="punctuation">[</span> <span class="punctuation">&#123;</span>  <span class="attr">&quot;year&quot;</span> <span class="punctuation">:</span> <span class="number">2014</span><span class="punctuation">,</span> <span class="attr">&quot;id&quot;</span> <span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">&#125;</span><span class="punctuation">,</span> <span class="punctuation">&#123;</span><span class="attr">&quot;year&quot;</span> <span class="punctuation">:</span> <span class="number">2014</span><span class="punctuation">,</span> <span class="attr">&quot;id&quot;</span> <span class="punctuation">:</span> <span class="number">2</span> <span class="punctuation">&#125;</span> <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<pre><code>- 通过$events引用参数，UNWIND子句把events数组中的两个元素展开，每个元素执行一次Cypher语句，由于Cypher的语句结构固定，因此，执行计划被缓存起来，在执行数据更新任务时，参数被UNWIND子句展开，复用执行计划，提高数据更新的速度。
-
-- 实施方法：
-
-- 实体数据批量插入cypher，采用overwrite模式进行数据创建和合并，依据object_key作为唯一键进行对象合并：
-
-- 关系边数据批量插入cypher，采用overwrite模式进行数据的创建和合并，依据object_key作为唯一键进行对象合并：
-</code></pre>
+</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/04/07/db/" data-id="cluoxwlbh00023fxa6nhg0wro" data-title="数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/04/07/db/" data-id="cluozj5rb00020qxa0come46c" data-title="数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -288,7 +281,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/02/20/distribute_alg/" data-id="cluoxwlbh00033fxa4ua94dtd" data-title="分布式技术原理与算法解析" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/02/20/distribute_alg/" data-id="cluozj5rd00030qxa92co43ei" data-title="分布式技术原理与算法解析" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -355,7 +348,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/01/31/compiler/" data-id="cluoxwlbf00013fxa1cnbandr" data-title="编译原理相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/01/31/compiler/" data-id="cluozj5r900010qxaapx2e4t9" data-title="编译原理相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -403,7 +396,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/11/21/k8s/" data-id="cluoxwlbk00053fxa720a5a05" data-title="K8S 自学总结" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/11/21/k8s/" data-id="cluozj5re00050qxaae2gahch" data-title="K8S 自学总结" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -447,7 +440,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/09/01/cafebabe/" data-id="cluoxwlb900003fxae4e6ep9i" data-title="Java疑难杂症-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/09/01/cafebabe/" data-id="cluozj5qz00000qxa68k3e6u9" data-title="Java疑难杂症-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -656,7 +649,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="cluoxwlbi00043fxa5khg0bi1" data-title="ElasticSearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="cluozj5rd00040qxabbjdgyam" data-title="ElasticSearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -936,7 +929,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="cluoxwlbk00063fxa5rrccenp" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="cluozj5rf00060qxaau2vc16r" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
