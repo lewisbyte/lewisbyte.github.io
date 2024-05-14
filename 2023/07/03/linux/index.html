@@ -6,12 +6,12 @@
   
   <title>Linux应用性能调优-LTS | 保持好奇心</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="总结、收集 Linux 实用命令、系统应用调优相关的技巧 本文基于 Ubuntu-22.04、Centos-7 版本  场景 内存问题分析 CPU问题分析 磁盘问题分析 网络问题分析  目录 系统信息 系统信息-top 系统信息-watch 系统信息-pidstat 系统信息-mpstat 系统信息-vmstat 系统信息-dstat 系统信息-cachestat 系统信息-cachetop 系">
+  <meta name="description" content="总结、收集 Linux 实用命令、系统应用调优相关的技巧 本文基于 Ubuntu-22.04、Centos-7 版本  场景 内存问题分析 CPU问题分析 磁盘问题分析 网络问题分析  目录 系统信息 系统信息-top 系统信息-sar 系统信息-watch 系统信息-pidstat 系统信息-mpstat 系统信息-vmstat 系统信息-dstat 系统信息-cachestat 系统信息-c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux应用性能调优-LTS">
 <meta property="og:url" content="https://lewisbyte.github.io/2023/07/03/linux/index.html">
 <meta property="og:site_name" content="保持好奇心">
-<meta property="og:description" content="总结、收集 Linux 实用命令、系统应用调优相关的技巧 本文基于 Ubuntu-22.04、Centos-7 版本  场景 内存问题分析 CPU问题分析 磁盘问题分析 网络问题分析  目录 系统信息 系统信息-top 系统信息-watch 系统信息-pidstat 系统信息-mpstat 系统信息-vmstat 系统信息-dstat 系统信息-cachestat 系统信息-cachetop 系">
+<meta property="og:description" content="总结、收集 Linux 实用命令、系统应用调优相关的技巧 本文基于 Ubuntu-22.04、Centos-7 版本  场景 内存问题分析 CPU问题分析 磁盘问题分析 网络问题分析  目录 系统信息 系统信息-top 系统信息-sar 系统信息-watch 系统信息-pidstat 系统信息-mpstat 系统信息-vmstat 系统信息-dstat 系统信息-cachestat 系统信息-c">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lewisbyte.github.io/image/002-cpu.png">
 <meta property="og:image" content="https://lewisbyte.github.io/image/001-mem.png">
@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://lewisbyte.github.io/image/006-tcpdump.png">
 <meta property="og:image" content="https://lewisbyte.github.io/image/007-tcpdump.png">
 <meta property="article:published_time" content="2023-07-03T06:49:33.737Z">
-<meta property="article:modified_time" content="2023-08-31T01:57:07.886Z">
+<meta property="article:modified_time" content="2024-05-14T08:56:41.111Z">
 <meta property="article:author" content="lewis">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://lewisbyte.github.io/image/002-cpu.png">
@@ -121,6 +121,7 @@
 <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
 <li><a href="#%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF">系统信息</a><ul>
 <li><a href="#top">系统信息-top</a></li>
+<li><a href="#sar">系统信息-sar</a></li>
 <li><a href="#watch">系统信息-watch</a></li>
 <li><a href="#pidstat">系统信息-pidstat</a></li>
 <li><a href="#mpstat">系统信息-mpstat</a></li>
@@ -187,6 +188,50 @@
 <li><p>SHR 是共享内存的大小，比如与其他进程共同使用的共享内存、加载的动态链接库以及程序的代码段等。</p>
 </li>
 <li><p>%MEM 是进程使用物理内存占系统总内存的百分比。</p>
+</li>
+</ul>
+<h3 id="sar"><a href="#sar" class="headerlink" title="sar"></a>sar</h3><ul>
+<li><p>[简介]:sar是System Activity Reporter（系统活动情况报告）的缩写。sar工具将对系统当前的状态进行取样，然后通过计算数据和比例来表达系统的当前运行状态。它的特点是可以连续对系统取样，获得大量的取样数据；取样数据和分析的结果都可以存入文件，所需的负载很小。sar是目前Linux上最为全面的系统性能分析工具之一，可以从14个大方面对系统的活动进行报告，包括文件的读写情况、系统调用的使用情况、串口、CPU效率、内存使用状况、进程活动及IPC有关的活动等，使用也是较为复杂。</p>
+</li>
+<li><p>sar -u : 默认情况下显示的cpu使用率等信息就是sar -u；</p>
+<ul>
+<li>%user 用户模式下消耗的CPU时间的比例；</li>
+<li>%nice 通过nice改变了进程调度优先级的进程，在用户模式下消耗的CPU时间的比例</li>
+<li>%system 系统模式下消耗的CPU时间的比例；</li>
+<li>%iowait CPU等待磁盘I&#x2F;O导致空闲状态消耗的时间比例；</li>
+<li>%steal 利用Xen等操作系统虚拟化技术，等待其它虚拟CPU计算占用的时间比例；</li>
+<li>%idle CPU空闲时间比例；</li>
+</ul>
+</li>
+<li><p>sar -q: 查看平均负载</p>
+<ul>
+<li>runq-sz：运行队列的长度（等待运行的进程数）</li>
+<li>plist-sz：进程列表中进程（processes）和线程（threads）的数量</li>
+<li>ldavg-1：最后1分钟的系统平均负载 ldavg-5：过去5分钟的系统平均负载</li>
+<li>ldavg-15：过去15分钟的系统平均负载</li>
+</ul>
+</li>
+<li><p>sar -r： 指定-r之后，可查看物理内存使用状况；</p>
+<ul>
+<li>kbmemfree：这个值和free命令中的free值基本一致,所以它不包括buffer和cache的空间.</li>
+<li>kbmemused：这个值和free命令中的used值基本一致,所以它包括buffer和cache的空间.</li>
+<li>%memused：物理内存使用率，这个值是kbmemused和内存总量(不包括swap)的一个百分比.</li>
+<li>kbbuffers和kbcached：这两个值就是free命令中的buffer和cache.</li>
+<li>kbcommit：保证当前系统所需要的内存,即为了确保不溢出而需要的内存(RAM+swap).</li>
+<li>%commit：这个值是kbcommit与内存总量(包括swap)的一个百分比.</li>
+</ul>
+</li>
+<li><p>sar -W：查看页面交换发生状况</p>
+<ul>
+<li>pswpin&#x2F;s：每秒系统换入的交换页面（swap page）数量</li>
+<li>pswpout&#x2F;s：每秒系统换出的交换页面（swap page）数量</li>
+</ul>
+</li>
+<li><p>怀疑CPU存在瓶颈，可用 sar -u 和 sar -q 等来查看</p>
+</li>
+<li><p>怀疑内存存在瓶颈，可用sar -B、sar -r 和 sar -W 等来查看</p>
+</li>
+<li><p>怀疑I&#x2F;O存在瓶颈，可用 sar -b、sar -u 和 sar -d 等来查看</p>
 </li>
 </ul>
 <h3 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h3><ul>
@@ -354,7 +399,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="cluozj5rf00060qxaau2vc16r" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clw65t0u40006h5wv0wh4do56" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
