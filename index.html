@@ -232,7 +232,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/04/07/db/" data-id="clw65w3il00023mwvcscx5epv" data-title="数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/04/07/db/" data-id="clw660t7a00020iwvcrjy8yni" data-title="数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -281,7 +281,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/02/20/distribute_alg/" data-id="clw65w3im00033mwvee3wdbm6" data-title="分布式技术原理与算法解析" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/02/20/distribute_alg/" data-id="clw660t7h00030iwv3uz77d3v" data-title="分布式技术原理与算法解析" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -348,7 +348,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/01/31/compiler/" data-id="clw65w3ij00013mwv4szvcbp1" data-title="编译原理相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/01/31/compiler/" data-id="clw660t7600010iwv3xya07uh" data-title="编译原理相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -396,7 +396,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/11/21/k8s/" data-id="clw65w3io00053mwv08t6cvmx" data-title="K8S 自学总结" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/11/21/k8s/" data-id="clw660t7n00050iwv7lt2d2zo" data-title="K8S 自学总结" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -440,7 +440,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/09/01/cafebabe/" data-id="clw65w3i800003mwv7nun6j8c" data-title="Java疑难杂症-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/09/01/cafebabe/" data-id="clw660t6w00000iwvc946apz0" data-title="Java疑难杂症-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -649,7 +649,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="clw65w3in00043mwv2cml1spx" data-title="ElasticSearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="clw660t7l00040iwvh2mk6t2a" data-title="ElasticSearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -802,47 +802,34 @@
 <li>pswpout&#x2F;s：每秒系统换出的交换页面（swap page）数量</li>
 </ul>
 </li>
-<li><p>怀疑CPU存在瓶颈，可用 sar -u 和 sar -q 等来查看</p>
+<li><p>场景使用</p>
+<ul>
+<li>怀疑CPU存在瓶颈，可用 sar -u 和 sar -q 等来查看</li>
+<li>怀疑内存存在瓶颈，可用sar -B、sar -r 和 sar -W 等来查看</li>
+<li>怀疑I&#x2F;O存在瓶颈，可用 sar -b、sar -u 和 sar -d 等来查看</li>
+</ul>
 </li>
-<li><p>怀疑内存存在瓶颈，可用sar -B、sar -r 和 sar -W 等来查看</p>
-</li>
-<li><p>怀疑I&#x2F;O存在瓶颈，可用 sar -b、sar -u 和 sar -d 等来查看</p>
-</li>
-<li><p>-A 汇总所有的报告</p>
-</li>
-<li><p>-a 报告文件读写使用情况</p>
-</li>
-<li><p>-B 报告附加的缓存的使用情况</p>
-</li>
-<li><p>-b 报告缓存的使用情况</p>
-</li>
-<li><p>-c 报告系统调用的使用情况</p>
-</li>
-<li><p>-d 报告磁盘的使用情况</p>
-</li>
-<li><p>-g 报告串口的使用情况</p>
-</li>
-<li><p>-h 报告关于buffer使用的统计数据</p>
-</li>
-<li><p>-m 报告IPC消息队列和信号量的使用情况</p>
-</li>
-<li><p>-n 报告命名cache的使用情况</p>
-</li>
-<li><p>-p 报告调页活动的使用情况</p>
-</li>
-<li><p>-q 报告运行队列和交换队列的平均长度</p>
-</li>
-<li><p>-R 报告进程的活动情况</p>
-</li>
-<li><p>-r 报告没有使用的内存页面和硬盘块</p>
-</li>
-<li><p>-u 报告CPU的利用率</p>
-</li>
-<li><p>-v 报告进程、i节点、文件和锁表状态</p>
-</li>
-<li><p>-w 报告系统交换活动状况</p>
-</li>
-<li><p>-y 报告TTY设备活动状况</p>
+<li><p>参数含义解释</p>
+<ul>
+<li>-A 汇总所有的报告</li>
+<li>-a 报告文件读写使用情况</li>
+<li>-B 报告附加的缓存的使用情况</li>
+<li>-b 报告缓存的使用情况</li>
+<li>-c 报告系统调用的使用情况</li>
+<li>-d 报告磁盘的使用情况</li>
+<li>-g 报告串口的使用情况</li>
+<li>-h 报告关于buffer使用的统计数据</li>
+<li>-m 报告IPC消息队列和信号量的使用情况</li>
+<li>-n 报告命名cache的使用情况</li>
+<li>-p 报告调页活动的使用情况</li>
+<li>-q 报告运行队列和交换队列的平均长度</li>
+<li>-R 报告进程的活动情况</li>
+<li>-r 报告没有使用的内存页面和硬盘块</li>
+<li>-u 报告CPU的利用率</li>
+<li>-v 报告进程、i节点、文件和锁表状态</li>
+<li>-w 报告系统交换活动状况</li>
+<li>-y 报告TTY设备活动状况</li>
+</ul>
 </li>
 </ul>
 <h3 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h3><ul>
@@ -1010,7 +997,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clw65w3io00063mwv4sta4vj0" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clw660t7o00060iwvczu50ngi" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
