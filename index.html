@@ -232,74 +232,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/04/07/db/" data-id="clwr6ifh00003pawy6rpv03qa" data-title="数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-compiler" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/01/31/compiler/" class="article-date">
-  <time class="dt-published" datetime="2024-01-31T08:17:29.263Z" itemprop="datePublished">2024-01-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/01/31/compiler/">编译原理相关</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>编译原理相关</li>
-</ul>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
-<li><a href="#antlr4%E7%9A%84%E6%9C%AC%E5%9C%B0%E9%85%8D%E7%BD%AE%E5%AE%89%E8%A3%85">antlr4的本地配置安装</a></li>
-<li><a href="#%E5%B7%B4%E7%A7%91%E6%96%AF%E8%8C%83%E5%BC%8F">巴科斯范式</a></li>
-</ul>
-<h3 id="antlr4的本地配置安装"><a href="#antlr4的本地配置安装" class="headerlink" title="antlr4的本地配置安装"></a>antlr4的本地配置安装</h3><ul>
-<li><ol>
-<li>下载antlr到本地机器: <code>wget http://www.antlr.org/download/antlr-4.11.1-complete.jar</code>，将本地JDK版本调整至 JDK-11 或以上版本即可。</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>在本地 <code>~/.bash_profile</code> 添加以下环境变量</li>
-</ol>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#antlr4</span></span><br><span class="line"><span class="built_in">export</span> ANTLR_PATH=/Users/lewis/soft_repo/antlr/antlr-4.11.1-complete.jar</span><br><span class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib:<span class="variable">$ANTLR_PATH</span></span><br><span class="line"><span class="built_in">alias</span> antlr4=<span class="string">&#x27;java org.antlr.v4.Tool&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> grun=<span class="string">&#x27;java org.antlr.v4.gui.TestRig&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><ol start="3">
-<li>执行<code>source ~/.bash_profile</code>，刷新当前终端环境变量，输入：<code>antlr4</code> 验证是否成功，如果成功则出现以下信息输出：</li>
-</ol>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ antlr4</span><br><span class="line">ANTLR Parser Generator  Version 4.11.1</span><br><span class="line"> -o ___              specify output directory <span class="built_in">where</span> all output is generated</span><br><span class="line"> -lib ___            specify location of grammars, tokens files</span><br><span class="line"> -atn                generate rule augmented transition network diagrams</span><br><span class="line"> -encoding ___       specify grammar file encoding; e.g., euc-jp</span><br><span class="line"> -message-format ___ specify output style <span class="keyword">for</span> messages <span class="keyword">in</span> antlr, gnu, vs2005</span><br><span class="line"> -long-messages      show exception details when available <span class="keyword">for</span> errors and warnings</span><br><span class="line"> -listener           generate parse tree listener (default)</span><br><span class="line"> -no-listener        don<span class="string">&#x27;t generate parse tree listener</span></span><br><span class="line"><span class="string"> -visitor            generate parse tree visitor</span></span><br><span class="line"><span class="string"> -no-visitor         don&#x27;</span>t generate parse tree visitor (default)</span><br><span class="line"> -package ___        specify a package/namespace <span class="keyword">for</span> the generated code</span><br><span class="line"> -depend             generate file dependencies</span><br><span class="line"> -D&lt;option&gt;=value    <span class="built_in">set</span>/override a grammar-level option</span><br><span class="line"> -Werror             treat warnings as errors</span><br><span class="line"> -XdbgST             launch StringTemplate visualizer on generated code</span><br><span class="line"> -XdbgSTWait         <span class="built_in">wait</span> <span class="keyword">for</span> STViz to close before continuing</span><br><span class="line"> -Xforce-atn         use the ATN simulator <span class="keyword">for</span> all predictions</span><br><span class="line"> -Xlog               dump lots of logging info to antlr-timestamp.log</span><br><span class="line"> -Xexact-output-dir  all output goes into -o <span class="built_in">dir</span> regardless of paths/package</span><br></pre></td></tr></table></figure>
-
-<h3 id="巴科斯范式"><a href="#巴科斯范式" class="headerlink" title="巴科斯范式"></a>巴科斯范式</h3><p>“巴科斯范式”，简称 BNF。Antlr 和 Yacc 这两个工具都用这种写法。为了简化书写，我有时会在课程中把“::&#x3D;”简化成一个冒号。你看到的时候，知道是什么意思就可以了。</p>
-<p>你有时还会听到一个术语，叫做扩展巴科斯范式 (EBNF)。它跟普通的 BNF 表达式最大的区别，就是里面会用到类似正则表达式的一些写法。比如下面这个规则中运用了 * 号，来表示这个部分可以重复 0 到多次：</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/01/31/compiler/" data-id="clwr6ifgw0001pawyegobcu8f" data-title="编译原理相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/04/07/db/" data-id="clwr6jhyb00000swy8bh9arfz" data-title="数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -578,7 +511,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="clwr6ifgm0000pawyghn995wx" data-title="ElasticSearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="clwr6jhyk00020swy01s58y0e" data-title="ElasticSearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -926,7 +859,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clwr6ifgy0002pawyf992d1t9" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clwr6jhyi00010swy5fzn2xgg" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -956,7 +889,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a></li></ul>
     </div>
   </div>
 
@@ -970,10 +903,6 @@
         
           <li>
             <a href="/2024/04/07/db/">数据库相关</a>
-          </li>
-        
-          <li>
-            <a href="/2024/01/31/compiler/">编译原理相关</a>
           </li>
         
           <li>
