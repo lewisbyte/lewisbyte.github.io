@@ -119,7 +119,15 @@
 </ul>
 </li>
 <li><ol start="2">
-<li>单节点批量写入数据，性能较低，2亿条数据，导数耗时5个多小时，需要减少导数时间，优化导数性能</li>
+<li>单节点批量写入数据，性能较低，2亿条数据，导数耗时5个多小时，需要优化导数性能</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>es节点磁盘剩余空间50%</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>JVM内存堆大小为23GB，在大量写入数据的时候，出现频繁的full gc</li>
 </ol>
 </li>
 </ul>
@@ -146,15 +154,15 @@
 </ul>
 <h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ul>
 <li><ol>
-<li>磁盘扩容，增加索引shards分片数，</li>
+<li>磁盘扩容，增加索引shards分片数，分摊节点磁盘写入压力</li>
 </ol>
 </li>
 <li><ol start="2">
-<li>增加数据节点，扩展集群内存</li>
+<li>再扩展2个ES数据节点，扩展整个es集群内存，降低内存压力，避免触发自动保护机制</li>
 </ol>
 </li>
 <li><ol start="3">
-<li>手动将 index.blocks.read_only_allow_delete 改成false</li>
+<li>手动修改历史索引的_settings，将 index.blocks.read_only_allow_delete 改成 false，保证索引的可用性。</li>
 </ol>
 </li>
 </ul>
@@ -162,7 +170,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/06/05/es_read_only_allow_delete/" data-id="clx38rp0r00028fvibmzjc6d3" data-title="es索引数据写入异常问题排查" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/06/05/es_read_only_allow_delete/" data-id="clx43l1dq0002zavicdj6guqn" data-title="es索引数据写入异常问题排查" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -329,7 +337,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/04/07/db/" data-id="clx38rp0h00008fvibb4ug53r" data-title="数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/04/07/db/" data-id="clx43l1de0000zavi4rshgju6" data-title="数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -618,7 +626,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="clx38rp0p00018fvi69oy1q84" data-title="ElasticSearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="clx43l1do0001zavicwa6ad40" data-title="ElasticSearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -966,7 +974,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clx38rp0r00038fvi2fov2fuq" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clx43l1dr0003zavi3p9m48v9" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
