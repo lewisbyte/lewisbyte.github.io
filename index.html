@@ -182,14 +182,18 @@
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;sample_index&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;aliases&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;mappings&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;_doc&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;properties&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;foo&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;text&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;fields&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">              <span class="attr">&quot;keyword&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;type&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;keyword&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;ignore_above&quot;</span> <span class="punctuation">:</span> <span class="number">256</span></span><br><span class="line">              <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">&#125;</span></span><br><span class="line">          <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;settings&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;index&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;number_of_shards&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;5&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;blocks&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;read_only_allow_delete&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;true&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;provided_name&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;sample_index&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;creation_date&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;1718608529424&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;number_of_replicas&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;1&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;uuid&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;v6koutd3Sz2A0YxX985YLA&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;version&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;created&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;6082499&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>调试rest请求入口：<code>org.elasticsearch.rest.action.admin.indices.RestUpdateSettingsAction#prepareRequest</code><br><img src="/image/15.png" alt="RestUpdateSettingsAction调试栈信息"></li>
-<li>这里调用 <code>org.elasticsearch.client.IndicesAdminClient#updateSettings</code> 异步更新索引设置</li>
+<li><p>调试rest请求入口：<code>org.elasticsearch.rest.action.admin.indices.RestUpdateSettingsAction#prepareRequest</code><br><img src="/image/15.png" alt="RestUpdateSettingsAction调试栈信息"></p>
+</li>
+<li><p>这里调用 <code>org.elasticsearch.client.IndicesAdminClient#updateSettings</code> 异步更新索引设置</p>
+</li>
+<li><p>es通过网络通讯，调用master节点，调用网络方法<code>org.elasticsearch.cluster.metadata.MetaDataUpdateSettingsService#updateSettings</code>执行索引配置更新，索引的更新逻辑<code>clusterService.submitStateUpdateTask</code>在方法中调用。<br><img src="/image/16.png" alt="通过异步任务：clusterService.submitStateUpdateTask，更新配置"></p>
+</li>
 </ul>
 <h4 id="场景2-自动触发为只读索引"><a href="#场景2-自动触发为只读索引" class="headerlink" title="场景2. 自动触发为只读索引"></a>场景2. 自动触发为只读索引</h4>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/06/05/es_read_only_allow_delete/" data-id="clxio5i1200025gx47bqz4yni" data-title="es索引数据写入异常问题排查" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/06/05/es_read_only_allow_delete/" data-id="clxiovx6b0002g8x42aksf0wi" data-title="es索引数据写入异常问题排查" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -356,7 +360,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/04/07/db/" data-id="clxio5i0d00005gx42xfo4swp" data-title="数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/04/07/db/" data-id="clxiovx540000g8x4a1dq7l5r" data-title="数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -645,7 +649,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="clxio5i0x00015gx48mtz24g7" data-title="ElasticSearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="clxiovx660001g8x417msfz0s" data-title="ElasticSearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -993,7 +997,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clxio5i1900035gx46bk44uka" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clxiovx700003g8x4ctq64bf0" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
