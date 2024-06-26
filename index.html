@@ -198,7 +198,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/06/05/es_read_only_allow_delete/" data-id="clxogt59q0002uvx452w59fqf" data-title="es索引数据写入异常问题排查" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/06/05/es_read_only_allow_delete/" data-id="clxvgq2j6000223ye6xkd7nqt" data-title="es索引数据写入异常问题排查" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -237,22 +237,18 @@
 </ul>
 <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
 <li><a href="neo4j">neo4j</a></li>
+<li><a href="MySQL">MySQL</a></li>
 </ul>
 <h3 id="neo4j"><a href="#neo4j" class="headerlink" title="neo4j"></a>neo4j</h3><ul>
 <li><p>1.通讯协议：</p>
 <ul>
 <li>Q:  为什么图库使用 neo4j 的 bolt 链接协议，出现了无法找到主节点导致无法写入或者读取的问题？</li>
 <li>A：neo4j支持3种通讯协议：<ul>
-<li><p>bolt+routing（适用于集群，目前图平台不支持此协议）</p>
-</li>
-<li><p>bolt（适用于单机）</p>
-</li>
-<li><p>neo4j（适用于集群）</p>
-</li>
-<li><p>bolt 适用于单节点的图数据库。集群模式下的图库需要支持路由的neo4j协议进行通信，从而将请求转发到对应的数据节点上。</p>
-</li>
-<li><p>参考：<a target="_blank" rel="noopener" href="https://neo4j.com/docs/driver-manual/1.7/client-applications/#driver-connection-uris">https://neo4j.com/docs/driver-manual/1.7/client-applications/#driver-connection-uris</a></p>
-</li>
+<li>bolt+routing（适用于集群，目前图平台不支持此协议）</li>
+<li>bolt（适用于单机）</li>
+<li>neo4j（适用于集群）</li>
+<li>bolt 适用于单节点的图数据库。集群模式下的图库需要支持路由的neo4j协议进行通信，从而将请求转发到对应的数据节点上。</li>
+<li>参考：<a target="_blank" rel="noopener" href="https://neo4j.com/docs/driver-manual/1.7/client-applications/#driver-connection-uris">https://neo4j.com/docs/driver-manual/1.7/client-applications/#driver-connection-uris</a></li>
 </ul>
 </li>
 </ul>
@@ -271,10 +267,8 @@
 </li>
 <li><p>4.边关系查询缓慢：</p>
 <ul>
-<li><p>Q: 为什么图析界面，点击查询边关系出现超时？</p>
-</li>
-<li><p>A： neo4j 4.1.x版本的图库，不支持关系边表索引建立。如图所示通过主键查询的检索模式是 AllNodesScan 全表扫描（性能调优参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37503890/article/details/102073193%EF%BC%89%EF%BC%8C2%E4%BA%BF%E7%9A%84%E6%95%B0%E6%8D%AE%E9%87%8F%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E9%97%B4%E8%80%97%E6%97%B6%E7%BA%A6%E4%B8%BA10s%E5%B7%A6%E5%8F%B3%E3%80%82">https://blog.csdn.net/qq_37503890/article/details/102073193），2亿的数据量查询的时间耗时约为10s左右。</a></p>
-<ul>
+<li>Q: 为什么图析界面，点击查询边关系出现超时？</li>
+<li>A： neo4j 4.1.x版本的图库，不支持关系边表索引建立。如图所示通过主键查询的检索模式是 AllNodesScan 全表扫描（性能调优参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37503890/article/details/102073193%EF%BC%89%EF%BC%8C2%E4%BA%BF%E7%9A%84%E6%95%B0%E6%8D%AE%E9%87%8F%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E9%97%B4%E8%80%97%E6%97%B6%E7%BA%A6%E4%B8%BA10s%E5%B7%A6%E5%8F%B3%E3%80%82">https://blog.csdn.net/qq_37503890/article/details/102073193），2亿的数据量查询的时间耗时约为10s左右。</a><ul>
 <li>解决方案：将关系边数据导入到es，通过es查询，不通过图库查询。</li>
 </ul>
 </li>
@@ -294,10 +288,8 @@
 </li>
 <li><p>A:</p>
 <ul>
-<li><p>在使用集群导数，一般是多个作业实例执行导入任务，这里就会出现并发写入的场景。neo4j的边关系写入的操作时，数据库本身会给每一个写入操作的事务分配一把排它锁（exclusiveLock），多并发写入就会出现事务之间锁的争夺情况。在实际的生产环境中观察到，最多有130个事务卡在获取锁，最后导致事务超时，整体数据导入任务失败。</p>
-</li>
-<li><p>解决方法是：需要降低单次事务写入数据库的数据量。单次写入大量数据非常耗时，从而降低每次事务的耗时，及时将锁资源释放出来，避免发生事务超时的死锁</p>
-</li>
+<li>在使用集群导数，一般是多个作业实例执行导入任务，这里就会出现并发写入的场景。neo4j的边关系写入的操作时，数据库本身会给每一个写入操作的事务分配一把排它锁（exclusiveLock），多并发写入就会出现事务之间锁的争夺情况。在实际的生产环境中观察到，最多有130个事务卡在获取锁，最后导致事务超时，整体数据导入任务失败。</li>
+<li>解决方法是：需要降低单次事务写入数据库的数据量。单次写入大量数据非常耗时，从而降低每次事务的耗时，及时将锁资源释放出来，避免发生事务超时的死锁</li>
 </ul>
 </li>
 </ul>
@@ -312,12 +304,9 @@
 </li>
 <li><p>9.使用图平台文件导入大数据量到neo4j宕机</p>
 <ul>
-<li><p>A: graph系统在使用文件导入120w条数据，具体表现为会出现jvm内存耗尽，机器不再接受写入请求</p>
-</li>
-<li><p>Q: DBA解释为cypher语句太长，堆积在内存中无法释放导致的内存耗尽，需要优化语句，建议使用unwind优化cypher语句</p>
-</li>
-<li><p>neo4j批量入数优化分析及实现</p>
-</li>
+<li>A: graph系统在使用文件导入120w条数据，具体表现为会出现jvm内存耗尽，机器不再接受写入请求</li>
+<li>Q: DBA解释为cypher语句太长，堆积在内存中无法释放导致的内存耗尽，需要优化语句，建议使用unwind优化cypher语句</li>
+<li>neo4j批量入数优化分析及实现</li>
 </ul>
 </li>
 <li><ol start="10">
@@ -330,12 +319,9 @@
 <li>A:<ul>
 <li><p>neo4j批量入数优化分析及实现</p>
 <ul>
-<li><p>使用csv文件导数到es和图库。由于csv文件非常巨大，发现2个主要问题：</p>
-</li>
-<li><p>导数速率很慢，单次只能写入100条数据，如果数据量在50w的实体表，一般就需要耗时1-2小时才能完成导数任务。</p>
-</li>
-<li><p>在实现导数的方式上有问题，批量导数实现上本质是拼接一个巨长的cypher语句，在小数据量的情况下不会有什么问题。但是如果在大数据量下，会提交很多的长语句，从而会出现neo4j图库无法及时处理这些超长的cypher语句，堆积在JVM的老年代内存中无法释放，最后neo4j出现内存OOM宕机。</p>
-</li>
+<li>使用csv文件导数到es和图库。由于csv文件非常巨大，发现2个主要问题：</li>
+<li>导数速率很慢，单次只能写入100条数据，如果数据量在50w的实体表，一般就需要耗时1-2小时才能完成导数任务。</li>
+<li>在实现导数的方式上有问题，批量导数实现上本质是拼接一个巨长的cypher语句，在小数据量的情况下不会有什么问题。但是如果在大数据量下，会提交很多的长语句，从而会出现neo4j图库无法及时处理这些超长的cypher语句，堆积在JVM的老年代内存中无法释放，最后neo4j出现内存OOM宕机。</li>
 </ul>
 </li>
 <li><p>优化分析：</p>
@@ -361,11 +347,28 @@
 </ul>
 </li>
 </ul>
+<h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><ul>
+<li>1.MGR集群查询读取问题:<ul>
+<li>现象: 在生产环境中，有一个插入后立即查询的操作，但是出现了无法查询到该数据的情况。</li>
+<li>分析排查: 这里很容易会联想到2种情况：<ul>
+<li>一：事务等级，合适的事务等级决定了是否能查看到对应的数据，在插入数据后，该事务还没有结束，应该是读为提交的事务隔离等级</li>
+<li>二：数据库是MySQL的多主模式的MGR集群，这里怀疑在同一个事务下，对同一个集群的读写操作，是否会出现读写不一致的情况，节点之间是否会存在同步延时，导致数据无法查询到。</li>
+</ul>
+</li>
+<li>验证<ul>
+<li>一、检查事务等级：</li>
+<li>二、测试MGR集群的一致性：</li>
+</ul>
+</li>
+<li>解决:</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/04/07/db/" data-id="clxogt5850000uvx43lv09zei" data-title="数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/04/07/db/" data-id="clxvgq2it000023ye7xr0g8f6" data-title="数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -654,7 +657,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="clxogt5940001uvx4c0s222uh" data-title="ElasticSearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="clxvgq2j3000123ye5b1p86oo" data-title="ElasticSearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1002,7 +1005,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clxogt59w0003uvx4bciehtzs" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clxvgq2j7000323ye2a8v6ts7" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
