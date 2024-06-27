@@ -14,7 +14,7 @@
 <meta property="og:description" content="记录关系型数据库相关的疑难杂症  目录 MySQL  MySQL 1.MGR集群查询读取问题: 现象: 在业务代码中，有一个插入后立即查询的操作，但是出现了插入数据之后无法立刻查询到该数据的情况。 分析排查: 这里很容易会联想到2种情况： 一：事务等级，合适的事务等级决定了是否能查看到对应的数据，在插入数据后，该事务还没有结束，应该是读为提交的事务隔离等级 二：数据库是MySQL的多主模式的MG">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-06-27T11:56:14.884Z">
-<meta property="article:modified_time" content="2024-06-27T11:57:06.244Z">
+<meta property="article:modified_time" content="2024-06-27T11:59:49.842Z">
 <meta property="article:author" content="lewis">
 <meta name="twitter:card" content="summary">
   
@@ -121,26 +121,26 @@
 </ul>
 </li>
 <li>解决:<ul>
-<li>查阅资料之后，了解MGR可以调整数据一致性的等级，默认等级为<code>EVENTUAL</code>，尝试调整为<code>AFTER</code>，用语保证集群的数据强一致性。</li>
-<li>参数group_replication_consistency共 5 个值可选：</li>
+<li>查阅资料之后，了解MGR可以调整数据一致性的等级，默认等级为<code>EVENTUAL</code>，尝试调整为<code>AFTER</code>，用来保证集群各个节点的数据强一致性。</li>
+<li>在MGR集群，group_replication_consistency共 5 个值可选：</li>
 <li><ol>
-<li>EVENTUAL：确保最终一致性，并不能保证数据实时同步。(MySQL 8.0.14 之前只有这一个选项)</li>
+<li><code>EVENTUAL</code>：确保最终一致性，并不能保证数据实时同步。(MySQL 8.0.14 之前只有这一个选项)</li>
 </ol>
 </li>
 <li><ol start="2">
-<li>BEFORE：确保本地强一致性，并不保证其他节点数据实时同步。</li>
+<li><code>BEFORE</code>：确保本地强一致性，并不保证其他节点数据实时同步。</li>
 </ol>
 </li>
 <li><ol start="3">
-<li>AFTER：确保全局强一致性，可以保证所有节点数据实时同步。</li>
+<li><code>AFTER</code>：确保全局强一致性，可以保证所有节点数据实时同步。</li>
 </ol>
 </li>
 <li><ol start="4">
-<li>BEFORE_AND_AFTER：最高级别，确保本地强一致性，全局强一致性。结合 BEOFRE 和 AFTER 的特- 性。</li>
+<li><code>BEFORE_AND_AFTER</code>：最高级别，确保本地强一致性，全局强一致性。结合 BEOFRE 和 AFTER 的特- 性。</li>
 </ol>
 </li>
 <li><ol start="5">
-<li>BEFORE_ON_PRIMARY_FAILOVER：确保从节点晋升为主节点后的本地一致性。</li>
+<li><code>BEFORE_ON_PRIMARY_FAILOVER</code>：确保从节点晋升为主节点后的本地一致性。</li>
 </ol>
 </li>
 </ul>
@@ -152,7 +152,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/06/27/RDBMS/" data-id="clxx7meg00000d8ye3yei7erm" data-title="关系型数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/06/27/RDBMS/" data-id="clxx7ps1y00003vye3jyd5qrp" data-title="关系型数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
