@@ -6,15 +6,15 @@
   
   <title>关系型数据库相关 | 保持好奇心</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="记录关系型数据库相关的疑难杂症  目录 MySQL  MySQL 1.MGR集群查询读取问题: 现象: 在业务代码中，有一个插入后立即查询的操作，但是出现了插入数据之后无法立刻查询到该数据的情况。 分析排查: 这里很容易会联想到2种情况： 一：事务等级，合适的事务等级决定了是否能查看到对应的数据，在插入数据后，该事务还没有结束，应该是读为提交的事务隔离等级 二：数据库是MySQL的多主模式的MG">
+  <meta name="description" content="记录关系型数据库相关的疑难杂症  目录 MySQL  MySQL 1.MGR集群查询读取问题: 现象: 在业务代码中，有一个插入后立即查询的操作，但是出现了插入数据之后无法立刻查询到该数据的情况。 分析排查: 这里很容易会联想到2种情况： 一：事务等级，合适的事务等级决定了是否能查看到对应的数据，在插入数据后，该事务还没有结束，应该是读未提交的事务隔离等级 二：数据库是MySQL的多主模式的MG">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关系型数据库相关">
 <meta property="og:url" content="https://lewisbyte.github.io/2024/06/27/RDBMS/index.html">
 <meta property="og:site_name" content="保持好奇心">
-<meta property="og:description" content="记录关系型数据库相关的疑难杂症  目录 MySQL  MySQL 1.MGR集群查询读取问题: 现象: 在业务代码中，有一个插入后立即查询的操作，但是出现了插入数据之后无法立刻查询到该数据的情况。 分析排查: 这里很容易会联想到2种情况： 一：事务等级，合适的事务等级决定了是否能查看到对应的数据，在插入数据后，该事务还没有结束，应该是读为提交的事务隔离等级 二：数据库是MySQL的多主模式的MG">
+<meta property="og:description" content="记录关系型数据库相关的疑难杂症  目录 MySQL  MySQL 1.MGR集群查询读取问题: 现象: 在业务代码中，有一个插入后立即查询的操作，但是出现了插入数据之后无法立刻查询到该数据的情况。 分析排查: 这里很容易会联想到2种情况： 一：事务等级，合适的事务等级决定了是否能查看到对应的数据，在插入数据后，该事务还没有结束，应该是读未提交的事务隔离等级 二：数据库是MySQL的多主模式的MG">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-06-27T11:56:14.884Z">
-<meta property="article:modified_time" content="2024-06-27T11:59:49.842Z">
+<meta property="article:modified_time" content="2024-06-27T12:04:02.400Z">
 <meta property="article:author" content="lewis">
 <meta name="twitter:card" content="summary">
   
@@ -111,12 +111,12 @@
 <li>1.MGR集群查询读取问题:<ul>
 <li>现象: 在业务代码中，有一个插入后立即查询的操作，但是出现了插入数据之后无法立刻查询到该数据的情况。</li>
 <li>分析排查: 这里很容易会联想到2种情况：<ul>
-<li>一：事务等级，合适的事务等级决定了是否能查看到对应的数据，在插入数据后，该事务还没有结束，应该是读为提交的事务隔离等级</li>
-<li>二：数据库是MySQL的多主模式的MGR集群，这里怀疑在同一个事务下，对同一个集群的读写操作，是否会出现读写不一致的情况，节点之间是否会存在同步延时，导致数据无法查询到。</li>
+<li>一：事务等级，合适的事务等级决定了是否能查看到对应的数据，在插入数据后，该事务还没有结束，应该是读未提交的事务隔离等级</li>
+<li>二：数据库是MySQL的多主模式的MGR集群，在对同一个集群的读写操作，可能会出现读写不一致的情况，节点之间可能会存在同步延时，导致数据无法查询到。</li>
 </ul>
 </li>
 <li>测试验证<ul>
-<li>一、检查事务等级：这里如果是事务等级导致的，那么应该所有的数据都不可见，这个场景可以排除。</li>
+<li>一、检查事务等级：这里如果是事务等级导致的，那么应该所有的数据都不可见，不会出现一部分数据出现，一部分数据可见的随机性错误，这个场景可以排除。</li>
 <li>二、测试MGR集群的一致性：模拟写了一段业务插入后立即查询的操作，10线程并发的压测，每个线程请求10次，总共请求100次，发现有13次的未读取到插入的数据，确定了是MGR的同步问题。</li>
 </ul>
 </li>
@@ -152,7 +152,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/06/27/RDBMS/" data-id="clxx7ps1y00003vye3jyd5qrp" data-title="关系型数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/06/27/RDBMS/" data-id="clxx7v62k00005iyed1g43cvo" data-title="关系型数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
