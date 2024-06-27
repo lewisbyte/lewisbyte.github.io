@@ -150,7 +150,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/06/27/RDBMS/" data-id="clxx7v62k00005iyed1g43cvo" data-title="关系型数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/06/27/RDBMS/" data-id="clxx7yo3i0000uyyee1thdfxy" data-title="关系型数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -283,7 +283,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/06/05/es_read_only_allow_delete/" data-id="clxx7v62q00025iye5v3n9m6p" data-title="es索引数据写入异常问题排查" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/06/05/es_read_only_allow_delete/" data-id="clxx7yo3q0002uyye903i5oi9" data-title="es索引数据写入异常问题排查" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -328,7 +328,7 @@
 <ul>
 <li>Q:  为什么图库使用 neo4j 的 bolt 链接协议，出现了无法找到主节点导致无法写入或者读取的问题？</li>
 <li>A：neo4j支持3种通讯协议：<ul>
-<li>bolt+routing（适用于集群，目前图平台不支持此协议）</li>
+<li>bolt+routing（适用于集群）</li>
 <li>bolt（适用于单机）</li>
 <li>neo4j（适用于集群）</li>
 <li>bolt 适用于单节点的图数据库。集群模式下的图库需要支持路由的neo4j协议进行通信，从而将请求转发到对应的数据节点上。</li>
@@ -337,19 +337,13 @@
 </li>
 </ul>
 </li>
-<li><p>2.数据接入</p>
-<ul>
-<li>Q:  为什么出现hive数据无法接入图库？datax是否支持mysql 导入neo4j ? 什么类型的数据接入可以导入到neo4j？</li>
-<li>A: 不支持；不支持；目前图平台只支持文件模式导入数据到图平台</li>
-</ul>
-</li>
-<li><p>3.数据库命名规范：</p>
+<li><p>2.数据库命名规范：</p>
 <ul>
 <li>Q:  为什么出现了图数据库创建失败的问题？</li>
 <li>A：neo4j 有自己的数据库规范，这里需要按照neo4j的规范进行创建，所以对应的图实例也要按照规范进行校验</li>
 </ul>
 </li>
-<li><p>4.边关系查询缓慢：</p>
+<li><p>3.边关系查询缓慢：</p>
 <ul>
 <li>Q: 为什么图析界面，点击查询边关系出现超时？</li>
 <li>A： neo4j 4.1.x版本的图库，不支持关系边表索引建立。如图所示通过主键查询的检索模式是 AllNodesScan 全表扫描（性能调优参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37503890/article/details/102073193%EF%BC%89%EF%BC%8C2%E4%BA%BF%E7%9A%84%E6%95%B0%E6%8D%AE%E9%87%8F%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E9%97%B4%E8%80%97%E6%97%B6%E7%BA%A6%E4%B8%BA10s%E5%B7%A6%E5%8F%B3%E3%80%82">https://blog.csdn.net/qq_37503890/article/details/102073193），2亿的数据量查询的时间耗时约为10s左右。</a><ul>
@@ -358,7 +352,7 @@
 </li>
 </ul>
 </li>
-<li><p>5.neo4j 的数据库链接泄露，句柄数量增长非常快</p>
+<li><p>4.neo4j 的数据库链接泄露，句柄数量增长非常快</p>
 <ul>
 <li>A：数据库链接没有及时释放导致的数据库链接泄露，及时释放neo4j的连接即可<ul>
 <li>微服务句柄数量超过限制问题汇总</li>
@@ -366,9 +360,9 @@
 </li>
 </ul>
 </li>
-<li><p>7.neo4j 在使用ETL导入时，出现死锁现象：</p>
+<li><p>5.neo4j 在使用ETL导入时，出现死锁现象：</p>
 <ul>
-<li><p>Q: 在使招行AI实验室项目中，图平台[3.1.2.69] 用spark 集群对neo4j批量导入关系边数据的时候，总是会出现报错：ForsetiClient can’t acquire ExclusiveLock（参考：<a target="_blank" rel="noopener" href="https://github.com/neo4j/neo4j/issues/6248%EF%BC%89">https://github.com/neo4j/neo4j/issues/6248）</a></p>
+<li><p>Q: 在使用spark 集群对neo4j批量导入关系边数据的时候，总是会出现报错：ForsetiClient can’t acquire ExclusiveLock（参考：<a target="_blank" rel="noopener" href="https://github.com/neo4j/neo4j/issues/6248%EF%BC%89">https://github.com/neo4j/neo4j/issues/6248）</a></p>
 </li>
 <li><p>A:</p>
 <ul>
@@ -381,19 +375,19 @@
 </ul>
 <p>提高单次事务的超时时间。避免出现多个不同事务之间的锁资源竞争时，没有足够的等待时间，导致的任务失败。<br>调整taurus-app配置，降低etl任务的spark executor的数量。从源头降低并发，减少锁资源竞争<br>调整spark配置：[ spark.dynamicAllocation.enabled    false ] ，关闭 动态资源分配功能<br>调整 etl的spark 任务参数，限制最大：1个instances，1个cores，避免多进程并发写入导致的死锁问题</p>
 <ul>
-<li><p>8.出现报错：Could not perform discovery. No routing servers available</p>
+<li><p>6.出现报错：Could not perform discovery. No routing servers available</p>
 <ul>
 <li>A：neo4j 的服务宕机，需要管理员维护</li>
 </ul>
 </li>
-<li><p>9.使用图平台文件导入大数据量到neo4j宕机</p>
+<li><p>7.使用文件导入大数据量到neo4j宕机</p>
 <ul>
 <li>A: graph系统在使用文件导入120w条数据，具体表现为会出现jvm内存耗尽，机器不再接受写入请求</li>
 <li>Q: DBA解释为cypher语句太长，堆积在内存中无法释放导致的内存耗尽，需要优化语句，建议使用unwind优化cypher语句</li>
 <li>neo4j批量入数优化分析及实现</li>
 </ul>
 </li>
-<li><ol start="10">
+<li><ol start="8">
 <li>数据导入neo4j 出现 heap 堆内存溢出，表现为老年代（old gen）持续增长，不会下降</li>
 </ol>
 </li>
@@ -435,7 +429,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/04/07/graph-db/" data-id="clxx7v62r00035iyehiwpb4sn" data-title="图数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/04/07/graph-db/" data-id="clxx7yo3r0003uyye2w817obh" data-title="图数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -724,7 +718,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="clxx7v62p00015iye0m8ueda3" data-title="ElasticSearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="clxx7yo3o0001uyyed90x1pki" data-title="ElasticSearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1072,7 +1066,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clxx7v62r00045iye85ilebut" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="clxx7yo3s0004uyye4b7y2821" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
