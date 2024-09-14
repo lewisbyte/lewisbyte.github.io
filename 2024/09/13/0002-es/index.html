@@ -4,13 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>归档: 2023 | 保持好奇心</title>
+  <title>【elasticsearch源码探索-0002】- 源码的模块 | 保持好奇心</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="保持好奇心">
-<meta property="og:url" content="https://lewisbyte.github.io/archives/2023/index.html">
+  <meta name="description" content="目录 benchmarks build-conventions build-tools build-tools-internal  benchmarks 是 Elasticsearch 生态系统中的一个工具，用于衡量和优化 Elasticsearch 集群的性能。它通常与 Elastic 官方提供的性能测试框架 Rally 搭配使用，帮助用户在不同的集群配置、硬件环境、数据规模和查询模式下进行基准">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【elasticsearch源码探索-0002】- 源码的模块">
+<meta property="og:url" content="https://lewisbyte.github.io/2024/09/13/0002-es/index.html">
 <meta property="og:site_name" content="保持好奇心">
+<meta property="og:description" content="目录 benchmarks build-conventions build-tools build-tools-internal  benchmarks 是 Elasticsearch 生态系统中的一个工具，用于衡量和优化 Elasticsearch 集群的性能。它通常与 Elastic 官方提供的性能测试框架 Rally 搭配使用，帮助用户在不同的集群配置、硬件环境、数据规模和查询模式下进行基准">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-13T09:45:06.418Z">
+<meta property="article:modified_time" content="2024-09-14T07:37:58.724Z">
 <meta property="article:author" content="lewis">
 <meta name="twitter:card" content="summary">
   
@@ -75,58 +79,68 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/08/08/elasticsearch/" class="archive-article-date">
-  <time class="dt-published" datetime="2023-08-08T06:28:03.797Z" itemprop="datePublished">8月 8</time>
+        <section id="main"><article id="post-0002-es" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/13/0002-es/" class="article-date">
+  <time class="dt-published" datetime="2024-09-13T09:45:06.418Z" itemprop="datePublished">2024-09-13</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/08/08/elasticsearch/">ElasticSearch源码学习-LTS</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      【elasticsearch源码探索-0002】- 源码的模块
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/07/03/linux/" class="archive-article-date">
-  <time class="dt-published" datetime="2023-07-03T06:49:33.737Z" itemprop="datePublished">7月 3</time>
-</a>
+    <div class="e-content article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/07/03/linux/">Linux应用性能调优-LTS</a>
-    </h1>
-  
+        <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><a href="#benchmarks">benchmarks</a></li>
+<li><a href="#build-conventions">build-conventions</a></li>
+<li><a href="#build-tools">build-tools</a></li>
+<li><a href="#build-tools-internal">build-tools-internal</a></li>
+</ul>
+<h2 id="benchmarks"><a href="#benchmarks" class="headerlink" title="benchmarks"></a>benchmarks</h2><ul>
+<li>是 Elasticsearch 生态系统中的一个工具，用于衡量和优化 Elasticsearch 集群的性能。它通常与 Elastic 官方提供的性能测试框架 Rally 搭配使用，帮助用户在不同的集群配置、硬件环境、数据规模和查询模式下进行基准测试，了解性能表现。</li>
+</ul>
+<h2 id="build-conventions"><a href="#build-conventions" class="headerlink" title="build-conventions"></a>build-conventions</h2><ul>
+<li>build-conventions 是一组标准的构建约定，通常用于确保项目在构建过程中遵循一致的规范和流程。这些约定可以简化和统一构建任务，确保所有模块和项目遵循相同的规则，从而减少构建过程中的差异。</li>
+</ul>
+<h2 id="build-tools"><a href="#build-tools" class="headerlink" title="build-tools"></a>build-tools</h2><p>-build-tools 是一组用于辅助构建过程的工具和脚本。这些工具主要用于处理构建中的常见任务，例如依赖管理、代码生成、测试执行等。</p>
+<h2 id="build-tools-internal"><a href="#build-tools-internal" class="headerlink" title="build-tools-internal"></a>build-tools-internal</h2><ul>
+<li>build-tools-internal 是与 build-tools 相关的内部工具集，专门用于 Elasticsearch 开发团队的内部构建流程和管理。这些工具可能是与外部构建工具不同步更新的，主要用于满足内部开发需求。</li>
+</ul>
 
-    </header>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lewisbyte.github.io/2024/09/13/0002-es/" data-id="cm11ujuk20001blxadcn7aect" data-title="【elasticsearch源码探索-0002】- 源码的模块" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2024/09/12/0001-es/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">【elasticsearch源码探索-0001】- 如何编译和远程调试elasticsearch源码</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
 </section>
