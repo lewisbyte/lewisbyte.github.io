@@ -6,15 +6,15 @@
   
   <title>【elasticsearch源码探索-0002】- 源码的模块 | 保持好奇心</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="目录 benchmarks build-conventions build-tools build-tools-internal  benchmarks 是 Elasticsearch 生态系统中的一个工具，用于衡量和优化 Elasticsearch 集群的性能。它通常与 Elastic 官方提供的性能测试框架 Rally 搭配使用，帮助用户在不同的集群配置、硬件环境、数据规模和查询模式下进行基准">
+  <meta name="description" content="目录 benchmarks build-conventions build-tools build-tools-internal client-benchmark-noop-api-plugin dev-tools  benchmarks 是 Elasticsearch 生态系统中的一个工具，用于衡量和优化 Elasticsearch 集群的性能。它通常与 Elastic 官方提供的性能测试框架">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【elasticsearch源码探索-0002】- 源码的模块">
 <meta property="og:url" content="https://lewisbyte.github.io/2024/09/13/0002-es/index.html">
 <meta property="og:site_name" content="保持好奇心">
-<meta property="og:description" content="目录 benchmarks build-conventions build-tools build-tools-internal  benchmarks 是 Elasticsearch 生态系统中的一个工具，用于衡量和优化 Elasticsearch 集群的性能。它通常与 Elastic 官方提供的性能测试框架 Rally 搭配使用，帮助用户在不同的集群配置、硬件环境、数据规模和查询模式下进行基准">
+<meta property="og:description" content="目录 benchmarks build-conventions build-tools build-tools-internal client-benchmark-noop-api-plugin dev-tools  benchmarks 是 Elasticsearch 生态系统中的一个工具，用于衡量和优化 Elasticsearch 集群的性能。它通常与 Elastic 官方提供的性能测试框架">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-09-13T09:45:06.418Z">
-<meta property="article:modified_time" content="2024-09-14T07:37:58.724Z">
+<meta property="article:modified_time" content="2024-09-19T10:01:19.342Z">
 <meta property="article:author" content="lewis">
 <meta name="twitter:card" content="summary">
   
@@ -106,6 +106,8 @@
 <li><a href="#build-conventions">build-conventions</a></li>
 <li><a href="#build-tools">build-tools</a></li>
 <li><a href="#build-tools-internal">build-tools-internal</a></li>
+<li><a href="#client-benchmark-noop-api-plugin">client-benchmark-noop-api-plugin</a></li>
+<li><a href="dev-tools">dev-tools</a></li>
 </ul>
 <h2 id="benchmarks"><a href="#benchmarks" class="headerlink" title="benchmarks"></a>benchmarks</h2><ul>
 <li>是 Elasticsearch 生态系统中的一个工具，用于衡量和优化 Elasticsearch 集群的性能。它通常与 Elastic 官方提供的性能测试框架 Rally 搭配使用，帮助用户在不同的集群配置、硬件环境、数据规模和查询模式下进行基准测试，了解性能表现。</li>
@@ -117,11 +119,25 @@
 <h2 id="build-tools-internal"><a href="#build-tools-internal" class="headerlink" title="build-tools-internal"></a>build-tools-internal</h2><ul>
 <li>build-tools-internal 是与 build-tools 相关的内部工具集，专门用于 Elasticsearch 开发团队的内部构建流程和管理。这些工具可能是与外部构建工具不同步更新的，主要用于满足内部开发需求。</li>
 </ul>
+<h2 id="client-benchmark-noop-api-plugin"><a href="#client-benchmark-noop-api-plugin" class="headerlink" title="client-benchmark-noop-api-plugin"></a>client-benchmark-noop-api-plugin</h2><ul>
+<li>elasticsearch-client-benchmark-noop-api-plugin 是 Elasticsearch 客户端 API 的一个插件，主要用于性能基准测试（benchmarking）。以下是该插件的核心功能和特点：</li>
+<li>No-op 操作：</li>
+<li>“No-op” 代表 “no operation”，即该插件不会执行实际的 Elasticsearch 查询或数据操作，而是模拟 API 请求的过程。其目的主要是为了测试客户端的性能而不对集群施加负载。<br>性能测试：</li>
+<li>该插件允许你测试客户端执行请求的性能（例如，延迟、吞吐量等），而不需要实际与 Elasticsearch 集群进行交互。你可以测量客户端代码的性能瓶颈。<br>轻量级模拟：</li>
+<li>通过模拟 API 的方式，用户可以在开发环境或测试环境下进行大量的 API 请求测试，而无需考虑实际的硬件资源限制或集群负载问题。<br>基于 Java 客户端：</li>
+<li>该插件通常用于与 Java 客户端一起工作，因为 Elasticsearch 官方客户端有广泛的 Java 支持。</li>
+<li>用途场景：</li>
+<li>在需要验证客户端代码的性能或优化代码时使用，尤其是在客户端与服务器交互中需要最小化对集群的影响时。</li>
+<li>开发人员可以使用该插件进行无副作用的测试，以确保 API 调用的响应速度和可靠性。</li>
+</ul>
+<h2 id="dev-tools"><a href="#dev-tools" class="headerlink" title="dev-tools"></a><a href="dev-tools">dev-tools</a></h2><ul>
+<li>开发工具脚本，包含有代码提交，分支删除、文档发布等脚本</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/09/13/0002-es/" data-id="cm11ujuk20001blxadcn7aect" data-title="【elasticsearch源码探索-0002】- 源码的模块" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/09/13/0002-es/" data-id="cm194ibiz000130x46d6ycbwt" data-title="【elasticsearch源码探索-0002】- 源码的模块" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
