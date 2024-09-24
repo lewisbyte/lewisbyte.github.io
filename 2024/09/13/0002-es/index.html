@@ -6,15 +6,15 @@
   
   <title>【elasticsearch源码探索-0002】- 源码的模块 | 保持好奇心</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="目录 benchmarks build-conventions build-tools build-tools-internal client-benchmark-noop-api-plugin dev-tools  benchmarks 是 Elasticsearch 生态系统中的一个工具，用于衡量和优化 Elasticsearch 集群的性能。它通常与 Elastic 官方提供的性能测试框架">
+  <meta name="description" content="目录 benchmarks build-conventions build-tools build-tools-internal client-benchmark-noop-api-plugin dev-tools distribution docs  benchmarks 是 Elasticsearch 生态系统中的一个工具，用于衡量和优化 Elasticsearch 集群的性能。它通常与 El">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【elasticsearch源码探索-0002】- 源码的模块">
 <meta property="og:url" content="https://lewisbyte.github.io/2024/09/13/0002-es/index.html">
 <meta property="og:site_name" content="保持好奇心">
-<meta property="og:description" content="目录 benchmarks build-conventions build-tools build-tools-internal client-benchmark-noop-api-plugin dev-tools  benchmarks 是 Elasticsearch 生态系统中的一个工具，用于衡量和优化 Elasticsearch 集群的性能。它通常与 Elastic 官方提供的性能测试框架">
+<meta property="og:description" content="目录 benchmarks build-conventions build-tools build-tools-internal client-benchmark-noop-api-plugin dev-tools distribution docs  benchmarks 是 Elasticsearch 生态系统中的一个工具，用于衡量和优化 Elasticsearch 集群的性能。它通常与 El">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-09-13T09:45:06.418Z">
-<meta property="article:modified_time" content="2024-09-19T10:01:19.342Z">
+<meta property="article:modified_time" content="2024-09-24T09:19:30.881Z">
 <meta property="article:author" content="lewis">
 <meta name="twitter:card" content="summary">
   
@@ -108,6 +108,8 @@
 <li><a href="#build-tools-internal">build-tools-internal</a></li>
 <li><a href="#client-benchmark-noop-api-plugin">client-benchmark-noop-api-plugin</a></li>
 <li><a href="dev-tools">dev-tools</a></li>
+<li><a href="distribution">distribution</a></li>
+<li><a href="docs">docs</a></li>
 </ul>
 <h2 id="benchmarks"><a href="#benchmarks" class="headerlink" title="benchmarks"></a>benchmarks</h2><ul>
 <li>是 Elasticsearch 生态系统中的一个工具，用于衡量和优化 Elasticsearch 集群的性能。它通常与 Elastic 官方提供的性能测试框架 Rally 搭配使用，帮助用户在不同的集群配置、硬件环境、数据规模和查询模式下进行基准测试，了解性能表现。</li>
@@ -130,14 +132,31 @@
 <li>在需要验证客户端代码的性能或优化代码时使用，尤其是在客户端与服务器交互中需要最小化对集群的影响时。</li>
 <li>开发人员可以使用该插件进行无副作用的测试，以确保 API 调用的响应速度和可靠性。</li>
 </ul>
-<h2 id="dev-tools"><a href="#dev-tools" class="headerlink" title="dev-tools"></a><a href="dev-tools">dev-tools</a></h2><ul>
+<h2 id="dev-tools"><a href="#dev-tools" class="headerlink" title="dev-tools"></a>dev-tools</h2><ul>
 <li>开发工具脚本，包含有代码提交，分支删除、文档发布等脚本</li>
+</ul>
+<h2 id="distribution"><a href="#distribution" class="headerlink" title="distribution"></a>distribution</h2><ul>
+<li>部署发布</li>
+</ul>
+<h2 id="docs"><a href="#docs" class="headerlink" title="docs"></a>docs</h2><ul>
+<li>es文档相关<ul>
+<li>changelog：修改日志</li>
+<li>community-clients</li>
+<li>internal ：包含2份文档，分布式架构的基本概念和设计原则、Elasticsearch的整体架构</li>
+<li>java-rest</li>
+<li>painless</li>
+<li>plugins</li>
+<li>reference</li>
+<li>resiliency</li>
+<li>src</li>
+</ul>
+</li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/09/13/0002-es/" data-id="cm194ibiz000130x46d6ycbwt" data-title="【elasticsearch源码探索-0002】- 源码的模块" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/09/13/0002-es/" data-id="cm1g8tcye0001sbye4bgtg4cs" data-title="【elasticsearch源码探索-0002】- 源码的模块" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
