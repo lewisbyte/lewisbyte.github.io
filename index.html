@@ -102,11 +102,13 @@
         <ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/elastic/elasticsearch/blob/e7bbcb98834156f2dbfa1dd9a86c22a33cfbab23/docs/internal/DistributedArchitectureGuide.md">原文链接 - Distributed Area Internals</a></li>
 </ul>
-<h2 id="译文-Distributed-Area-Internals"><a href="#译文-Distributed-Area-Internals" class="headerlink" title="译文 - Distributed Area Internals"></a>译文 - Distributed Area Internals</h2>
+<h2 id="译文-分布式架构指南"><a href="#译文-分布式架构指南" class="headerlink" title="译文 - 分布式架构指南"></a>译文 - 分布式架构指南</h2><p>分布式区域包含索引和协调系统。</p>
+<p>索引路径从用户<code>REST</code>命令通过分片路由延伸到每个独立分片 <code>translog</code> 和 存储引擎. 重建索引实际上是从源索引读取并写入到目标索引（可能在不同的节点上）. 协调方面包含集群协调，分片分配，集群弹性伸缩统计，任务管理和跨集群复制，明显协调系统包含网络，服务发现插件系统，快照&#x2F;恢复逻辑和分片恢复。</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/09/25/0003-es/" data-id="cm1han3u00003slyegziogy43" data-title="【ES源码探索-0003】- Distributed Area Internals 文档翻译" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/09/25/0003-es/" data-id="cm1hpxihb0001drycdg2q7is3" data-title="【ES源码探索-0003】- Distributed Area Internals 文档翻译" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -195,7 +197,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/09/13/0002-es/" data-id="cm1han3ty0001slyefi4s5h1f" data-title="【ES源码探索-0002】- 源码的模块" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/09/13/0002-es/" data-id="cm1hpxihe0003drycafwz47wa" data-title="【ES源码探索-0002】- 源码的模块" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -284,7 +286,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/09/12/0001-es/" data-id="cm1han3tq0000slyeeu22d19m" data-title="【ES源码探索-0001】- 如何编译和远程调试elasticsearch源码" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/09/12/0001-es/" data-id="cm1hpxigz0000drycbf2wdju0" data-title="【ES源码探索-0001】- 如何编译和远程调试elasticsearch源码" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -369,7 +371,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/06/27/RDBMS/" data-id="cm1han3u00002slye56tcc05d" data-title="关系型数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/06/27/RDBMS/" data-id="cm1hpxihd0002dryc4shoamqb" data-title="关系型数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -502,7 +504,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/06/05/es_read_only_allow_delete/" data-id="cm1han3u20005slyeeu2889cs" data-title="es索引数据写入异常问题排查" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/06/05/es_read_only_allow_delete/" data-id="cm1hpxihg0005dryc48cx6n63" data-title="es索引数据写入异常问题排查" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -648,7 +650,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/04/07/graph-db/" data-id="cm1han3u30006slyegeu92pyn" data-title="图数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/04/07/graph-db/" data-id="cm1hpxihh0006drycdlt0frm6" data-title="图数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -937,7 +939,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="cm1han3u10004slyedd666wft" data-title="ElasticSearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="cm1hpxihf0004dryc97m1g1pg" data-title="ElasticSearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1285,7 +1287,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="cm1han3u70007slyeguw77j84" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="cm1hpxihi0007dryc1o7z6oez" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
