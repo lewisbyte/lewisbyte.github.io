@@ -6,15 +6,15 @@
   
   <title>【ES源码探索-0003】- Distributed Area Internals 文档翻译 | 保持好奇心</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="原文链接 - Distributed Area Internals  译文 - 分布式架构指南分布式区域包含索引和协调系统。 索引路径从用户REST命令通过分片路由延伸到每个独立分片 translog 和 存储引擎. 重建索引实际上是从源索引读取并写入到目标索引（可能在不同的节点上）. 协调方面包含集群协调，分片分配，集群弹性伸缩统计，任务管理和跨集群复制，明显协调系统包含网络，服务发现插件系统">
+  <meta name="description" content="原文链接 - Distributed Area Internals  译文 - 分布式架构指南分布式区域内部分布式区域包含索引和协调系统。 索引路径从用户REST命令通过分片路由延伸到每个独立分片 translog 和 存储引擎. 重建索引实际上是从源索引读取并写入到目标索引（可能在不同的节点上）. 协调方面包含集群协调，分片分配，集群弹性伸缩统计，任务管理和跨集群复制，明显协调系统包含网络，服">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【ES源码探索-0003】- Distributed Area Internals 文档翻译">
 <meta property="og:url" content="https://lewisbyte.github.io/2024/09/25/0003-es/index.html">
 <meta property="og:site_name" content="保持好奇心">
-<meta property="og:description" content="原文链接 - Distributed Area Internals  译文 - 分布式架构指南分布式区域包含索引和协调系统。 索引路径从用户REST命令通过分片路由延伸到每个独立分片 translog 和 存储引擎. 重建索引实际上是从源索引读取并写入到目标索引（可能在不同的节点上）. 协调方面包含集群协调，分片分配，集群弹性伸缩统计，任务管理和跨集群复制，明显协调系统包含网络，服务发现插件系统">
+<meta property="og:description" content="原文链接 - Distributed Area Internals  译文 - 分布式架构指南分布式区域内部分布式区域包含索引和协调系统。 索引路径从用户REST命令通过分片路由延伸到每个独立分片 translog 和 存储引擎. 重建索引实际上是从源索引读取并写入到目标索引（可能在不同的节点上）. 协调方面包含集群协调，分片分配，集群弹性伸缩统计，任务管理和跨集群复制，明显协调系统包含网络，服">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-09-25T02:56:51.229Z">
-<meta property="article:modified_time" content="2024-09-25T10:24:08.072Z">
+<meta property="article:modified_time" content="2024-09-26T10:34:35.141Z">
 <meta property="article:author" content="lewis">
 <meta name="twitter:card" content="summary">
   
@@ -104,13 +104,18 @@
         <ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/elastic/elasticsearch/blob/e7bbcb98834156f2dbfa1dd9a86c22a33cfbab23/docs/internal/DistributedArchitectureGuide.md">原文链接 - Distributed Area Internals</a></li>
 </ul>
-<h2 id="译文-分布式架构指南"><a href="#译文-分布式架构指南" class="headerlink" title="译文 - 分布式架构指南"></a>译文 - 分布式架构指南</h2><p>分布式区域包含索引和协调系统。</p>
+<h2 id="译文-分布式架构指南"><a href="#译文-分布式架构指南" class="headerlink" title="译文 - 分布式架构指南"></a>译文 - 分布式架构指南</h2><h2 id="分布式区域内部"><a href="#分布式区域内部" class="headerlink" title="分布式区域内部"></a>分布式区域内部</h2><p>分布式区域包含索引和协调系统。</p>
 <p>索引路径从用户<code>REST</code>命令通过分片路由延伸到每个独立分片 <code>translog</code> 和 存储引擎. 重建索引实际上是从源索引读取并写入到目标索引（可能在不同的节点上）. 协调方面包含集群协调，分片分配，集群弹性伸缩统计，任务管理和跨集群复制，明显协调系统包含网络，服务发现插件系统，快照&#x2F;恢复逻辑和分片恢复。</p>
+<p>一份通用的Elasticsearch组件指南可以查阅<a target="_blank" rel="noopener" href="https://github.com/elastic/elasticsearch/blob/main/docs/internal/GeneralArchitectureGuide.md">这里</a></p>
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><p>(我们有很多线程池，是什么以及为什么)</p>
+<h3 id="动作监听器"><a href="#动作监听器" class="headerlink" title="动作监听器"></a>动作监听器</h3><p>查阅<a target="_blank" rel="noopener" href="https://github.com/elastic/elasticsearch/blob/main/server/src/main/java/org/elasticsearch/action/ActionListener.java">Java文档<code>ActionListener</code></a></p>
+<p>(待办事项：为一系列 Listener 类添加有用的入门参考和解释。参考 Netty 部分。)</p>
+<h3 id="REST-层"><a href="#REST-层" class="headerlink" title="REST 层"></a>REST 层</h3><p>REST和传输层通过<code>ActionModule</code>绑定在一起.<br>在 <code>ActionModule#initRestHandlers</code> 使用 <code>RestController</code> 注册所有 REST 操作，并将传入请求与特定 REST 操作进行匹配.<br><code>RestController#registerHandler</code> 使用 <code>Rest*Action</code> 的 <code>#routes()</code> 实现将 HTTP 请求与特定的 <code>Rest*Action</code> 进行匹配。<br>通常，REST操作遵循类命名约定<code>Rest*Action</code>，这使得它们更容易被找到，但并不总是可以找到。<br><code>#routes()</code>的定义也有助于查找 REST 操作。<br><code>RestController#dispatchRequest</code> 最终会在<code>RestHandler</code>的实现上调用<code>#handleRequest</code>.<br><code>RestHandler</code> 是 <code>BaseRestHandler</code>的基类，大多数 <code>Rest*Action</code> 实例都对<code>BaseRestHandler</code>其进行了扩展以实现特定的 REST 操作。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/09/25/0003-es/" data-id="cm1hpxihb0001drycdg2q7is3" data-title="【ES源码探索-0003】- Distributed Area Internals 文档翻译" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/09/25/0003-es/" data-id="cm1j5qx2g0002nyyc24zxc1lp" data-title="【ES源码探索-0003】- Distributed Area Internals 文档翻译" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
