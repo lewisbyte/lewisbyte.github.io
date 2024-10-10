@@ -108,12 +108,14 @@
 <h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><p>(我们有很多线程池，是什么以及为什么)</p>
 <h3 id="动作监听器"><a href="#动作监听器" class="headerlink" title="动作监听器"></a>动作监听器</h3><p>查阅<a target="_blank" rel="noopener" href="https://github.com/elastic/elasticsearch/blob/main/server/src/main/java/org/elasticsearch/action/ActionListener.java">Java文档<code>ActionListener</code></a></p>
 <p>(待办事项：为一系列 Listener 类添加有用的入门参考和解释。参考 Netty 部分。)</p>
-<h3 id="REST-层"><a href="#REST-层" class="headerlink" title="REST 层"></a>REST 层</h3><p>REST和传输层通过<code>ActionModule</code>绑定在一起.<br>在 <code>ActionModule#initRestHandlers</code> 使用 <code>RestController</code> 注册所有 REST 操作，并将传入请求与特定 REST 操作进行匹配.<br><code>RestController#registerHandler</code> 使用 <code>Rest*Action</code> 的 <code>#routes()</code> 实现将 HTTP 请求与特定的 <code>Rest*Action</code> 进行匹配。<br>通常，REST操作遵循类命名约定<code>Rest*Action</code>，这使得它们更容易被找到，但并不总是可以找到。<br><code>#routes()</code>的定义也有助于查找 REST 操作。<br><code>RestController#dispatchRequest</code> 最终会在<code>RestHandler</code>的实现上调用<code>#handleRequest</code>.<br><code>RestHandler</code> 是 <code>BaseRestHandler</code>的基类，大多数 <code>Rest*Action</code> 实例都对<code>BaseRestHandler</code>其进行了扩展以实现特定的 REST 操作。</p>
+<h3 id="REST-层"><a href="#REST-层" class="headerlink" title="REST 层"></a>REST 层</h3><p>REST和传输层通过<code>ActionModule</code>绑定在一起.在 <code>ActionModule#initRestHandlers</code> 使用 <code>RestController</code> 注册所有 REST 操作，并将传入请求与特定 REST 操作进行匹配.<code>RestController#registerHandler</code> 使用 <code>Rest*Action</code> 的 <code>#routes()</code> 实现将 HTTP 请求与特定的 <code>Rest*Action</code> 进行匹配。通常，REST操作遵循类命名约定<code>Rest*Action</code>，这使得它们更容易被找到，但并不总是可以找到。<code>#routes()</code>的定义也有助于查找 REST 操作。<code>RestController#dispatchRequest</code> 最终会在<code>RestHandler</code>的实现上调用<code>#handleRequest</code>.<code>RestHandler</code> 是 <code>BaseRestHandler</code>的基类，大多数 <code>Rest*Action</code> 实例都对<code>BaseRestHandler</code>其进行了扩展以实现特定的 REST 操作。</p>
+<p><code>BaseRestHandler#handleRequest</code> 调用 <code>BaseRestHandler#prepareRequest</code>, 其<code>Rest*Action</code>继承的子类实现特定的操作。 <code>RestController#dispatchRequest</code> 通过 <code>RestHandler#handleRequest</code> 将 <code>RestChannel</code> 传递给 <code>Rest*Action</code>：<code>Rest*Action#prepareRequest</code> 实现返回一个 <code>RestChannelConsumer</code>，定义如何在通道上执行操作和回复（通常以完成 ActionListener 包装器的形式）。<code>Rest*Action#prepareRequest</code> 实现负责解析传入的请求，并验证请求的结构是否有效。<code>BaseRestHandler#handleRequest</code> 随后将检查所有请求参数是否已被使用：意外的请求参数会导致错误。</p>
+<h3 id="REST操作是如何与Transport操作连接"><a href="#REST操作是如何与Transport操作连接" class="headerlink" title="REST操作是如何与Transport操作连接"></a>REST操作是如何与Transport操作连接</h3><p>Rest层使用<code>AbstractClient</code>的实现.<code>BaseRestHandler#prepareRequest</code> 使用 <code>NodeClient</code> 客户端：此客户端知道如何连接到指定的 TransportAction。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/09/25/0003-es/" data-id="cm1j5qx2g0002nyyc24zxc1lp" data-title="【ES源码探索-0003】- Distributed Area Internals 文档翻译" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/09/25/0003-es/" data-id="cm22lhraa0004qpy5ejl0h9ca" data-title="【ES源码探索-0003】- Distributed Area Internals 文档翻译" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -202,7 +204,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/09/13/0002-es/" data-id="cm1j5qx2e0001nyyc55mnaeek" data-title="【ES源码探索-0002】- 源码的模块" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/09/13/0002-es/" data-id="cm22lhra60001qpy58dja8l6c" data-title="【ES源码探索-0002】- 源码的模块" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -291,7 +293,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/09/12/0001-es/" data-id="cm1j5qx250000nyycdxeu7rol" data-title="【ES源码探索-0001】- 如何编译和远程调试elasticsearch源码" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/09/12/0001-es/" data-id="cm22lhr9w0000qpy5f93x0p0q" data-title="【ES源码探索-0001】- 如何编译和远程调试elasticsearch源码" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -376,7 +378,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/06/27/RDBMS/" data-id="cm1j5qx2l0007nyycgv8v2kwm" data-title="关系型数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/06/27/RDBMS/" data-id="cm22lhra70002qpy524h2bd3z" data-title="关系型数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -509,7 +511,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/06/05/es_read_only_allow_delete/" data-id="cm1j5qx2h0003nyyc2c3y9ga7" data-title="es索引数据写入异常问题排查" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/06/05/es_read_only_allow_delete/" data-id="cm22lhrab0005qpy52joyajhx" data-title="es索引数据写入异常问题排查" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -655,7 +657,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2024/04/07/graph-db/" data-id="cm1j5qx2j0005nyychgoj693s" data-title="图数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2024/04/07/graph-db/" data-id="cm22lhrab0006qpy5fo5r6ld7" data-title="图数据库相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -944,7 +946,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="cm1j5qx2i0004nyycf1id776k" data-title="ElasticSearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/08/08/elasticsearch/" data-id="cm22lhra90003qpy5daqv3p84" data-title="ElasticSearch源码学习-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1292,7 +1294,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="cm1j5qx2k0006nyycdtfh0lyn" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://lewisbyte.github.io/2023/07/03/linux/" data-id="cm22lhrac0007qpy50l557yjw" data-title="Linux应用性能调优-LTS" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
