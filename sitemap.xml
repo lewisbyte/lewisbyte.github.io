@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://lewisbyte.github.io/2025/02/25/20250001/</loc>
+    <loc>https://www.lewismind.site/2025/02/25/20250001/</loc>
     
-    <lastmod>2025-02-26</lastmod>
+    <lastmod>2025-02-27</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://lewisbyte.github.io/2024/09/25/0003-es/</loc>
+    <loc>https://www.lewismind.site/2024/09/25/0003-es/</loc>
     
     <lastmod>2024-10-10</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>https://lewisbyte.github.io/2024/09/12/0001-es/</loc>
+    <loc>https://www.lewismind.site/2024/09/12/0001-es/</loc>
     
     <lastmod>2024-09-25</lastmod>
     
@@ -29,7 +29,7 @@
   </url>
   
   <url>
-    <loc>https://lewisbyte.github.io/2024/09/13/0002-es/</loc>
+    <loc>https://www.lewismind.site/2024/09/13/0002-es/</loc>
     
     <lastmod>2024-09-25</lastmod>
     
@@ -38,7 +38,7 @@
   </url>
   
   <url>
-    <loc>https://lewisbyte.github.io/2024/04/07/graph-db/</loc>
+    <loc>https://www.lewismind.site/2024/04/07/graph-db/</loc>
     
     <lastmod>2024-06-27</lastmod>
     
@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>https://lewisbyte.github.io/2024/06/27/RDBMS/</loc>
+    <loc>https://www.lewismind.site/2024/06/27/RDBMS/</loc>
     
     <lastmod>2024-06-27</lastmod>
     
@@ -56,7 +56,7 @@
   </url>
   
   <url>
-    <loc>https://lewisbyte.github.io/2024/06/05/es_read_only_allow_delete/</loc>
+    <loc>https://www.lewismind.site/2024/06/05/es_read_only_allow_delete/</loc>
     
     <lastmod>2024-06-21</lastmod>
     
@@ -65,7 +65,7 @@
   </url>
   
   <url>
-    <loc>https://lewisbyte.github.io/2023/08/08/elasticsearch/</loc>
+    <loc>https://www.lewismind.site/2023/08/08/elasticsearch/</loc>
     
     <lastmod>2024-06-05</lastmod>
     
@@ -74,7 +74,7 @@
   </url>
   
   <url>
-    <loc>https://lewisbyte.github.io/2023/07/03/linux/</loc>
+    <loc>https://www.lewismind.site/2023/07/03/linux/</loc>
     
     <lastmod>2024-05-14</lastmod>
     
@@ -84,7 +84,7 @@
   
 
   <url>
-    <loc>https://lewisbyte.github.io/</loc>
+    <loc>https://www.lewismind.site/</loc>
     <lastmod>2025-02-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
