@@ -2,18 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.lewismind.site/2025/03/12/20250002/</loc>
+    <loc>https://www.lewismind.site/about/index.html</loc>
     
-    <lastmod>2025-03-12</lastmod>
+    <lastmod>2025-03-13</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://www.lewismind.site/about/index.html</loc>
+    <loc>https://www.lewismind.site/2025/03/12/20250002/</loc>
     
-    <lastmod>2025-03-10</lastmod>
+    <lastmod>2025-03-12</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -103,7 +103,7 @@
 
   <url>
     <loc>https://www.lewismind.site/</loc>
-    <lastmod>2025-03-12</lastmod>
+    <lastmod>2025-03-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
