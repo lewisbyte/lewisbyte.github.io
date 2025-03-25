@@ -21,15 +21,15 @@
   <meta name="author" content="lewis">
   <meta name="keywords" content="">
   
-    <meta name="description" content="2025年开年后，每一周都过得非常魔幻又现实，之前在网络上看到的各种桥段竟然也真真切切的发生在我的身上，公司全员降薪，通过各种手段打压、威逼员工离职，查历史账恶心员工，也算是真实感受到了来自公司的恶意和来自生活的重拳出击。 在这过程中，虽然自己感到抑郁、生气、无奈、甚至有些绝望，甚至身体也出现了点问题，但我居然在这过程中感受到了另外一种生机勃勃的感觉，像是有一种生命力，一股力量，一份勇气从我心里">
+    <meta name="description" content="为什么使用线程池？线程生命周期的开销非常高 1.频繁的创建，销毁线程需要使用额外的时间，资源。  资源消耗 1.若线程过多，会对系统造成巨大负担。 2.空闲的线程过多，会占用大量的内存，给垃圾回收器带来压力。 3.大量的线程竞争CPU会导致过多的CPU上下文切换的开销和性能开销，创建过多的线程会导致性能降低。  稳定性 1.在可创建的线程的数量上存在一个限制。过多的线程可能会导致OutOfMemo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="大胆向这个世界求助">
-<meta property="og:url" content="https://www.lewismind.site/2025/03/13/20250003/index.html">
+<meta property="og:title" content="【How-to】java并发编程--线程池">
+<meta property="og:url" content="https://www.lewismind.site/2025/03/25/20250009/index.html">
 <meta property="og:site_name" content="保持好奇心">
-<meta property="og:description" content="2025年开年后，每一周都过得非常魔幻又现实，之前在网络上看到的各种桥段竟然也真真切切的发生在我的身上，公司全员降薪，通过各种手段打压、威逼员工离职，查历史账恶心员工，也算是真实感受到了来自公司的恶意和来自生活的重拳出击。 在这过程中，虽然自己感到抑郁、生气、无奈、甚至有些绝望，甚至身体也出现了点问题，但我居然在这过程中感受到了另外一种生机勃勃的感觉，像是有一种生命力，一股力量，一份勇气从我心里">
+<meta property="og:description" content="为什么使用线程池？线程生命周期的开销非常高 1.频繁的创建，销毁线程需要使用额外的时间，资源。  资源消耗 1.若线程过多，会对系统造成巨大负担。 2.空闲的线程过多，会占用大量的内存，给垃圾回收器带来压力。 3.大量的线程竞争CPU会导致过多的CPU上下文切换的开销和性能开销，创建过多的线程会导致性能降低。  稳定性 1.在可创建的线程的数量上存在一个限制。过多的线程可能会导致OutOfMemo">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-03-13T13:24:03.335Z">
-<meta property="article:modified_time" content="2025-03-13T13:51:02.523Z">
+<meta property="article:published_time" content="2025-03-25T03:46:06.472Z">
+<meta property="article:modified_time" content="2025-03-25T03:46:26.132Z">
 <meta property="article:author" content="lewis">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -37,7 +37,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>大胆向这个世界求助 - 保持好奇心</title>
+  <title>【How-to】java并发编程--线程池 - 保持好奇心</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -204,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="大胆向这个世界求助"></span>
+            <span id="subtitle" data-typed-text="【How-to】java并发编程--线程池"></span>
           
         </div>
 
@@ -215,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-03-13 21:24" pubdate>
-          2025年3月13日 晚上
+        <time datetime="2025-03-25 11:46" pubdate>
+          2025年3月25日 中午
         </time>
       </span>
     
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          389 字
+          1.2k 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          4 分钟
+          11 分钟
         
       </span>
     
@@ -275,17 +275,49 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">大胆向这个世界求助</h1>
+            <h1 id="seo-header">【How-to】java并发编程--线程池</h1>
             
             
               <div class="markdown-body">
                 
-                <ul>
-<li>2025年开年后，每一周都过得非常魔幻又现实，之前在网络上看到的各种桥段竟然也真真切切的发生在我的身上，公司全员降薪，通过各种手段打压、威逼员工离职，查历史账恶心员工，也算是真实感受到了来自公司的恶意和来自生活的重拳出击。</li>
-<li>在这过程中，虽然自己感到抑郁、生气、无奈、甚至有些绝望，甚至身体也出现了点问题，但我居然在这过程中感受到了另外一种生机勃勃的感觉，像是有一种生命力，一股力量，一份勇气从我心里默默生根发芽，在这个与公司不公的反抗过程中才好像活出了真正的自我，有了真正的生命力。我的扛压能力、应对意外事情的能力在快速生长。</li>
-<li>如标题所说，我希望我以后都可以做到大胆向这个世界求助，不管对方是谁，去勇敢大胆的向对方求助。求助的这个过程中，重要的是将自己的目的变成他人的欲望，使我达到了目的，他也实现了欲望，这不是一种算计的做法，而是真切的站在对方的利益考虑问题，使双方都达到一个双赢的结局，那么你求助被帮助的概率则大大的提升。</li>
-<li>一点点小小的感悟，谢谢你看到这里。</li>
+                <h2 id="为什么使用线程池？"><a href="#为什么使用线程池？" class="headerlink" title="为什么使用线程池？"></a>为什么使用线程池？</h2><h3 id="线程生命周期的开销非常高"><a href="#线程生命周期的开销非常高" class="headerlink" title="线程生命周期的开销非常高"></a>线程生命周期的开销非常高</h3><ul>
+<li>1.频繁的创建，销毁线程需要使用额外的时间，资源。</li>
 </ul>
+<h3 id="资源消耗"><a href="#资源消耗" class="headerlink" title="资源消耗"></a>资源消耗</h3><ul>
+<li>1.若线程过多，会对系统造成巨大负担。</li>
+<li>2.空闲的线程过多，会占用大量的内存，给垃圾回收器带来压力。</li>
+<li>3.大量的线程竞争CPU会导致过多的CPU上下文切换的开销和性能开销，创建过多的线程会导致性能降低。</li>
+</ul>
+<h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><ul>
+<li>1.在可创建的线程的数量上存在一个限制。过多的线程可能会导致OutOfMemoryError（每个线程维护2个执行栈，一个用于java代码，另一个用于原生代码。通常，JVM在默认情况下会生成一个复合的栈，大小约为0.5MB(可以通过JVM标志-Xss或者通过Thread 的构造函数来修改这个值)如果将2^32除以每个线程的栈大小，那么线程将被限制为几千到几万）</li>
+</ul>
+<h2 id="创建线程池的方式"><a href="#创建线程池的方式" class="headerlink" title="创建线程池的方式"></a>创建线程池的方式</h2><h3 id="通过Executors的静态工厂方法创建"><a href="#通过Executors的静态工厂方法创建" class="headerlink" title="通过Executors的静态工厂方法创建"></a>通过Executors的静态工厂方法创建</h3><ul>
+<li><p>newFixedThreadPool：创建一个固定的大小的线程池,每提交一个任务时就创建一个线程，直到达到线程的最大数量</p>
+</li>
+<li><p>newCacheThreadPool：创建可缓存的线程，可回收空闲的线程，或创建线程。线程池的数量规模不受限制。</p>
+</li>
+<li><p>newSingleThreadPool：一个单线程的线程池。若线程异常结束，则使用另一个线程替代。</p>
+</li>
+<li><p>newScheduledThreadPool：创建固定长度的线程池。以延时或定时的方式来执行任务。</p>
+</li>
+</ul>
+<h2 id="线程池的生命周期"><a href="#线程池的生命周期" class="headerlink" title="线程池的生命周期"></a>线程池的生命周期</h2><ul>
+<li>Executor 的实现通常会创建线程来执行任务。但JVM只有在所有（非守护）线程全部终止后才会退出。</li>
+</ul>
+<h2 id="线程池的接口"><a href="#线程池的接口" class="headerlink" title="线程池的接口"></a>线程池的接口</h2><ul>
+<li>Executor ：只含有任务提交的方法： execute（Runnable task）；</li>
+<li>ExecutorService：为了解决执行服务的生命周期问题，ExecutorService添加了一些用于生命周期管理的方法。</li>
+</ul>
+<h2 id="以上内容摘自-《java并发编程实战》"><a href="#以上内容摘自-《java并发编程实战》" class="headerlink" title="以上内容摘自 《java并发编程实战》"></a>以上内容摘自 《java并发编程实战》</h2><h2 id="为什么不同的业务使用不同的线程池？（以下为个人总结，不能保证正确性）"><a href="#为什么不同的业务使用不同的线程池？（以下为个人总结，不能保证正确性）" class="headerlink" title="为什么不同的业务使用不同的线程池？（以下为个人总结，不能保证正确性）"></a>为什么不同的业务使用不同的线程池？（以下为个人总结，不能保证正确性）</h2><ul>
+<li>1.一些耗时的长业务和一些响应快的短业务在一起执行，会阻塞影响短业务，业务之间相互影响。</li>
+<li>2.IO密集 和 CPU密集 的服务应该采用不同的线程池。</li>
+</ul>
+<h2 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs">有时候我们会发现新上线的部分业务出现了问题，并且影响了其他功能。<br>我有时候想到从架构上如何避免这个问题，然后有了这样的一个思路。<br> <br>开发的时候我们基本上不会考虑到这种问题，整个服务就共用一个线程池，甚至有些系统是单线程的。<br>一旦出现问题整个服务就一起挂掉了<br>这个肯定是我们不想看到的。<br>解决这个问题方法就是把不同模块放在不同的线程里面，如果之前使用的是线程池那么 <br>不同业务也要用不同的线程池分开。因为如果这个业务有问题，这个业务所在的线程池也会很快的阻塞掉。<br>如果不同的业务分开到不同的线程池里面去，至少不会因为这个业务导致其他业务不可用。<br> <br>再配合上一篇干掉耗时任务的方法，可以保证线上服务不会全完蛋<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://freyja.iteye.com/blog/2394895">构建更健壮的系统：不同的业务放在不同的线程&#x2F;线程池里面</a></p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs x86asm">合理的配置线程池<br><br>要想合理的配置线程池，就必须首先分析任务特性，可以从以下几个角度来进行分析：<br><br>任务的性质：<span class="hljs-meta">CPU</span>密集型任务，IO密集型任务和混合型任务。<br>任务的优先级：高，中和低。<br>任务的执行时间：长，中和短。<br>任务的依赖性：是否依赖其他系统资源，如数据库连接。<br>任务性质不同的任务可以用不同规模的线程池分开处理。<span class="hljs-meta">CPU</span>密集型任务配置尽可能小的线程，<br>如配置Ncpu+<span class="hljs-number">1</span>个线程的线程池。IO密集型任务则由于线程并不是一直在执行任务，则配置尽可能多<br>的线程，如<span class="hljs-number">2</span>*Ncpu。混合型的任务，如果可以拆分，则将其拆分成一个<span class="hljs-meta">CPU</span>密集型任务和一个IO密集型<br>任务，只要这两个任务执行的时间相差不是太大，那么分解后执行的吞吐率要高于串行执行的吞吐率，<br>如果这两个任务执行时间相差太大，则没必要进行分解。我们可以通过<br>Runtime<span class="hljs-number">.</span>getRuntime().availableProcessors()方法获得当前设备的<span class="hljs-meta">CPU</span>个数。<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://www.infoq.com/cn/articles/java-threadPool">聊聊并发（三）——JAVA线程池的分析和使用</a></p>
 
                 
               </div>
@@ -303,8 +335,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>大胆向这个世界求助</div>
-      <div>https://www.lewismind.site/2025/03/13/20250003/</div>
+      <div>【How-to】java并发编程--线程池</div>
+      <div>https://www.lewismind.site/2025/03/25/20250009/</div>
     </div>
     <div class="license-meta">
       
@@ -316,7 +348,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年3月13日</div>
+          <div>2025年3月25日</div>
         </div>
       
       
@@ -348,18 +380,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/03/25/20250004/" title="记一次天池比赛 - 性能挑战赛道">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">记一次天池比赛 - 性能挑战赛道</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/03/12/20250002/" title="独立开发探索">
-                        <span class="hidden-mobile">独立开发探索</span>
+                      <a href="/2025/03/25/20250008/" title="Java元数据和元编程的胡诌诌">
+                        <span class="hidden-mobile">Java元数据和元编程的胡诌诌</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

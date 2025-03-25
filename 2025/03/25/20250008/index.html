@@ -21,15 +21,15 @@
   <meta name="author" content="lewis">
   <meta name="keywords" content="">
   
-    <meta name="description" content="2025年开年后，每一周都过得非常魔幻又现实，之前在网络上看到的各种桥段竟然也真真切切的发生在我的身上，公司全员降薪，通过各种手段打压、威逼员工离职，查历史账恶心员工，也算是真实感受到了来自公司的恶意和来自生活的重拳出击。 在这过程中，虽然自己感到抑郁、生气、无奈、甚至有些绝望，甚至身体也出现了点问题，但我居然在这过程中感受到了另外一种生机勃勃的感觉，像是有一种生命力，一股力量，一份勇气从我心里">
+    <meta name="description" content="前言今天来简单说说java的元编程与元数据。 为什么想要说这样一个话题，目前其实在java的框架中就会大量应用到元编程、而在我的工作之中会大量使用到元数据进行应用开发。下面先所说的内容只包含我在工作实践、应用的方面理解，而不是整个名词的完整介绍，需要看详细的介绍可以点击 wiki：元编程 和 wiki：元数据查看详细的介绍。 元数据在我的开发工作中，元数据主要是做数据类型约束、接口定义，方法签名定">
 <meta property="og:type" content="article">
-<meta property="og:title" content="大胆向这个世界求助">
-<meta property="og:url" content="https://www.lewismind.site/2025/03/13/20250003/index.html">
+<meta property="og:title" content="Java元数据和元编程的胡诌诌">
+<meta property="og:url" content="https://www.lewismind.site/2025/03/25/20250008/index.html">
 <meta property="og:site_name" content="保持好奇心">
-<meta property="og:description" content="2025年开年后，每一周都过得非常魔幻又现实，之前在网络上看到的各种桥段竟然也真真切切的发生在我的身上，公司全员降薪，通过各种手段打压、威逼员工离职，查历史账恶心员工，也算是真实感受到了来自公司的恶意和来自生活的重拳出击。 在这过程中，虽然自己感到抑郁、生气、无奈、甚至有些绝望，甚至身体也出现了点问题，但我居然在这过程中感受到了另外一种生机勃勃的感觉，像是有一种生命力，一股力量，一份勇气从我心里">
+<meta property="og:description" content="前言今天来简单说说java的元编程与元数据。 为什么想要说这样一个话题，目前其实在java的框架中就会大量应用到元编程、而在我的工作之中会大量使用到元数据进行应用开发。下面先所说的内容只包含我在工作实践、应用的方面理解，而不是整个名词的完整介绍，需要看详细的介绍可以点击 wiki：元编程 和 wiki：元数据查看详细的介绍。 元数据在我的开发工作中，元数据主要是做数据类型约束、接口定义，方法签名定">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-03-13T13:24:03.335Z">
-<meta property="article:modified_time" content="2025-03-13T13:51:02.523Z">
+<meta property="article:published_time" content="2025-03-25T03:44:59.682Z">
+<meta property="article:modified_time" content="2025-03-25T03:45:15.618Z">
 <meta property="article:author" content="lewis">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -37,7 +37,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>大胆向这个世界求助 - 保持好奇心</title>
+  <title>Java元数据和元编程的胡诌诌 - 保持好奇心</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -204,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="大胆向这个世界求助"></span>
+            <span id="subtitle" data-typed-text="Java元数据和元编程的胡诌诌"></span>
           
         </div>
 
@@ -215,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-03-13 21:24" pubdate>
-          2025年3月13日 晚上
+        <time datetime="2025-03-25 11:44" pubdate>
+          2025年3月25日 中午
         </time>
       </span>
     
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          389 字
+          881 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          4 分钟
+          8 分钟
         
       </span>
     
@@ -275,17 +275,30 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">大胆向这个世界求助</h1>
+            <h1 id="seo-header">Java元数据和元编程的胡诌诌</h1>
             
             
               <div class="markdown-body">
                 
-                <ul>
-<li>2025年开年后，每一周都过得非常魔幻又现实，之前在网络上看到的各种桥段竟然也真真切切的发生在我的身上，公司全员降薪，通过各种手段打压、威逼员工离职，查历史账恶心员工，也算是真实感受到了来自公司的恶意和来自生活的重拳出击。</li>
-<li>在这过程中，虽然自己感到抑郁、生气、无奈、甚至有些绝望，甚至身体也出现了点问题，但我居然在这过程中感受到了另外一种生机勃勃的感觉，像是有一种生命力，一股力量，一份勇气从我心里默默生根发芽，在这个与公司不公的反抗过程中才好像活出了真正的自我，有了真正的生命力。我的扛压能力、应对意外事情的能力在快速生长。</li>
-<li>如标题所说，我希望我以后都可以做到大胆向这个世界求助，不管对方是谁，去勇敢大胆的向对方求助。求助的这个过程中，重要的是将自己的目的变成他人的欲望，使我达到了目的，他也实现了欲望，这不是一种算计的做法，而是真切的站在对方的利益考虑问题，使双方都达到一个双赢的结局，那么你求助被帮助的概率则大大的提升。</li>
-<li>一点点小小的感悟，谢谢你看到这里。</li>
-</ul>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天来简单说说java的元编程与元数据。 为什么想要说这样一个话题，目前其实在java的框架中就会大量应用到元编程、而在我的工作之中会大量使用到元数据进行应用开发。下面先所说的内容只包含我在工作实践、应用的方面理解，而不是整个名词的完整介绍，需要看详细的介绍可以点击 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%85%83%E7%BC%96%E7%A8%8B">wiki：元编程</a> 和 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%85%83%E6%95%B0%E6%8D%AE">wiki：元数据</a>查看详细的介绍。</p>
+<h2 id="元数据"><a href="#元数据" class="headerlink" title="元数据"></a>元数据</h2><p>在我的开发工作中，元数据主要是做数据类型约束、接口定义，方法签名定义的作用。 大概的开发流程就是：</p>
+<ol>
+<li>定义元数据，比如定义一个实体，描述这个实体的属性字段名称，类型，长度等信息。根据这些信息构造成一个规范的xml文件。</li>
+<li>根据上一步构造的xml文件，也就是这里所指的元数据。（使用一些魔法，雾）使用公司定制化开发的eclipse插件，用这些xml文件生成标准的Java pojo 和 Java interface。然后标准和实体已经定义完成就可以进行具体的方法和接口的实现。</li>
+</ol>
+<p>所以说在这里，元数据在应用中的开发中的作用就是做数据约束和标准定义。这样的开发模式可以说是非常好的一个思路。</p>
+<ol>
+<li>标准化了开发流程，对数据本身有了一个明确的约束。有利于后期的开发维护。</li>
+<li>减少了重复，意义不大的工作，不需要手动对 Java pojo 和 Java interface 的定义。直接使用元数据来生成对应的Java class 即可。</li>
+<li>由于元数据的规范化，其实在此基础上的扩展能力有了很大的想象力。比如实体的合法校验 支持 jsr 303 (bean validation)规范等等。</li>
+</ol>
+<h2 id="元编程"><a href="#元编程" class="headerlink" title="元编程"></a>元编程</h2><p>在Java世界的元编程，其实很简单的说就是注解（annotation）的应用。</p>
+<p>这里的就有很多样例了，比如大名鼎鼎的lombok和spring里面的各种注解。为什么这里还将lombok和spring的注解做区分呢？因为这里的元编程应用时期不同：</p>
+<ol>
+<li>lombok 应用于编译期，在java编译生成class文件时，会”偷偷改掉”我们的代码模样，生成对应的模板代码（JSR 269: Pluggable Annotation Processing API），想详细了解的同学可以看这篇文章哦 <a target="_blank" rel="noopener" href="http://blog.didispace.com/java-lombok-how-to-use/">Java开发神器Lombok的使用与原理</a></li>
+<li>spring等其他注解主要是在运行期（不敢保证所有的都是在运行时的）。在运行时会调用对应的注解处理器处理对应的逻辑。这里的目的主要是减少模板代码，显得代码过于啰嗦、臃肿。</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>元编程和元数据的理念都有一个共同的特点，就是减少模板代码，使用代码生成代码的思路去降低工作中繁杂、无用或者意义不大的工作任务。这是极其值得推广的思路，尤其在大型工程面前，可以省下的工作量就非常可观，而且代码量会更少，质量还会更好，也是印证了 less is more 的设计哲学。<br>元编程和元数据里还有很多概念和触及其他系统知识的东西（比如编译原理什么的，emmm），这篇文章就这样简单聊下啦，发现有错也请及时指出。</p>
 
                 
               </div>
@@ -303,8 +316,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>大胆向这个世界求助</div>
-      <div>https://www.lewismind.site/2025/03/13/20250003/</div>
+      <div>Java元数据和元编程的胡诌诌</div>
+      <div>https://www.lewismind.site/2025/03/25/20250008/</div>
     </div>
     <div class="license-meta">
       
@@ -316,7 +329,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年3月13日</div>
+          <div>2025年3月25日</div>
         </div>
       
       
@@ -348,9 +361,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/03/25/20250004/" title="记一次天池比赛 - 性能挑战赛道">
+                      <a href="/2025/03/25/20250009/" title="【How-to】java并发编程--线程池">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">记一次天池比赛 - 性能挑战赛道</span>
+                        <span class="hidden-mobile">【How-to】java并发编程--线程池</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -358,8 +371,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/03/12/20250002/" title="独立开发探索">
-                        <span class="hidden-mobile">独立开发探索</span>
+                      <a href="/2025/03/25/20250007/" title="【How to】Java后端开发技能树">
+                        <span class="hidden-mobile">【How to】Java后端开发技能树</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -21,15 +21,15 @@
   <meta name="author" content="lewis">
   <meta name="keywords" content="">
   
-    <meta name="description" content="2025年开年后，每一周都过得非常魔幻又现实，之前在网络上看到的各种桥段竟然也真真切切的发生在我的身上，公司全员降薪，通过各种手段打压、威逼员工离职，查历史账恶心员工，也算是真实感受到了来自公司的恶意和来自生活的重拳出击。 在这过程中，虽然自己感到抑郁、生气、无奈、甚至有些绝望，甚至身体也出现了点问题，但我居然在这过程中感受到了另外一种生机勃勃的感觉，像是有一种生命力，一股力量，一份勇气从我心里">
+    <meta name="description" content="最近在做性能测试，发现的一些问题和《Java 并发编程》里：”性能与可伸缩性“一章，所描述的场景相似，所以记录、分享出来。  问题描述 QA 发起一笔5并发请求，请求完之后显示超时，测试的第一天立刻检查了日志，发现日志并没有打完，并没有太在意，于是就放到那里了。之后第二天又再次检查了一遍，发现这5笔交易的日志并不是没有打印完毕，而是约在15分钟之后(开始：22:46 -- 结束：23:02)打印">
 <meta property="og:type" content="article">
-<meta property="og:title" content="大胆向这个世界求助">
-<meta property="og:url" content="https://www.lewismind.site/2025/03/13/20250003/index.html">
+<meta property="og:title" content="【How-to】性能与扩展性的一点思考">
+<meta property="og:url" content="https://www.lewismind.site/2025/03/25/20250005/index.html">
 <meta property="og:site_name" content="保持好奇心">
-<meta property="og:description" content="2025年开年后，每一周都过得非常魔幻又现实，之前在网络上看到的各种桥段竟然也真真切切的发生在我的身上，公司全员降薪，通过各种手段打压、威逼员工离职，查历史账恶心员工，也算是真实感受到了来自公司的恶意和来自生活的重拳出击。 在这过程中，虽然自己感到抑郁、生气、无奈、甚至有些绝望，甚至身体也出现了点问题，但我居然在这过程中感受到了另外一种生机勃勃的感觉，像是有一种生命力，一股力量，一份勇气从我心里">
+<meta property="og:description" content="最近在做性能测试，发现的一些问题和《Java 并发编程》里：”性能与可伸缩性“一章，所描述的场景相似，所以记录、分享出来。  问题描述 QA 发起一笔5并发请求，请求完之后显示超时，测试的第一天立刻检查了日志，发现日志并没有打完，并没有太在意，于是就放到那里了。之后第二天又再次检查了一遍，发现这5笔交易的日志并不是没有打印完毕，而是约在15分钟之后(开始：22:46 -- 结束：23:02)打印">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-03-13T13:24:03.335Z">
-<meta property="article:modified_time" content="2025-03-13T13:51:02.523Z">
+<meta property="article:published_time" content="2025-03-25T03:40:37.940Z">
+<meta property="article:modified_time" content="2025-03-25T03:41:56.490Z">
 <meta property="article:author" content="lewis">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -37,7 +37,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>大胆向这个世界求助 - 保持好奇心</title>
+  <title>【How-to】性能与扩展性的一点思考 - 保持好奇心</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -204,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="大胆向这个世界求助"></span>
+            <span id="subtitle" data-typed-text="【How-to】性能与扩展性的一点思考"></span>
           
         </div>
 
@@ -215,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-03-13 21:24" pubdate>
-          2025年3月13日 晚上
+        <time datetime="2025-03-25 11:40" pubdate>
+          2025年3月25日 中午
         </time>
       </span>
     
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          389 字
+          847 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          4 分钟
+          8 分钟
         
       </span>
     
@@ -275,17 +275,46 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">大胆向这个世界求助</h1>
+            <h1 id="seo-header">【How-to】性能与扩展性的一点思考</h1>
             
             
               <div class="markdown-body">
                 
                 <ul>
-<li>2025年开年后，每一周都过得非常魔幻又现实，之前在网络上看到的各种桥段竟然也真真切切的发生在我的身上，公司全员降薪，通过各种手段打压、威逼员工离职，查历史账恶心员工，也算是真实感受到了来自公司的恶意和来自生活的重拳出击。</li>
-<li>在这过程中，虽然自己感到抑郁、生气、无奈、甚至有些绝望，甚至身体也出现了点问题，但我居然在这过程中感受到了另外一种生机勃勃的感觉，像是有一种生命力，一股力量，一份勇气从我心里默默生根发芽，在这个与公司不公的反抗过程中才好像活出了真正的自我，有了真正的生命力。我的扛压能力、应对意外事情的能力在快速生长。</li>
-<li>如标题所说，我希望我以后都可以做到大胆向这个世界求助，不管对方是谁，去勇敢大胆的向对方求助。求助的这个过程中，重要的是将自己的目的变成他人的欲望，使我达到了目的，他也实现了欲望，这不是一种算计的做法，而是真切的站在对方的利益考虑问题，使双方都达到一个双赢的结局，那么你求助被帮助的概率则大大的提升。</li>
-<li>一点点小小的感悟，谢谢你看到这里。</li>
+<li>最近在做性能测试，发现的一些问题和《Java 并发编程》里：”性能与可伸缩性“一章，所描述的场景相似，所以记录、分享出来。</li>
 </ul>
+<h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><ul>
+<li>QA 发起一笔5并发请求，请求完之后显示超时，测试的第一天立刻检查了日志，发现日志并没有打完，并没有太在意，于是就放到那里了。之后第二天又再次检查了一遍，发现这5笔交易的日志并不是没有打印完毕，而是约在15分钟之后(<code>开始：22:46 -- 结束：23:02</code>)打印出来了，全部都是显示事务超时。</li>
+</ul>
+<h4 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h4><ul>
+<li>我检查了这个接口的超时耗时配置为（250s）。所以如果这里5笔并发请求会串行执行总耗时约为：20.8 分钟。猜测这里可能是这些接口耗时配置的太长，导致（数据库表锁）资源没有释放，请求全部阻塞等待，导致全部超时失败。</li>
+</ul>
+<h4 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h4><ol>
+<li><p>猜想分析：统计了这5笔的请求总共的执行时间，果然是我和之前的猜想一致，5笔的交易按照串行的模式总共执行了20分钟。基本也验证了前面的猜想。</p>
+</li>
+<li><p>继续看打印完整的日志，发现所有的日志卡住在一个<code>交易流水表</code>的<code>insert</code> 的操作。先说一点前提：目前的应用中，每次接口的请求响应前，会将所有的请求信息登记到<code>交易流水表</code>中，也就是说：表锁导致了应用的串行化执行。于此同时就意味着，数据库表的性能决定了应用的性能上限了。</p>
+</li>
+<li><p>解决方案：调低每笔交易的超时时长，避免每笔请求长时间的占用公共表锁资源，目前表锁定的原因暂时不明，还在排查中。</p>
+</li>
+<li><p>系统提供了<code>交易流水表</code>的多个分片处理，可以路由到不同分片中。从原本都要获取同一张表资源，现在可以实现多张表的资源，降低了系统资源竞争。</p>
+</li>
+</ol>
+<h4 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h4><ol>
+<li>从前面的问题我们很容易发现，系统这种<code>热点域</code>的设计，在并发请求的场景下，由于某些原因很容易导致系统变成串行、效率低下、甚至是不可用的情况。</li>
+</ol>
+<h4 id="HashTable-与-ConcurrentHashMap-优化"><a href="#HashTable-与-ConcurrentHashMap-优化" class="headerlink" title="HashTable 与 ConcurrentHashMap 优化"></a>HashTable 与 ConcurrentHashMap 优化</h4><ul>
+<li>其实这样的问题很容易从前人的系统设计中找到类似的问题，对比经典的 <code>HashTable</code>到<code>ConcurrentHashMap</code>改进，<code>JDK</code> 做了从<code>单一的synchronize-排它锁</code>改进为 <code>多个segment的分段锁</code>，这里将锁的粒度细粒度化，可以提供更高的并发，提供了更强大的横向扩展能力。</li>
+</ul>
+<h4 id="水平扩展"><a href="#水平扩展" class="headerlink" title="水平扩展"></a>水平扩展</h4><p>那么究竟怎样可以提供一个良好的水平扩展能力呢？《Java并发编程实战》给出以下的优化点</p>
+<h5 id="软件设计层面"><a href="#软件设计层面" class="headerlink" title="软件设计层面"></a>软件设计层面</h5><ol>
+<li>发现在框架中隐藏的串行部分：串行的部分往往是性能瓶颈部分，它阻碍了系统的扩展性、并发度</li>
+</ol>
+<h5 id="代码层面"><a href="#代码层面" class="headerlink" title="代码层面"></a>代码层面</h5><ol>
+<li>避免热点域（本文）</li>
+<li>减少线程上下文的切换</li>
+<li>减小锁的范围：同步代码块里的代码越少越好</li>
+<li>减小锁的粒度：锁分段</li>
+</ol>
 
                 
               </div>
@@ -303,8 +332,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>大胆向这个世界求助</div>
-      <div>https://www.lewismind.site/2025/03/13/20250003/</div>
+      <div>【How-to】性能与扩展性的一点思考</div>
+      <div>https://www.lewismind.site/2025/03/25/20250005/</div>
     </div>
     <div class="license-meta">
       
@@ -316,7 +345,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年3月13日</div>
+          <div>2025年3月25日</div>
         </div>
       
       
@@ -348,9 +377,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/03/25/20250004/" title="记一次天池比赛 - 性能挑战赛道">
+                      <a href="/2025/03/25/20250006/" title="【How to】浅谈 Java web应用的优化">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">记一次天池比赛 - 性能挑战赛道</span>
+                        <span class="hidden-mobile">【How to】浅谈 Java web应用的优化</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -358,8 +387,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/03/12/20250002/" title="独立开发探索">
-                        <span class="hidden-mobile">独立开发探索</span>
+                      <a href="/2025/03/25/20250004/" title="记一次天池比赛 - 性能挑战赛道">
+                        <span class="hidden-mobile">记一次天池比赛 - 性能挑战赛道</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
