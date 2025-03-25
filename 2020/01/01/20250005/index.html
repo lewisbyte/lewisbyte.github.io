@@ -21,15 +21,15 @@
   <meta name="author" content="lewis">
   <meta name="keywords" content="">
   
-    <meta name="description" content="为什么使用线程池？线程生命周期的开销非常高 1.频繁的创建，销毁线程需要使用额外的时间，资源。  资源消耗 1.若线程过多，会对系统造成巨大负担。 2.空闲的线程过多，会占用大量的内存，给垃圾回收器带来压力。 3.大量的线程竞争CPU会导致过多的CPU上下文切换的开销和性能开销，创建过多的线程会导致性能降低。  稳定性 1.在可创建的线程的数量上存在一个限制。过多的线程可能会导致OutOfMemo">
+    <meta name="description" content="最近在做性能测试，发现的一些问题和《Java 并发编程》里：”性能与可伸缩性“一章，所描述的场景相似，所以记录、分享出来。  问题描述 QA 发起一笔5并发请求，请求完之后显示超时，测试的第一天立刻检查了日志，发现日志并没有打完，并没有太在意，于是就放到那里了。之后第二天又再次检查了一遍，发现这5笔交易的日志并不是没有打印完毕，而是约在15分钟之后(开始：22:46 -- 结束：23:02)打印">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【How-to】java并发编程--线程池">
-<meta property="og:url" content="https://www.lewismind.site/2025/03/25/20250009/index.html">
+<meta property="og:title" content="【How-to】性能与扩展性的一点思考">
+<meta property="og:url" content="https://www.lewismind.site/2020/01/01/20250005/index.html">
 <meta property="og:site_name" content="保持好奇心">
-<meta property="og:description" content="为什么使用线程池？线程生命周期的开销非常高 1.频繁的创建，销毁线程需要使用额外的时间，资源。  资源消耗 1.若线程过多，会对系统造成巨大负担。 2.空闲的线程过多，会占用大量的内存，给垃圾回收器带来压力。 3.大量的线程竞争CPU会导致过多的CPU上下文切换的开销和性能开销，创建过多的线程会导致性能降低。  稳定性 1.在可创建的线程的数量上存在一个限制。过多的线程可能会导致OutOfMemo">
+<meta property="og:description" content="最近在做性能测试，发现的一些问题和《Java 并发编程》里：”性能与可伸缩性“一章，所描述的场景相似，所以记录、分享出来。  问题描述 QA 发起一笔5并发请求，请求完之后显示超时，测试的第一天立刻检查了日志，发现日志并没有打完，并没有太在意，于是就放到那里了。之后第二天又再次检查了一遍，发现这5笔交易的日志并不是没有打印完毕，而是约在15分钟之后(开始：22:46 -- 结束：23:02)打印">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-03-25T03:46:06.472Z">
-<meta property="article:modified_time" content="2025-03-25T07:09:36.162Z">
+<meta property="article:published_time" content="2019-12-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-03-25T07:25:44.593Z">
 <meta property="article:author" content="lewis">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
@@ -38,7 +38,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>【How-to】java并发编程--线程池 - 保持好奇心</title>
+  <title>【How-to】性能与扩展性的一点思考 - 保持好奇心</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -205,7 +205,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="【How-to】java并发编程--线程池"></span>
+            <span id="subtitle" data-typed-text="【How-to】性能与扩展性的一点思考"></span>
           
         </div>
 
@@ -216,8 +216,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-03-25 11:46" pubdate>
-          2025年3月25日 中午
+        <time datetime="2020-01-01 00:00" pubdate>
+          2020年1月1日 凌晨
         </time>
       </span>
     
@@ -228,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          847 字
         
       </span>
     
@@ -239,7 +239,7 @@
         
         
         
-          11 分钟
+          8 分钟
         
       </span>
     
@@ -276,49 +276,46 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">【How-to】java并发编程--线程池</h1>
+            <h1 id="seo-header">【How-to】性能与扩展性的一点思考</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="为什么使用线程池？"><a href="#为什么使用线程池？" class="headerlink" title="为什么使用线程池？"></a>为什么使用线程池？</h2><h3 id="线程生命周期的开销非常高"><a href="#线程生命周期的开销非常高" class="headerlink" title="线程生命周期的开销非常高"></a>线程生命周期的开销非常高</h3><ul>
-<li>1.频繁的创建，销毁线程需要使用额外的时间，资源。</li>
+                <ul>
+<li>最近在做性能测试，发现的一些问题和《Java 并发编程》里：”性能与可伸缩性“一章，所描述的场景相似，所以记录、分享出来。</li>
 </ul>
-<h3 id="资源消耗"><a href="#资源消耗" class="headerlink" title="资源消耗"></a>资源消耗</h3><ul>
-<li>1.若线程过多，会对系统造成巨大负担。</li>
-<li>2.空闲的线程过多，会占用大量的内存，给垃圾回收器带来压力。</li>
-<li>3.大量的线程竞争CPU会导致过多的CPU上下文切换的开销和性能开销，创建过多的线程会导致性能降低。</li>
+<h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><ul>
+<li>QA 发起一笔5并发请求，请求完之后显示超时，测试的第一天立刻检查了日志，发现日志并没有打完，并没有太在意，于是就放到那里了。之后第二天又再次检查了一遍，发现这5笔交易的日志并不是没有打印完毕，而是约在15分钟之后(<code>开始：22:46 -- 结束：23:02</code>)打印出来了，全部都是显示事务超时。</li>
 </ul>
-<h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><ul>
-<li>1.在可创建的线程的数量上存在一个限制。过多的线程可能会导致OutOfMemoryError（每个线程维护2个执行栈，一个用于java代码，另一个用于原生代码。通常，JVM在默认情况下会生成一个复合的栈，大小约为0.5MB(可以通过JVM标志-Xss或者通过Thread 的构造函数来修改这个值)如果将2^32除以每个线程的栈大小，那么线程将被限制为几千到几万）</li>
+<h4 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h4><ul>
+<li>我检查了这个接口的超时耗时配置为（250s）。所以如果这里5笔并发请求会串行执行总耗时约为：20.8 分钟。猜测这里可能是这些接口耗时配置的太长，导致（数据库表锁）资源没有释放，请求全部阻塞等待，导致全部超时失败。</li>
 </ul>
-<h2 id="创建线程池的方式"><a href="#创建线程池的方式" class="headerlink" title="创建线程池的方式"></a>创建线程池的方式</h2><h3 id="通过Executors的静态工厂方法创建"><a href="#通过Executors的静态工厂方法创建" class="headerlink" title="通过Executors的静态工厂方法创建"></a>通过Executors的静态工厂方法创建</h3><ul>
-<li><p>newFixedThreadPool：创建一个固定的大小的线程池,每提交一个任务时就创建一个线程，直到达到线程的最大数量</p>
+<h4 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h4><ol>
+<li><p>猜想分析：统计了这5笔的请求总共的执行时间，果然是我和之前的猜想一致，5笔的交易按照串行的模式总共执行了20分钟。基本也验证了前面的猜想。</p>
 </li>
-<li><p>newCacheThreadPool：创建可缓存的线程，可回收空闲的线程，或创建线程。线程池的数量规模不受限制。</p>
+<li><p>继续看打印完整的日志，发现所有的日志卡住在一个<code>交易流水表</code>的<code>insert</code> 的操作。先说一点前提：目前的应用中，每次接口的请求响应前，会将所有的请求信息登记到<code>交易流水表</code>中，也就是说：表锁导致了应用的串行化执行。于此同时就意味着，数据库表的性能决定了应用的性能上限了。</p>
 </li>
-<li><p>newSingleThreadPool：一个单线程的线程池。若线程异常结束，则使用另一个线程替代。</p>
+<li><p>解决方案：调低每笔交易的超时时长，避免每笔请求长时间的占用公共表锁资源，目前表锁定的原因暂时不明，还在排查中。</p>
 </li>
-<li><p>newScheduledThreadPool：创建固定长度的线程池。以延时或定时的方式来执行任务。</p>
+<li><p>系统提供了<code>交易流水表</code>的多个分片处理，可以路由到不同分片中。从原本都要获取同一张表资源，现在可以实现多张表的资源，降低了系统资源竞争。</p>
 </li>
+</ol>
+<h4 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h4><ol>
+<li>从前面的问题我们很容易发现，系统这种<code>热点域</code>的设计，在并发请求的场景下，由于某些原因很容易导致系统变成串行、效率低下、甚至是不可用的情况。</li>
+</ol>
+<h4 id="HashTable-与-ConcurrentHashMap-优化"><a href="#HashTable-与-ConcurrentHashMap-优化" class="headerlink" title="HashTable 与 ConcurrentHashMap 优化"></a>HashTable 与 ConcurrentHashMap 优化</h4><ul>
+<li>其实这样的问题很容易从前人的系统设计中找到类似的问题，对比经典的 <code>HashTable</code>到<code>ConcurrentHashMap</code>改进，<code>JDK</code> 做了从<code>单一的synchronize-排它锁</code>改进为 <code>多个segment的分段锁</code>，这里将锁的粒度细粒度化，可以提供更高的并发，提供了更强大的横向扩展能力。</li>
 </ul>
-<h2 id="线程池的生命周期"><a href="#线程池的生命周期" class="headerlink" title="线程池的生命周期"></a>线程池的生命周期</h2><ul>
-<li>Executor 的实现通常会创建线程来执行任务。但JVM只有在所有（非守护）线程全部终止后才会退出。</li>
-</ul>
-<h2 id="线程池的接口"><a href="#线程池的接口" class="headerlink" title="线程池的接口"></a>线程池的接口</h2><ul>
-<li>Executor ：只含有任务提交的方法： execute（Runnable task）；</li>
-<li>ExecutorService：为了解决执行服务的生命周期问题，ExecutorService添加了一些用于生命周期管理的方法。</li>
-</ul>
-<h2 id="以上内容摘自-《java并发编程实战》"><a href="#以上内容摘自-《java并发编程实战》" class="headerlink" title="以上内容摘自 《java并发编程实战》"></a>以上内容摘自 《java并发编程实战》</h2><h2 id="为什么不同的业务使用不同的线程池？（以下为个人总结，不能保证正确性）"><a href="#为什么不同的业务使用不同的线程池？（以下为个人总结，不能保证正确性）" class="headerlink" title="为什么不同的业务使用不同的线程池？（以下为个人总结，不能保证正确性）"></a>为什么不同的业务使用不同的线程池？（以下为个人总结，不能保证正确性）</h2><ul>
-<li>1.一些耗时的长业务和一些响应快的短业务在一起执行，会阻塞影响短业务，业务之间相互影响。</li>
-<li>2.IO密集 和 CPU密集 的服务应该采用不同的线程池。</li>
-</ul>
-<h2 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs">有时候我们会发现新上线的部分业务出现了问题，并且影响了其他功能。<br>我有时候想到从架构上如何避免这个问题，然后有了这样的一个思路。<br> <br>开发的时候我们基本上不会考虑到这种问题，整个服务就共用一个线程池，甚至有些系统是单线程的。<br>一旦出现问题整个服务就一起挂掉了<br>这个肯定是我们不想看到的。<br>解决这个问题方法就是把不同模块放在不同的线程里面，如果之前使用的是线程池那么 <br>不同业务也要用不同的线程池分开。因为如果这个业务有问题，这个业务所在的线程池也会很快的阻塞掉。<br>如果不同的业务分开到不同的线程池里面去，至少不会因为这个业务导致其他业务不可用。<br> <br>再配合上一篇干掉耗时任务的方法，可以保证线上服务不会全完蛋<br></code></pre></td></tr></table></figure>
-
-<p><a target="_blank" rel="noopener" href="http://freyja.iteye.com/blog/2394895">构建更健壮的系统：不同的业务放在不同的线程&#x2F;线程池里面</a></p>
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs x86asm">合理的配置线程池<br><br>要想合理的配置线程池，就必须首先分析任务特性，可以从以下几个角度来进行分析：<br><br>任务的性质：<span class="hljs-meta">CPU</span>密集型任务，IO密集型任务和混合型任务。<br>任务的优先级：高，中和低。<br>任务的执行时间：长，中和短。<br>任务的依赖性：是否依赖其他系统资源，如数据库连接。<br>任务性质不同的任务可以用不同规模的线程池分开处理。<span class="hljs-meta">CPU</span>密集型任务配置尽可能小的线程，<br>如配置Ncpu+<span class="hljs-number">1</span>个线程的线程池。IO密集型任务则由于线程并不是一直在执行任务，则配置尽可能多<br>的线程，如<span class="hljs-number">2</span>*Ncpu。混合型的任务，如果可以拆分，则将其拆分成一个<span class="hljs-meta">CPU</span>密集型任务和一个IO密集型<br>任务，只要这两个任务执行的时间相差不是太大，那么分解后执行的吞吐率要高于串行执行的吞吐率，<br>如果这两个任务执行时间相差太大，则没必要进行分解。我们可以通过<br>Runtime<span class="hljs-number">.</span>getRuntime().availableProcessors()方法获得当前设备的<span class="hljs-meta">CPU</span>个数。<br></code></pre></td></tr></table></figure>
-
-<p><a target="_blank" rel="noopener" href="http://www.infoq.com/cn/articles/java-threadPool">聊聊并发（三）——JAVA线程池的分析和使用</a></p>
+<h4 id="水平扩展"><a href="#水平扩展" class="headerlink" title="水平扩展"></a>水平扩展</h4><p>那么究竟怎样可以提供一个良好的水平扩展能力呢？《Java并发编程实战》给出以下的优化点</p>
+<h5 id="软件设计层面"><a href="#软件设计层面" class="headerlink" title="软件设计层面"></a>软件设计层面</h5><ol>
+<li>发现在框架中隐藏的串行部分：串行的部分往往是性能瓶颈部分，它阻碍了系统的扩展性、并发度</li>
+</ol>
+<h5 id="代码层面"><a href="#代码层面" class="headerlink" title="代码层面"></a>代码层面</h5><ol>
+<li>避免热点域（本文）</li>
+<li>减少线程上下文的切换</li>
+<li>减小锁的范围：同步代码块里的代码越少越好</li>
+<li>减小锁的粒度：锁分段</li>
+</ol>
 
                 
               </div>
@@ -364,8 +361,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>【How-to】java并发编程--线程池</div>
-      <div>https://www.lewismind.site/2025/03/25/20250009/</div>
+      <div>【How-to】性能与扩展性的一点思考</div>
+      <div>https://www.lewismind.site/2020/01/01/20250005/</div>
     </div>
     <div class="license-meta">
       
@@ -377,7 +374,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年3月25日</div>
+          <div>2020年1月1日</div>
         </div>
       
       
@@ -409,12 +406,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2020/01/01/20250004/" title="记一次天池比赛 - 性能挑战赛道">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">记一次天池比赛 - 性能挑战赛道</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/03/25/20250008/" title="Java元数据和元编程的胡诌诌">
-                        <span class="hidden-mobile">Java元数据和元编程的胡诌诌</span>
+                      <a href="/2020/01/01/20250006/" title="【How to】浅谈 Java web应用的优化">
+                        <span class="hidden-mobile">【How to】浅谈 Java web应用的优化</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

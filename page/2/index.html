@@ -232,311 +232,6 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/09/13/0002-es/" target="_self">
-          【ES源码探索-0002】- 源码的模块
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/13/0002-es/" target="_self">
-        <div>
-          目录 benchmarks build-conventions build-tools build-tools-internal client-benchmark-noop-api-plugin dev-tools distribution docs  benchmarks 是 Elasticsearch 生态系统中的一个工具，用于衡量和优化 Elasticsearch 集群的性能。它通常与 El
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-09-13 17:45" pubdate>
-              2024-09-13
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/elasticsearch/" class="category-chain-item">elasticsearch</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/elasticsearch/">#elasticsearch</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/09/12/0001-es/" target="_self">
-          【ES源码探索-0001】- 如何编译和远程调试elasticsearch源码
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/12/0001-es/" target="_self">
-        <div>
-          目录 如何编译 如何调试 遇到问题  如何编译  下载最新elasticsearch源码，准备相关运行环境，将jdk8、jdk11、jdk17、jdk21配置到环境变量，    123456789101112131415161718192021# .bash_profile# Get the aliases and functionsif [ -f ~/.bashrc ]; then
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-09-12 11:25" pubdate>
-              2024-09-12
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/elasticsearch/" class="category-chain-item">elasticsearch</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/elasticsearch/">#elasticsearch</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/06/27/RDBMS/" target="_self">
-          关系型数据库相关
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/06/27/RDBMS/" target="_self">
-        <div>
-          记录关系型数据库相关的疑难杂症  目录 MySQL  MySQL 1.MGR集群查询读取问题: 现象: 在业务代码中，有一个插入后立即查询的操作，但是出现了插入数据之后无法立刻查询到该数据的情况。 分析排查: 这里很容易会联想到2种情况： 一：事务等级，合适的事务等级决定了是否能查看到对应的数据，在插入数据后，该事务还没有结束，应该是读未提交的事务隔离等级 二：数据库是MySQL的多主模式的MG
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-06-27 19:56" pubdate>
-              2024-06-27
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Linux/" class="category-chain-item">Linux</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Linux/">#Linux</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/06/05/es_read_only_allow_delete/" target="_self">
-          es索引数据写入异常问题排查
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/06/05/es_read_only_allow_delete/" target="_self">
-        <div>
-          目录 环境信息 现象 分析 源码调试解析过程  环境信息 elasticsearch 6.8.2 jdk-8 cpu-24核心、64gb内存 数据量：943GB  现象 1.在进行对索引写入数据的时候，报出异常：forbidden/12/index read-only / allow delete (api) status 403       单节点批量写入数据，性能较低，2亿条数据，导数耗时5个
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-06-05 10:46" pubdate>
-              2024-06-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/ElasticSearch/" class="category-chain-item">ElasticSearch</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/ElasticSearch/">#ElasticSearch</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/04/07/graph-db/" target="_self">
-          图数据库相关
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/04/07/graph-db/" target="_self">
-        <div>
-          记录图数据库相关的疑难杂症  目录 Neo4j  neo4j 1.通讯协议：  Q:  为什么图库使用 neo4j 的 bolt 链接协议，出现了无法找到主节点导致无法写入或者读取的问题？ A：neo4j支持3种通讯协议： bolt+routing（适用于集群） bolt（适用于单机） neo4j（适用于集群） bolt 适用于单节点的图数据库。集群模式下的图库需要支持路由的neo4j协议进行通
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-04-07 10:41" pubdate>
-              2024-04-07
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/graph-db/" class="category-chain-item">graph db</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/graph-db/">#graph db</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
         <a href="/2023/08/08/elasticsearch/" target="_self">
           ElasticSearch源码学习-LTS
         </a>
@@ -646,6 +341,372 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/Linux/">#Linux</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2020/01/01/20250004/" target="_self">
+          记一次天池比赛 - 性能挑战赛道
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250004/" target="_self">
+        <div>
+          叨叨 吐槽一下csdn，现在做的越来越拉胯，查个资料都需要登录之后才能复制代码，这吃相越来越难看，那我为啥还写呢？我实在懒得换平台了 闲的无聊的记录，就是分享一下自己的一点点心得，有什么建议欢迎提出 比赛链接：天池-云上开发，高效智能–阿里云ECS Cloudbuild开发者大赛性能挑战赛道 我参赛的源码github链接  赛题12345678910111213141516171819202122
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-01-01 00:00" pubdate>
+              2020-01-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Java/">#Java</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2020/01/01/20250005/" target="_self">
+          【How-to】性能与扩展性的一点思考
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250005/" target="_self">
+        <div>
+          最近在做性能测试，发现的一些问题和《Java 并发编程》里：”性能与可伸缩性“一章，所描述的场景相似，所以记录、分享出来。  问题描述 QA 发起一笔5并发请求，请求完之后显示超时，测试的第一天立刻检查了日志，发现日志并没有打完，并没有太在意，于是就放到那里了。之后第二天又再次检查了一遍，发现这5笔交易的日志并不是没有打印完毕，而是约在15分钟之后(开始：22:46 -- 结束：23:02)打印
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-01-01 00:00" pubdate>
+              2020-01-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Java/">#Java</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2020/01/01/20250006/" target="_self">
+          【How to】浅谈 Java web应用的优化
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250006/" target="_self">
+        <div>
+          前言 最近项目快要上线了，趁着现在有点想法、有时间就写点文字记录一下  web应用优化之数据库 web应用最最最明显、最最最重要的优化点就是SQL语句了。大家经常自嘲后端不就是个 CRUD boy嘛，增删改查就完事了。其实说的完全没错，能把CRUD 弄好，那web 应用其实就解决了80%的问题。那CRUD 的可优化点在哪里呢？  SQL 查询优化 表的查询自然是第一位，良好的查询语句是高性能的第一
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-01-01 00:00" pubdate>
+              2020-01-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Java/">#Java</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2020/01/01/20250007/" target="_self">
+          【How to】Java后端开发技能树
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250007/" target="_self">
+        <div>
+          前言关于本博客是有关后端开发的技能树总结，目标是涵盖后端开发相关的相关语言知识及相关的中间件，性能测试、性能调优等各个方面的总结。同时也是自我总结、记录的过程。文章会长期进行维护。 正文测试（性能）相关Jmeter1著名的性能测试工具，基于Java的压力测试工具，（以及很好的批量数据造数数据工具）  火焰图Java方法性能分析，通过对JVM方法栈定时采样，生成全局方法的“火焰”图，相关的热点方法就
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-01-01 00:00" pubdate>
+              2020-01-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Java/">#Java</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2020/01/01/20250008/" target="_self">
+          Java元数据和元编程的胡诌诌
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250008/" target="_self">
+        <div>
+          前言今天来简单说说java的元编程与元数据。 为什么想要说这样一个话题，目前其实在java的框架中就会大量应用到元编程、而在我的工作之中会大量使用到元数据进行应用开发。下面先所说的内容只包含我在工作实践、应用的方面理解，而不是整个名词的完整介绍，需要看详细的介绍可以点击 wiki：元编程 和 wiki：元数据查看详细的介绍。 元数据在我的开发工作中，元数据主要是做数据类型约束、接口定义，方法签名定
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-01-01 00:00" pubdate>
+              2020-01-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Java/">#Java</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2020/01/01/20250009/" target="_self">
+          【How-to】java并发编程--线程池
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250009/" target="_self">
+        <div>
+          为什么使用线程池？线程生命周期的开销非常高 1.频繁的创建，销毁线程需要使用额外的时间，资源。  资源消耗 1.若线程过多，会对系统造成巨大负担。 2.空闲的线程过多，会占用大量的内存，给垃圾回收器带来压力。 3.大量的线程竞争CPU会导致过多的CPU上下文切换的开销和性能开销，创建过多的线程会导致性能降低。  稳定性 1.在可创建的线程的数量上存在一个限制。过多的线程可能会导致OutOfMemo
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-01-01 00:00" pubdate>
+              2020-01-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Java/">#Java</a>
             
           </div>
         
