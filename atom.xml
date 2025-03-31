@@ -6,7 +6,7 @@
   <link href="https://www.lewismind.site/atom.xml" rel="self"/>
   
   <link href="https://www.lewismind.site/"/>
-  <updated>2025-03-25T07:26:11.630Z</updated>
+  <updated>2025-03-25T07:25:54.686Z</updated>
   <id>https://www.lewismind.site/</id>
   
   <author>
@@ -15,23 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>CompleteableTask与任务调度</title>
-    <link href="https://www.lewismind.site/2025/03/25/202500010/"/>
-    <id>https://www.lewismind.site/2025/03/25/202500010/</id>
-    <published>2025-03-25T07:21:32.000Z</published>
-    <updated>2025-03-25T07:26:11.630Z</updated>
-    
-    
-    
-    
-    <category term="Java" scheme="https://www.lewismind.site/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://www.lewismind.site/tags/Java/"/>
-    
-  </entry>
   
   <entry>
     <title>大胆向这个世界求助</title>
