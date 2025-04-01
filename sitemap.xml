@@ -235,13 +235,6 @@
   </url>
   
   <url>
-    <loc>https://www.lewismind.site/tags/Linux/</loc>
-    <lastmod>2025-04-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.lewismind.site/tags/ElasticSearch/</loc>
     <lastmod>2025-04-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -250,6 +243,13 @@
   
   <url>
     <loc>https://www.lewismind.site/tags/graph-db/</loc>
+    <lastmod>2025-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lewismind.site/tags/Linux/</loc>
     <lastmod>2025-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
