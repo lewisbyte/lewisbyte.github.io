@@ -204,7 +204,7 @@
     <link href="https://www.lewismind.site/2024/06/27/RDBMS/"/>
     <id>https://www.lewismind.site/2024/06/27/RDBMS/</id>
     <published>2024-06-27T11:56:14.884Z</published>
-    <updated>2025-04-01T09:30:41.891Z</updated>
+    <updated>2025-04-01T09:44:40.595Z</updated>
     
     <content type="html"><![CDATA[<ul><li>记录关系型数据库相关的疑难杂症</li></ul><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul><li><a href="MySQL">MySQL</a></li></ul><h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><ul><li>1.MGR集群查询读取问题:<ul><li>现象: 在业务代码中，有一个插入后立即查询的操作，但是出现了插入数据之后无法立刻查询到该数据的情况。</li><li>分析排查: 这里很容易会联想到2种情况：<ul><li>一：事务等级，合适的事务等级决定了是否能查看到对应的数据，在插入数据后，该事务还没有结束，应该是读未提交的事务隔离等级</li><li>二：数据库是MySQL的多主模式的MGR集群，在对同一个集群的读写操作，可能会出现读写不一致的情况，节点之间可能会存在同步延时，导致数据无法查询到。</li></ul></li><li>测试验证<ul><li>一、检查事务等级：这里如果是事务等级导致的，那么应该所有的数据都不可见，不会出现一部分数据出现，一部分数据可见的随机性错误，这个场景可以排除。</li><li>二、测试MGR集群的一致性：模拟写了一段业务插入后立即查询的操作，10线程并发的压测，每个线程请求10次，总共请求100次，发现有13次的未读取到插入的数据，确定了是MGR的同步问题。</li></ul></li><li>解决:<ul><li>查阅资料之后，了解MGR可以调整数据一致性的等级，默认等级为<code>EVENTUAL</code>，尝试调整为<code>AFTER</code>，用来保证集群各个节点的数据强一致性。</li><li>在MGR集群，group_replication_consistency共 5 个值可选：</li><li><ol><li><code>EVENTUAL</code>：确保最终一致性，并不能保证数据实时同步。(MySQL 8.0.14 之前只有这一个选项)</li></ol></li><li><ol start="2"><li><code>BEFORE</code>：确保本地强一致性，并不保证其他节点数据实时同步。</li></ol></li><li><ol start="3"><li><code>AFTER</code>：确保全局强一致性，可以保证所有节点数据实时同步。</li></ol></li><li><ol start="4"><li><code>BEFORE_AND_AFTER</code>：最高级别，确保本地强一致性，全局强一致性。结合 BEOFRE 和 AFTER 的特- 性。</li></ol></li><li><ol start="5"><li><code>BEFORE_ON_PRIMARY_FAILOVER</code>：确保从节点晋升为主节点后的本地一致性。</li></ol></li></ul></li></ul></li></ul>]]></content>
     
@@ -223,7 +223,7 @@
     <category term="技术开发" scheme="https://www.lewismind.site/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="Linux" scheme="https://www.lewismind.site/tags/Linux/"/>
+    <category term="MySQL" scheme="https://www.lewismind.site/tags/MySQL/"/>
     
   </entry>
   
@@ -258,7 +258,7 @@
     <link href="https://www.lewismind.site/2024/04/07/graph-db/"/>
     <id>https://www.lewismind.site/2024/04/07/graph-db/</id>
     <published>2024-04-07T02:41:06.077Z</published>
-    <updated>2025-04-01T09:30:36.244Z</updated>
+    <updated>2025-04-01T09:44:51.664Z</updated>
     
     <content type="html"><![CDATA[<ul><li>记录图数据库相关的疑难杂症</li></ul><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul><li><a href="neo4j">Neo4j</a></li></ul><h3 id="neo4j"><a href="#neo4j" class="headerlink" title="neo4j"></a>neo4j</h3><ul><li><p>1.通讯协议：</p><ul><li>Q:  为什么图库使用 neo4j 的 bolt 链接协议，出现了无法找到主节点导致无法写入或者读取的问题？</li><li>A：neo4j支持3种通讯协议：<ul><li>bolt+routing（适用于集群）</li><li>bolt（适用于单机）</li><li>neo4j（适用于集群）</li><li>bolt 适用于单节点的图数据库。集群模式下的图库需要支持路由的neo4j协议进行通信，从而将请求转发到对应的数据节点上。</li><li>参考：<a href="https://neo4j.com/docs/driver-manual/1.7/client-applications/#driver-connection-uris">https://neo4j.com/docs/driver-manual/1.7/client-applications/#driver-connection-uris</a></li></ul></li></ul></li><li><p>2.数据库命名规范：</p><ul><li>Q:  为什么出现了图数据库创建失败的问题？</li><li>A：neo4j 有自己的数据库规范，这里需要按照neo4j的规范进行创建，所以对应的图实例也要按照规范进行校验</li></ul></li><li><p>3.边关系查询缓慢：</p><ul><li>Q: 为什么图析界面，点击查询边关系出现超时？</li><li>A： neo4j 4.1.x版本的图库，不支持关系边表索引建立。如图所示通过主键查询的检索模式是 AllNodesScan 全表扫描（性能调优参考：<a href="https://blog.csdn.net/qq_37503890/article/details/102073193%EF%BC%89%EF%BC%8C2%E4%BA%BF%E7%9A%84%E6%95%B0%E6%8D%AE%E9%87%8F%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E9%97%B4%E8%80%97%E6%97%B6%E7%BA%A6%E4%B8%BA10s%E5%B7%A6%E5%8F%B3%E3%80%82">https://blog.csdn.net/qq_37503890/article/details/102073193），2亿的数据量查询的时间耗时约为10s左右。</a><ul><li>解决方案：将关系边数据导入到es，通过es查询，不通过图库查询。</li></ul></li></ul></li><li><p>4.neo4j 的数据库链接泄露，句柄数量增长非常快</p><ul><li>A：数据库链接没有及时释放导致的数据库链接泄露，及时释放neo4j的连接即可<ul><li>微服务句柄数量超过限制问题汇总</li></ul></li></ul></li><li><p>5.neo4j 在使用ETL导入时，出现死锁现象：</p><ul><li><p>Q: 在使用spark 集群对neo4j批量导入关系边数据的时候，总是会出现报错：ForsetiClient can’t acquire ExclusiveLock（参考：<a href="https://github.com/neo4j/neo4j/issues/6248%EF%BC%89">https://github.com/neo4j/neo4j/issues/6248）</a></p></li><li><p>A:</p><ul><li>在使用集群导数，一般是多个作业实例执行导入任务，这里就会出现并发写入的场景。neo4j的边关系写入的操作时，数据库本身会给每一个写入操作的事务分配一把排它锁（exclusiveLock），多并发写入就会出现事务之间锁的争夺情况。在实际的生产环境中观察到，最多有130个事务卡在获取锁，最后导致事务超时，整体数据导入任务失败。</li><li>解决方法是：需要降低单次事务写入数据库的数据量。单次写入大量数据非常耗时，从而降低每次事务的耗时，及时将锁资源释放出来，避免发生事务超时的死锁</li></ul></li></ul></li></ul><p>提高单次事务的超时时间。避免出现多个不同事务之间的锁资源竞争时，没有足够的等待时间，导致的任务失败。<br>调整taurus-app配置，降低etl任务的spark executor的数量。从源头降低并发，减少锁资源竞争<br>调整spark配置：[ spark.dynamicAllocation.enabled    false ] ，关闭 动态资源分配功能<br>调整 etl的spark 任务参数，限制最大：1个instances，1个cores，避免多进程并发写入导致的死锁问题</p><ul><li><p>6.出现报错：Could not perform discovery. No routing servers available</p><ul><li>A：neo4j 的服务宕机，需要管理员维护</li></ul></li><li><p>7.使用文件导入大数据量到neo4j宕机</p><ul><li>A: graph系统在使用文件导入120w条数据，具体表现为会出现jvm内存耗尽，机器不再接受写入请求</li><li>Q: DBA解释为cypher语句太长，堆积在内存中无法释放导致的内存耗尽，需要优化语句，建议使用unwind优化cypher语句</li><li>neo4j批量入数优化分析及实现</li></ul></li><li><ol start="8"><li>数据导入neo4j 出现 heap 堆内存溢出，表现为老年代（old gen）持续增长，不会下降</li></ol></li></ul><p>现象如下图:</p><ul><li>A:<ul><li><p>neo4j批量入数优化分析及实现</p><ul><li>使用csv文件导数到es和图库。由于csv文件非常巨大，发现2个主要问题：</li><li>导数速率很慢，单次只能写入100条数据，如果数据量在50w的实体表，一般就需要耗时1-2小时才能完成导数任务。</li><li>在实现导数的方式上有问题，批量导数实现上本质是拼接一个巨长的cypher语句，在小数据量的情况下不会有什么问题。但是如果在大数据量下，会提交很多的长语句，从而会出现neo4j图库无法及时处理这些超长的cypher语句，堆积在JVM的老年代内存中无法释放，最后neo4j出现内存OOM宕机。</li></ul></li><li><p>优化分析：</p><ul><li>在搞清原因之后，咨询DBA了解到，neo4j不建议使用长语句，最好是使用短语句来插入数据，长语句会产生堆积，进而导致内存不足。但是短语句的矛盾就在于性能低下，我们这里需要使用批量插入的模式提高性能。</li><li>于是在参考了neo4j-spark的源码实现，得到了启发。neo4j官方sprak的导数实现是使用批量插入的模式，不是通过拼接语句的模式。通过使用参数传递模式进行批量插入，以实体插入为例：</li><li>scala源码实现（org.neo4j.spark.service.Neo4jQueryWriteStrategy#createStatementForNodes）：</li><li>编译后的语句：</li><li>with query: UNWIND $events AS event MERGE (node:Human {object_key: event.keys.object_key}) SET node +&#x3D; event.properties</li><li>这里官方实现使用了unwind关键字，这里引用 博文 解释为什么unwind可以加速插入：</li><li>高效的做法是利用Neo4j提供的参数（Parameter）机制和UNWIND子句：在一次数据更新中，进行一次连接，打开一次事务，批量更新数据；参数用于提供列表格式的数据，UNWIND子句是把列表数据展开成一行一行的数据，每行数据都会执行结构相同的Cypher语句。再批量更新图形数据之前，用户必须构造结构固定的、参数化的Cypher语句。当Cypher语句的结构相同时，Neo4j数据库直接从缓存中复用已生成的执行计划，而不需要重新生成，这也能够提高查询性能。</li><li>UNWIND子句把列表式的数据展开成一行一行的数据，每一个行都包含更新所需要的全部信息，列表式的数据，可以通过参数来传递。</li><li>例如，定义参数events，该参数是一个JSON字符串，键events是参数名，其值是一个数组，包含两个数组元素。</li></ul><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br><span class="hljs-attr">&quot;events&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span> <span class="hljs-punctuation">&#123;</span>  <span class="hljs-attr">&quot;year&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-number">2014</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;id&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;year&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-number">2014</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;id&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-number">2</span> <span class="hljs-punctuation">&#125;</span> <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure><ul><li>通过$events引用参数，UNWIND子句把events数组中的两个元素展开，每个元素执行一次Cypher语句，由于Cypher的语句结构固定，因此，执行计划被缓存起来，在执行数据更新任务时，参数被UNWIND子句展开，复用执行计划，提高数据更新的速度。</li><li>实施方法：实体数据批量插入cypher，采用overwrite模式进行数据创建和合并，依据object_key作为唯一键进行对象合并：</li><li>关系边数据批量插入cypher，采用overwrite模式进行数据的创建和合并，依据object_key作为唯一键进行对象合并：</li></ul></li></ul></li></ul>]]></content>
     
@@ -277,7 +277,7 @@
     <category term="技术开发" scheme="https://www.lewismind.site/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="graph db" scheme="https://www.lewismind.site/tags/graph-db/"/>
+    <category term="neo4j" scheme="https://www.lewismind.site/tags/neo4j/"/>
     
   </entry>
   
@@ -362,6 +362,33 @@
   </entry>
   
   <entry>
+    <title>【How-to】性能与扩展性的一点思考</title>
+    <link href="https://www.lewismind.site/2020/01/01/20250005/"/>
+    <id>https://www.lewismind.site/2020/01/01/20250005/</id>
+    <published>2019-12-31T16:00:00.000Z</published>
+    <updated>2025-04-01T09:30:10.182Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>最近在做性能测试，发现的一些问题和《Java 并发编程》里：”性能与可伸缩性“一章，所描述的场景相似，所以记录、分享出来。</li></ul><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><ul><li>QA 发起一笔5并发请求，请求完之后显示超时，测试的第一天立刻检查了日志，发现日志并没有打完，并没有太在意，于是就放到那里了。之后第二天又再次检查了一遍，发现这5笔交易的日志并不是没有打印完毕，而是约在15分钟之后(<code>开始：22:46 -- 结束：23:02</code>)打印出来了，全部都是显示事务超时。</li></ul><h4 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h4><ul><li>我检查了这个接口的超时耗时配置为（250s）。所以如果这里5笔并发请求会串行执行总耗时约为：20.8 分钟。猜测这里可能是这些接口耗时配置的太长，导致（数据库表锁）资源没有释放，请求全部阻塞等待，导致全部超时失败。</li></ul><h4 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h4><ol><li><p>猜想分析：统计了这5笔的请求总共的执行时间，果然是我和之前的猜想一致，5笔的交易按照串行的模式总共执行了20分钟。基本也验证了前面的猜想。</p></li><li><p>继续看打印完整的日志，发现所有的日志卡住在一个<code>交易流水表</code>的<code>insert</code> 的操作。先说一点前提：目前的应用中，每次接口的请求响应前，会将所有的请求信息登记到<code>交易流水表</code>中，也就是说：表锁导致了应用的串行化执行。于此同时就意味着，数据库表的性能决定了应用的性能上限了。</p></li><li><p>解决方案：调低每笔交易的超时时长，避免每笔请求长时间的占用公共表锁资源，目前表锁定的原因暂时不明，还在排查中。</p></li><li><p>系统提供了<code>交易流水表</code>的多个分片处理，可以路由到不同分片中。从原本都要获取同一张表资源，现在可以实现多张表的资源，降低了系统资源竞争。</p></li></ol><h4 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h4><ol><li>从前面的问题我们很容易发现，系统这种<code>热点域</code>的设计，在并发请求的场景下，由于某些原因很容易导致系统变成串行、效率低下、甚至是不可用的情况。</li></ol><h4 id="HashTable-与-ConcurrentHashMap-优化"><a href="#HashTable-与-ConcurrentHashMap-优化" class="headerlink" title="HashTable 与 ConcurrentHashMap 优化"></a>HashTable 与 ConcurrentHashMap 优化</h4><ul><li>其实这样的问题很容易从前人的系统设计中找到类似的问题，对比经典的 <code>HashTable</code>到<code>ConcurrentHashMap</code>改进，<code>JDK</code> 做了从<code>单一的synchronize-排它锁</code>改进为 <code>多个segment的分段锁</code>，这里将锁的粒度细粒度化，可以提供更高的并发，提供了更强大的横向扩展能力。</li></ul><h4 id="水平扩展"><a href="#水平扩展" class="headerlink" title="水平扩展"></a>水平扩展</h4><p>那么究竟怎样可以提供一个良好的水平扩展能力呢？《Java并发编程实战》给出以下的优化点</p><h5 id="软件设计层面"><a href="#软件设计层面" class="headerlink" title="软件设计层面"></a>软件设计层面</h5><ol><li>发现在框架中隐藏的串行部分：串行的部分往往是性能瓶颈部分，它阻碍了系统的扩展性、并发度</li></ol><h5 id="代码层面"><a href="#代码层面" class="headerlink" title="代码层面"></a>代码层面</h5><ol><li>避免热点域（本文）</li><li>减少线程上下文的切换</li><li>减小锁的范围：同步代码块里的代码越少越好</li><li>减小锁的粒度：锁分段</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;最近在做性能测试，发现的一些问题和《Java 并发编程》里：”性能与可伸缩性“一章，所描述的场景相似，所以记录、分享出来。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题</summary>
+      
+    
+    
+    
+    <category term="技术开发" scheme="https://www.lewismind.site/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="Java" scheme="https://www.lewismind.site/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【How to】浅谈 Java web应用的优化</title>
     <link href="https://www.lewismind.site/2020/01/01/20250006/"/>
     <id>https://www.lewismind.site/2020/01/01/20250006/</id>
@@ -401,33 +428,6 @@
       
       
     <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;关于本博客是有关后端开发的技能树总结，目标是涵盖后端开发相关的相关语言知识及相关的中间件，性能测试、性能调优等各个方面的总结。同时也是自我总</summary>
-      
-    
-    
-    
-    <category term="技术开发" scheme="https://www.lewismind.site/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="Java" scheme="https://www.lewismind.site/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【How-to】性能与扩展性的一点思考</title>
-    <link href="https://www.lewismind.site/2020/01/01/20250005/"/>
-    <id>https://www.lewismind.site/2020/01/01/20250005/</id>
-    <published>2019-12-31T16:00:00.000Z</published>
-    <updated>2025-04-01T09:30:10.182Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li>最近在做性能测试，发现的一些问题和《Java 并发编程》里：”性能与可伸缩性“一章，所描述的场景相似，所以记录、分享出来。</li></ul><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><ul><li>QA 发起一笔5并发请求，请求完之后显示超时，测试的第一天立刻检查了日志，发现日志并没有打完，并没有太在意，于是就放到那里了。之后第二天又再次检查了一遍，发现这5笔交易的日志并不是没有打印完毕，而是约在15分钟之后(<code>开始：22:46 -- 结束：23:02</code>)打印出来了，全部都是显示事务超时。</li></ul><h4 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h4><ul><li>我检查了这个接口的超时耗时配置为（250s）。所以如果这里5笔并发请求会串行执行总耗时约为：20.8 分钟。猜测这里可能是这些接口耗时配置的太长，导致（数据库表锁）资源没有释放，请求全部阻塞等待，导致全部超时失败。</li></ul><h4 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h4><ol><li><p>猜想分析：统计了这5笔的请求总共的执行时间，果然是我和之前的猜想一致，5笔的交易按照串行的模式总共执行了20分钟。基本也验证了前面的猜想。</p></li><li><p>继续看打印完整的日志，发现所有的日志卡住在一个<code>交易流水表</code>的<code>insert</code> 的操作。先说一点前提：目前的应用中，每次接口的请求响应前，会将所有的请求信息登记到<code>交易流水表</code>中，也就是说：表锁导致了应用的串行化执行。于此同时就意味着，数据库表的性能决定了应用的性能上限了。</p></li><li><p>解决方案：调低每笔交易的超时时长，避免每笔请求长时间的占用公共表锁资源，目前表锁定的原因暂时不明，还在排查中。</p></li><li><p>系统提供了<code>交易流水表</code>的多个分片处理，可以路由到不同分片中。从原本都要获取同一张表资源，现在可以实现多张表的资源，降低了系统资源竞争。</p></li></ol><h4 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h4><ol><li>从前面的问题我们很容易发现，系统这种<code>热点域</code>的设计，在并发请求的场景下，由于某些原因很容易导致系统变成串行、效率低下、甚至是不可用的情况。</li></ol><h4 id="HashTable-与-ConcurrentHashMap-优化"><a href="#HashTable-与-ConcurrentHashMap-优化" class="headerlink" title="HashTable 与 ConcurrentHashMap 优化"></a>HashTable 与 ConcurrentHashMap 优化</h4><ul><li>其实这样的问题很容易从前人的系统设计中找到类似的问题，对比经典的 <code>HashTable</code>到<code>ConcurrentHashMap</code>改进，<code>JDK</code> 做了从<code>单一的synchronize-排它锁</code>改进为 <code>多个segment的分段锁</code>，这里将锁的粒度细粒度化，可以提供更高的并发，提供了更强大的横向扩展能力。</li></ul><h4 id="水平扩展"><a href="#水平扩展" class="headerlink" title="水平扩展"></a>水平扩展</h4><p>那么究竟怎样可以提供一个良好的水平扩展能力呢？《Java并发编程实战》给出以下的优化点</p><h5 id="软件设计层面"><a href="#软件设计层面" class="headerlink" title="软件设计层面"></a>软件设计层面</h5><ol><li>发现在框架中隐藏的串行部分：串行的部分往往是性能瓶颈部分，它阻碍了系统的扩展性、并发度</li></ol><h5 id="代码层面"><a href="#代码层面" class="headerlink" title="代码层面"></a>代码层面</h5><ol><li>避免热点域（本文）</li><li>减少线程上下文的切换</li><li>减小锁的范围：同步代码块里的代码越少越好</li><li>减小锁的粒度：锁分段</li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ul&gt;
-&lt;li&gt;最近在做性能测试，发现的一些问题和《Java 并发编程》里：”性能与可伸缩性“一章，所描述的场景相似，所以记录、分享出来。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题</summary>
       
     
     

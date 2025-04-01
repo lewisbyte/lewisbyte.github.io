@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.lewismind.site/2025/04/01/20250010/</loc>
+    <loc>https://www.lewismind.site/2024/04/07/graph-db/</loc>
     
     <lastmod>2025-04-01</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>https://www.lewismind.site/2023/07/03/linux/</loc>
+    <loc>https://www.lewismind.site/2025/04/01/20250010/</loc>
     
     <lastmod>2025-04-01</lastmod>
     
@@ -29,7 +29,7 @@
   </url>
   
   <url>
-    <loc>https://www.lewismind.site/2024/04/07/graph-db/</loc>
+    <loc>https://www.lewismind.site/2023/07/03/linux/</loc>
     
     <lastmod>2025-04-01</lastmod>
     
@@ -235,6 +235,13 @@
   </url>
   
   <url>
+    <loc>https://www.lewismind.site/tags/MySQL/</loc>
+    <lastmod>2025-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.lewismind.site/tags/ElasticSearch/</loc>
     <lastmod>2025-04-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -242,7 +249,7 @@
   </url>
   
   <url>
-    <loc>https://www.lewismind.site/tags/graph-db/</loc>
+    <loc>https://www.lewismind.site/tags/neo4j/</loc>
     <lastmod>2025-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
