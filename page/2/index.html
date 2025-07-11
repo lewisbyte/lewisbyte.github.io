@@ -232,6 +232,67 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2024/06/05/es_read_only_allow_delete/" target="_self">
+          es索引数据写入异常问题排查
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/06/05/es_read_only_allow_delete/" target="_self">
+        <div>
+          目录 环境信息 现象 分析 源码调试解析过程  环境信息 elasticsearch 6.8.2 jdk-8 cpu-24核心、64gb内存 数据量：943GB  现象 1.在进行对索引写入数据的时候，报出异常：forbidden/12/index read-only / allow delete (api) status 403       单节点批量写入数据，性能较低，2亿条数据，导数耗时5个
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-06-05 10:46" pubdate>
+              2024-06-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" class="category-chain-item">技术开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ElasticSearch/">#ElasticSearch</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2024/04/07/graph-db/" target="_self">
           图数据库相关
         </a>
@@ -415,15 +476,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2020/01/01/20250004/" target="_self">
-          记一次天池比赛 - 性能挑战赛道
+        <a href="/2020/01/01/20250005/" target="_self">
+          【How-to】性能与扩展性的一点思考
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250004/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250005/" target="_self">
         <div>
-          叨叨 吐槽一下csdn，现在做的越来越拉胯，查个资料都需要登录之后才能复制代码，这吃相越来越难看，那我为啥还写呢？我实在懒得换平台了 闲的无聊的记录，就是分享一下自己的一点点心得，有什么建议欢迎提出 比赛链接：天池-云上开发，高效智能–阿里云ECS Cloudbuild开发者大赛性能挑战赛道 我参赛的源码github链接  赛题12345678910111213141516171819202122
+          最近在做性能测试，发现的一些问题和《Java 并发编程》里：”性能与可伸缩性“一章，所描述的场景相似，所以记录、分享出来。  问题描述 QA 发起一笔5并发请求，请求完之后显示超时，测试的第一天立刻检查了日志，发现日志并没有打完，并没有太在意，于是就放到那里了。之后第二天又再次检查了一遍，发现这5笔交易的日志并不是没有打印完毕，而是约在15分钟之后(开始：22:46 -- 结束：23:02)打印
         </div>
       </a>
 
@@ -476,15 +537,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2020/01/01/20250005/" target="_self">
-          【How-to】性能与扩展性的一点思考
+        <a href="/2020/01/01/20250004/" target="_self">
+          记一次天池比赛 - 性能挑战赛道
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250005/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250004/" target="_self">
         <div>
-          最近在做性能测试，发现的一些问题和《Java 并发编程》里：”性能与可伸缩性“一章，所描述的场景相似，所以记录、分享出来。  问题描述 QA 发起一笔5并发请求，请求完之后显示超时，测试的第一天立刻检查了日志，发现日志并没有打完，并没有太在意，于是就放到那里了。之后第二天又再次检查了一遍，发现这5笔交易的日志并不是没有打印完毕，而是约在15分钟之后(开始：22:46 -- 结束：23:02)打印
+          叨叨 吐槽一下csdn，现在做的越来越拉胯，查个资料都需要登录之后才能复制代码，这吃相越来越难看，那我为啥还写呢？我实在懒得换平台了 闲的无聊的记录，就是分享一下自己的一点点心得，有什么建议欢迎提出 比赛链接：天池-云上开发，高效智能–阿里云ECS Cloudbuild开发者大赛性能挑战赛道 我参赛的源码github链接  赛题12345678910111213141516171819202122
         </div>
       </a>
 
