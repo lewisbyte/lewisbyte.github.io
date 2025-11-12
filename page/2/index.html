@@ -232,15 +232,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/11/11/0002-es/" target="_self">
-          【ES源码探索-0002】- 源码的模块
+        <a href="/2025/11/11/0003-es/" target="_self">
+          【ES源码探索-0003】- Distributed Area Internals 文档翻译
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/11/11/0002-es/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/11/11/0003-es/" target="_self">
         <div>
-          目录 benchmarks build-conventions build-tools build-tools-internal client-benchmark-noop-api-plugin dev-tools distribution docs  benchmarks 是 Elasticsearch 生态系统中的一个工具，用于衡量和优化 Elasticsearch 集群的性能。它通常与 El
+          原文链接 - Distributed Area Internals  译文 - 分布式架构指南分布式区域内部分布式区域包含索引和协调系统。 索引路径从用户REST命令通过分片路由延伸到每个独立分片 translog 和 存储引擎. 重建索引实际上是从源索引读取并写入到目标索引（可能在不同的节点上）. 协调方面包含集群协调，分片分配，集群弹性伸缩统计，任务管理和跨集群复制，明显协调系统包含网络，服
         </div>
       </a>
 
@@ -293,15 +293,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/11/11/0003-es/" target="_self">
-          【ES源码探索-0003】- Distributed Area Internals 文档翻译
+        <a href="/2025/11/11/0001-es/" target="_self">
+          【ES源码探索-0001】- 如何编译和远程调试elasticsearch源码
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/11/11/0003-es/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/11/11/0001-es/" target="_self">
         <div>
-          原文链接 - Distributed Area Internals  译文 - 分布式架构指南分布式区域内部分布式区域包含索引和协调系统。 索引路径从用户REST命令通过分片路由延伸到每个独立分片 translog 和 存储引擎. 重建索引实际上是从源索引读取并写入到目标索引（可能在不同的节点上）. 协调方面包含集群协调，分片分配，集群弹性伸缩统计，任务管理和跨集群复制，明显协调系统包含网络，服
+          目录 如何编译 如何调试 遇到问题  如何编译  下载最新elasticsearch源码，准备相关运行环境，将jdk8、jdk11、jdk17、jdk21配置到环境变量，    123456789101112131415161718192021# .bash_profile# Get the aliases and functionsif [ -f ~/.bashrc ]; then
         </div>
       </a>
 
@@ -598,76 +598,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2020/01/01/20250006/" target="_self">
-          【How to】浅谈 Java web应用的优化
+        <a href="/2020/01/01/20250005/" target="_self">
+          【How-to】性能与扩展性的一点思考
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250006/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250005/" target="_self">
         <div>
-          前言 最近项目快要上线了，趁着现在有点想法、有时间就写点文字记录一下  web应用优化之数据库 web应用最最最明显、最最最重要的优化点就是SQL语句了。大家经常自嘲后端不就是个 CRUD boy嘛，增删改查就完事了。其实说的完全没错，能把CRUD 弄好，那web 应用其实就解决了80%的问题。那CRUD 的可优化点在哪里呢？  SQL 查询优化 表的查询自然是第一位，良好的查询语句是高性能的第一
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-01-01 00:00" pubdate>
-              2020-01-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" class="category-chain-item">技术开发</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Java/">#Java</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2020/01/01/20250007/" target="_self">
-          【How to】Java后端开发技能树
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250007/" target="_self">
-        <div>
-          前言关于本博客是有关后端开发的技能树总结，目标是涵盖后端开发相关的相关语言知识及相关的中间件，性能测试、性能调优等各个方面的总结。同时也是自我总结、记录的过程。文章会长期进行维护。 正文测试（性能）相关Jmeter1著名的性能测试工具，基于Java的压力测试工具，（以及很好的批量数据造数数据工具）  火焰图Java方法性能分析，通过对JVM方法栈定时采样，生成全局方法的“火焰”图，相关的热点方法就
+          最近在做性能测试，发现的一些问题和《Java 并发编程》里：”性能与可伸缩性“一章，所描述的场景相似，所以记录、分享出来。  问题描述 QA 发起一笔5并发请求，请求完之后显示超时，测试的第一天立刻检查了日志，发现日志并没有打完，并没有太在意，于是就放到那里了。之后第二天又再次检查了一遍，发现这5笔交易的日志并不是没有打印完毕，而是约在15分钟之后(开始：22:46 -- 结束：23:02)打印
         </div>
       </a>
 
@@ -781,15 +720,76 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2020/01/01/20250008/" target="_self">
-          Java元数据和元编程的胡诌诌
+        <a href="/2020/01/01/20250006/" target="_self">
+          【How to】浅谈 Java web应用的优化
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250008/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250006/" target="_self">
         <div>
-          前言今天来简单说说java的元编程与元数据。 为什么想要说这样一个话题，目前其实在java的框架中就会大量应用到元编程、而在我的工作之中会大量使用到元数据进行应用开发。下面先所说的内容只包含我在工作实践、应用的方面理解，而不是整个名词的完整介绍，需要看详细的介绍可以点击 wiki：元编程 和 wiki：元数据查看详细的介绍。 元数据在我的开发工作中，元数据主要是做数据类型约束、接口定义，方法签名定
+          前言 最近项目快要上线了，趁着现在有点想法、有时间就写点文字记录一下  web应用优化之数据库 web应用最最最明显、最最最重要的优化点就是SQL语句了。大家经常自嘲后端不就是个 CRUD boy嘛，增删改查就完事了。其实说的完全没错，能把CRUD 弄好，那web 应用其实就解决了80%的问题。那CRUD 的可优化点在哪里呢？  SQL 查询优化 表的查询自然是第一位，良好的查询语句是高性能的第一
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-01-01 00:00" pubdate>
+              2020-01-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" class="category-chain-item">技术开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Java/">#Java</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2020/01/01/20250007/" target="_self">
+          【How to】Java后端开发技能树
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250007/" target="_self">
+        <div>
+          前言关于本博客是有关后端开发的技能树总结，目标是涵盖后端开发相关的相关语言知识及相关的中间件，性能测试、性能调优等各个方面的总结。同时也是自我总结、记录的过程。文章会长期进行维护。 正文测试（性能）相关Jmeter1著名的性能测试工具，基于Java的压力测试工具，（以及很好的批量数据造数数据工具）  火焰图Java方法性能分析，通过对JVM方法栈定时采样，生成全局方法的“火焰”图，相关的热点方法就
         </div>
       </a>
 
