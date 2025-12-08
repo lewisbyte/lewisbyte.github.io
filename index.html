@@ -333,15 +333,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/11/11/RDBMS/" target="_self">
-          关系型数据库相关
+        <a href="/2025/11/11/graph-db/" target="_self">
+          图数据库相关
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/11/11/RDBMS/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/11/11/graph-db/" target="_self">
         <div>
-          记录关系型数据库相关的疑难杂症  目录 MySQL  MySQL 1.MGR集群查询读取问题: 现象: 在业务代码中，有一个插入后立即查询的操作，但是出现了插入数据之后无法立刻查询到该数据的情况。 分析排查: 这里很容易会联想到2种情况： 一：事务等级，合适的事务等级决定了是否能查看到对应的数据，在插入数据后，该事务还没有结束，应该是读未提交的事务隔离等级 二：数据库是MySQL的多主模式的MG
+          记录图数据库相关的疑难杂症  目录 Neo4j  neo4j 1.通讯协议：  Q:  为什么图库使用 neo4j 的 bolt 链接协议，出现了无法找到主节点导致无法写入或者读取的问题？ A：neo4j支持3种通讯协议： bolt+routing（适用于集群） bolt（适用于单机） neo4j（适用于集群） bolt 适用于单节点的图数据库。集群模式下的图库需要支持路由的neo4j协议进行通
         </div>
       </a>
 
@@ -380,7 +380,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/MySQL/">#MySQL</a>
+              <a href="/tags/neo4j/">#neo4j</a>
             
           </div>
         
@@ -455,6 +455,67 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2025/11/11/RDBMS/" target="_self">
+          关系型数据库相关
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/11/11/RDBMS/" target="_self">
+        <div>
+          记录关系型数据库相关的疑难杂症  目录 MySQL  MySQL 1.MGR集群查询读取问题: 现象: 在业务代码中，有一个插入后立即查询的操作，但是出现了插入数据之后无法立刻查询到该数据的情况。 分析排查: 这里很容易会联想到2种情况： 一：事务等级，合适的事务等级决定了是否能查看到对应的数据，在插入数据后，该事务还没有结束，应该是读未提交的事务隔离等级 二：数据库是MySQL的多主模式的MG
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-11-11 14:33" pubdate>
+              2025-11-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" class="category-chain-item">技术开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MySQL/">#MySQL</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2025/11/11/elasticsearch/" target="_self">
           ElasticSearch源码学习-LTS
         </a>
@@ -503,67 +564,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/ElasticSearch/">#ElasticSearch</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/11/11/graph-db/" target="_self">
-          图数据库相关
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/11/11/graph-db/" target="_self">
-        <div>
-          记录图数据库相关的疑难杂症  目录 Neo4j  neo4j 1.通讯协议：  Q:  为什么图库使用 neo4j 的 bolt 链接协议，出现了无法找到主节点导致无法写入或者读取的问题？ A：neo4j支持3种通讯协议： bolt+routing（适用于集群） bolt（适用于单机） neo4j（适用于集群） bolt 适用于单节点的图数据库。集群模式下的图库需要支持路由的neo4j协议进行通
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-11-11 14:33" pubdate>
-              2025-11-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" class="category-chain-item">技术开发</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/neo4j/">#neo4j</a>
             
           </div>
         
@@ -760,15 +760,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/11/11/0002-es/" target="_self">
-          【ES源码探索-0002】- 源码的模块
+        <a href="/2025/11/11/0001-es/" target="_self">
+          【ES源码探索-0001】- 如何编译和远程调试elasticsearch源码
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/11/11/0002-es/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/11/11/0001-es/" target="_self">
         <div>
-          目录 benchmarks build-conventions build-tools build-tools-internal client-benchmark-noop-api-plugin dev-tools distribution docs  benchmarks 是 Elasticsearch 生态系统中的一个工具，用于衡量和优化 Elasticsearch 集群的性能。它通常与 El
+          目录 如何编译 如何调试 遇到问题  如何编译  下载最新elasticsearch源码，准备相关运行环境，将jdk8、jdk11、jdk17、jdk21配置到环境变量，    123456789101112131415161718192021# .bash_profile# Get the aliases and functionsif [ -f ~/.bashrc ]; then
         </div>
       </a>
 
