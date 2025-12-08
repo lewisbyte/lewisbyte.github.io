@@ -4,7 +4,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
-    <meta name="description" content="【ES源码探索-0003】- Distributed Area Internals 文档翻译" />
+    <meta name="description" content="about" />
     <meta name="hexo-theme-A4" content="v2.0.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>保持好奇心 | lewis的随笔记录</title>
@@ -110,10 +110,6 @@
         
         
             
-                <div class="left-toc-container">
-                    <nav id="toc" class="bs-docs-sidebar"></nav>
-                </div>
-            
         
         <div class="paper">
 
@@ -166,95 +162,18 @@
     
 
     
-        
-            
-                <div class="post-main-title" style="text-align: center;">
-                    【ES源码探索-0003】- Distributed Area Internals 文档翻译
-                </div>
-            
-        
-      
-    
 
-    
-
-        
-            <div class="post-head-meta-center">
-        
-                
-                    <span>最近更新：2025-11-11</span> 
-                
-                
-                    
-                        &nbsp; | &nbsp;
-                    
-                     <span>字数总计：561</span>
-                
-                
-                    
-                        &nbsp; | &nbsp;
-                    
-                    <span>阅读估时：2分钟</span>
-                
-                
-                    
-                        &nbsp; | &nbsp;
-                    
-                    <span id="busuanzi_container_page_pv">
-                        阅读量：<span id="busuanzi_value_page_pv"></span>次
-                    </span>
-                
-            </div>
     
 
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%AF%91%E6%96%87-%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E6%8C%87%E5%8D%97"><span class="post-toc-text">译文 - 分布式架构指南</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%8C%BA%E5%9F%9F%E5%86%85%E9%83%A8"><span class="post-toc-text">分布式区域内部</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%BD%91%E7%BB%9C"><span class="post-toc-text">网络</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="post-toc-text">线程池</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8A%A8%E4%BD%9C%E7%9B%91%E5%90%AC%E5%99%A8"><span class="post-toc-text">动作监听器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#REST-%E5%B1%82"><span class="post-toc-text">REST 层</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#REST%E6%93%8D%E4%BD%9C%E6%98%AF%E5%A6%82%E4%BD%95%E4%B8%8ETransport%E6%93%8D%E4%BD%9C%E8%BF%9E%E6%8E%A5"><span class="post-toc-text">REST操作是如何与Transport操作连接</span></a></li></ol></li></ol>
-            
         
-        <div class=".article-gallery"><ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/elastic/elasticsearch/blob/e7bbcb98834156f2dbfa1dd9a86c22a33cfbab23/docs/internal/DistributedArchitectureGuide.md">原文链接 - Distributed Area Internals</a></li>
-</ul>
-<h2 id="译文-分布式架构指南"><a href="#译文-分布式架构指南" class="headerlink" title="译文 - 分布式架构指南"></a>译文 - 分布式架构指南</h2><h2 id="分布式区域内部"><a href="#分布式区域内部" class="headerlink" title="分布式区域内部"></a>分布式区域内部</h2><p>分布式区域包含索引和协调系统。</p>
-<p>索引路径从用户<code>REST</code>命令通过分片路由延伸到每个独立分片 <code>translog</code> 和 存储引擎. 重建索引实际上是从源索引读取并写入到目标索引（可能在不同的节点上）. 协调方面包含集群协调，分片分配，集群弹性伸缩统计，任务管理和跨集群复制，明显协调系统包含网络，服务发现插件系统，快照&#x2F;恢复逻辑和分片恢复。</p>
-<p>一份通用的Elasticsearch组件指南可以查阅<a target="_blank" rel="noopener" href="https://github.com/elastic/elasticsearch/blob/main/docs/internal/GeneralArchitectureGuide.md">这里</a></p>
-<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><p>(我们有很多线程池，是什么以及为什么)</p>
-<h3 id="动作监听器"><a href="#动作监听器" class="headerlink" title="动作监听器"></a>动作监听器</h3><p>查阅<a target="_blank" rel="noopener" href="https://github.com/elastic/elasticsearch/blob/main/server/src/main/java/org/elasticsearch/action/ActionListener.java">Java文档<code>ActionListener</code></a></p>
-<p>(待办事项：为一系列 Listener 类添加有用的入门参考和解释。参考 Netty 部分。)</p>
-<h3 id="REST-层"><a href="#REST-层" class="headerlink" title="REST 层"></a>REST 层</h3><p>REST和传输层通过<code>ActionModule</code>绑定在一起.在 <code>ActionModule#initRestHandlers</code> 使用 <code>RestController</code> 注册所有 REST 操作，并将传入请求与特定 REST 操作进行匹配.<code>RestController#registerHandler</code> 使用 <code>Rest*Action</code> 的 <code>#routes()</code> 实现将 HTTP 请求与特定的 <code>Rest*Action</code> 进行匹配。通常，REST操作遵循类命名约定<code>Rest*Action</code>，这使得它们更容易被找到，但并不总是可以找到。<code>#routes()</code>的定义也有助于查找 REST 操作。<code>RestController#dispatchRequest</code> 最终会在<code>RestHandler</code>的实现上调用<code>#handleRequest</code>.<code>RestHandler</code> 是 <code>BaseRestHandler</code>的基类，大多数 <code>Rest*Action</code> 实例都对<code>BaseRestHandler</code>其进行了扩展以实现特定的 REST 操作。</p>
-<p><code>BaseRestHandler#handleRequest</code> 调用 <code>BaseRestHandler#prepareRequest</code>, 其<code>Rest*Action</code>继承的子类实现特定的操作。 <code>RestController#dispatchRequest</code> 通过 <code>RestHandler#handleRequest</code> 将 <code>RestChannel</code> 传递给 <code>Rest*Action</code>：<code>Rest*Action#prepareRequest</code> 实现返回一个 <code>RestChannelConsumer</code>，定义如何在通道上执行操作和回复（通常以完成 ActionListener 包装器的形式）。<code>Rest*Action#prepareRequest</code> 实现负责解析传入的请求，并验证请求的结构是否有效。<code>BaseRestHandler#handleRequest</code> 随后将检查所有请求参数是否已被使用：意外的请求参数会导致错误。</p>
-<h3 id="REST操作是如何与Transport操作连接"><a href="#REST操作是如何与Transport操作连接" class="headerlink" title="REST操作是如何与Transport操作连接"></a>REST操作是如何与Transport操作连接</h3><p>Rest层使用<code>AbstractClient</code>的实现.<code>BaseRestHandler#prepareRequest</code> 使用 <code>NodeClient</code> 客户端：此客户端知道如何连接到指定的 TransportAction。</p>
-</div>
+        <div class=".article-gallery"></div>
     </div>
 
     <div class="post-meta">
         <i>
-        
-            <span>2025-11-11</span>
-            
-                <span>该篇文章被 lewis</span>
-            
-            
-                <span>打上标签:
-                    
-                    
-                        <a href='/tags/elasticsearch/'>
-                            elasticsearch
-                        </a>
-                    
-                </span>
-             
-             
-                <span>归为分类:
-                    
-                    
-                        <a href='/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/'>
-                            技术开发
-                        </a>
-                    
-                </span>
-            
         
         </i>
     </div>
@@ -266,12 +185,7 @@
     
             <div class="post-footer-pre-next">
                 
-                    <span>上一篇：<a href='/2025/11/11/0002-es/'>【ES源码探索-0002】- 源码的模块</a></span>
-                
 
-                
-                    <span class="post-footer-pre-next-last-span-right">下一篇：<a href="/2025/08/27/20250013/">marc转bibframe的困境和挑战</a>
-                    </span>
                 
             </div>
     
