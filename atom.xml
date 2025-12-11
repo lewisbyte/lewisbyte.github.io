@@ -3,11 +3,11 @@
   <title>保持好奇心</title>
   
   <subtitle>lewis的随笔记录</subtitle>
-  <link href="https://www.lewismind.site/atom.xml" rel="self"/>
+  <link href="https://lewisbyte.github.io/atom.xml" rel="self"/>
   
-  <link href="https://www.lewismind.site/"/>
+  <link href="https://lewisbyte.github.io/"/>
   <updated>2025-12-09T01:52:20.984Z</updated>
-  <id>https://www.lewismind.site/</id>
+  <id>https://lewisbyte.github.io/</id>
   
   <author>
     <name>lewis</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Linux应用性能调优-LTS</title>
-    <link href="https://www.lewismind.site/2025/12/09/linux/"/>
-    <id>https://www.lewismind.site/2025/12/09/linux/</id>
+    <link href="https://lewisbyte.github.io/2025/12/09/linux/"/>
+    <id>https://lewisbyte.github.io/2025/12/09/linux/</id>
     <published>2025-12-09T01:52:20.984Z</published>
     <updated>2025-12-09T01:52:20.984Z</updated>
     
@@ -37,17 +37,17 @@
     
     
     
-    <category term="技术开发" scheme="https://www.lewismind.site/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="Linux" scheme="https://www.lewismind.site/tags/Linux/"/>
+    <category term="Linux" scheme="https://lewisbyte.github.io/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>es索引数据写入异常问题排查</title>
-    <link href="https://www.lewismind.site/2025/12/09/es_read_only_allow_delete/"/>
-    <id>https://www.lewismind.site/2025/12/09/es_read_only_allow_delete/</id>
+    <link href="https://lewisbyte.github.io/2025/12/09/es_read_only_allow_delete/"/>
+    <id>https://lewisbyte.github.io/2025/12/09/es_read_only_allow_delete/</id>
     <published>2025-12-09T01:52:20.951Z</published>
     <updated>2025-12-09T01:52:20.951Z</updated>
     
@@ -63,17 +63,17 @@
     
     
     
-    <category term="技术开发" scheme="https://www.lewismind.site/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="ElasticSearch" scheme="https://www.lewismind.site/tags/ElasticSearch/"/>
+    <category term="ElasticSearch" scheme="https://lewisbyte.github.io/tags/ElasticSearch/"/>
     
   </entry>
   
   <entry>
     <title>ElasticSearch源码学习-LTS</title>
-    <link href="https://www.lewismind.site/2025/12/09/elasticsearch/"/>
-    <id>https://www.lewismind.site/2025/12/09/elasticsearch/</id>
+    <link href="https://lewisbyte.github.io/2025/12/09/elasticsearch/"/>
+    <id>https://lewisbyte.github.io/2025/12/09/elasticsearch/</id>
     <published>2025-12-09T01:52:20.951Z</published>
     <updated>2025-12-09T01:52:20.951Z</updated>
     
@@ -90,17 +90,17 @@
     
     
     
-    <category term="技术开发" scheme="https://www.lewismind.site/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="ElasticSearch" scheme="https://www.lewismind.site/tags/ElasticSearch/"/>
+    <category term="ElasticSearch" scheme="https://lewisbyte.github.io/tags/ElasticSearch/"/>
     
   </entry>
   
   <entry>
     <title>图数据库相关</title>
-    <link href="https://www.lewismind.site/2025/12/09/graph-db/"/>
-    <id>https://www.lewismind.site/2025/12/09/graph-db/</id>
+    <link href="https://lewisbyte.github.io/2025/12/09/graph-db/"/>
+    <id>https://lewisbyte.github.io/2025/12/09/graph-db/</id>
     <published>2025-12-09T01:52:20.951Z</published>
     <updated>2025-12-09T01:52:20.951Z</updated>
     
@@ -118,17 +118,17 @@
     
     
     
-    <category term="技术开发" scheme="https://www.lewismind.site/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="neo4j" scheme="https://www.lewismind.site/tags/neo4j/"/>
+    <category term="neo4j" scheme="https://lewisbyte.github.io/tags/neo4j/"/>
     
   </entry>
   
   <entry>
     <title>关系型数据库相关</title>
-    <link href="https://www.lewismind.site/2025/12/09/RDBMS/"/>
-    <id>https://www.lewismind.site/2025/12/09/RDBMS/</id>
+    <link href="https://lewisbyte.github.io/2025/12/09/RDBMS/"/>
+    <id>https://lewisbyte.github.io/2025/12/09/RDBMS/</id>
     <published>2025-12-09T01:52:20.950Z</published>
     <updated>2025-12-09T01:52:20.951Z</updated>
     
@@ -146,70 +146,17 @@
     
     
     
-    <category term="技术开发" scheme="https://www.lewismind.site/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="MySQL" scheme="https://www.lewismind.site/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>技术点总结</title>
-    <link href="https://www.lewismind.site/2025/12/09/20250001/"/>
-    <id>https://www.lewismind.site/2025/12/09/20250001/</id>
-    <published>2025-12-09T01:52:20.947Z</published>
-    <updated>2025-12-09T01:52:20.947Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li>ThreadLocal 就是对ThreadLocalMap的封装，数据本质还是在线程threadLocalMap中</li><li>线程池是队列满了之后，才会扩容：从coreSize 大小扩容到 maxSize</li><li>场景：如果线程池满了又不能丢任务，那么可以考虑将任务持久化到数据库中，这样就不会丢失任务</li><li>有界队列和无节队列区别：有界队列：像固定大小的水桶，水满后会溢出或停止接水。无界队列：像无底洞的水桶，可能装下整个海洋，但最终会淹没你的房间（OOM）</li><li>AQS 就是抽象队列同步器，用在JUC的同步器实现，用于状态变更、线程排队等操作</li><li>CompletableFuture 感觉功能很强大，很适合做任务编排， asyncTool后续可以深入了解一下</li><li>DelayQueue 通常用于实现定时任务调度和缓存过期删除等场景</li><li>区分度最高的列放在联合索引的最左侧：这是最重要的原则。区分度越高，通过索引筛选出的数据就越少，I&#x2F;O 操作也就越少。计算区分度的方法是 count(distinct column) &#x2F; count(*)。最频繁使用的列放在联合索引的左侧：这符合最左前缀匹配原则。将最常用的查询条件列放在最左侧，可以最大程度地利用索引。</li><li>隐式转换会导致索引失效，如数字id &#x3D; ‘111’;id的类型为数字的时候，会使用隐式转换</li><li>子查询性能差的原因：子查询的结果集无法使用索引，通常子查询的结果集会被存储到临时表中，不论是内存临时表还是磁盘临时表都不会存在索引，所以查询性能会受到一定的影响</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ul&gt;
-&lt;li&gt;ThreadLocal 就是对ThreadLocalMap的封装，数据本质还是在线程threadLocalMap中&lt;/li&gt;
-&lt;li&gt;线程池是队列满了之后，才会扩容：从coreSize 大小扩容到 maxSize&lt;/li&gt;
-&lt;li&gt;场景：如果线程池满了又不能丢任</summary>
-      
-    
-    
-    
-    <category term="技术开发" scheme="https://www.lewismind.site/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="Java" scheme="https://www.lewismind.site/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>大胆向这个世界求助</title>
-    <link href="https://www.lewismind.site/2025/12/09/20250003/"/>
-    <id>https://www.lewismind.site/2025/12/09/20250003/</id>
-    <published>2025-12-09T01:52:20.947Z</published>
-    <updated>2025-12-09T01:52:20.947Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li>2025年开年后，每一周都过得非常魔幻又现实，之前在网络上看到的各种桥段竟然也真真切切的发生在我的身上，公司全员降薪，通过各种手段打压、威逼员工离职，查历史账恶心员工，也算是真实感受到了来自公司的恶意和来自生活的重拳出击。</li><li>在这过程中，虽然自己感到抑郁、生气、无奈、甚至有些绝望，甚至身体也出现了点问题，但我居然在这过程中感受到了另外一种生机勃勃的感觉，像是有一种生命力，一股力量，一份勇气从我心里默默生根发芽，在这个与公司不公的反抗过程中才好像活出了真正的自我，有了真正的生命力。我的扛压能力、应对意外事情的能力在快速生长。</li><li>如标题所说，我希望我以后都可以做到大胆向这个世界求助，不管对方是谁，去勇敢大胆的向对方求助。求助的这个过程中，重要的是将自己的目的变成他人的欲望，使我达到了目的，他也实现了欲望，这不是一种算计的做法，而是真切的站在对方的利益考虑问题，使双方都达到一个双赢的结局，那么你求助被帮助的概率则大大的提升。</li><li>一点点小小的感悟，谢谢你看到这里。</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ul&gt;
-&lt;li&gt;2025年开年后，每一周都过得非常魔幻又现实，之前在网络上看到的各种桥段竟然也真真切切的发生在我的身上，公司全员降薪，通过各种手段打压、威逼员工离职，查历史账恶心员工，也算是真实感受到了来自公司的恶意和来自生活的重拳出击。&lt;/li&gt;
-&lt;li&gt;在这过程中，虽然自己</summary>
-      
-    
-    
-    
-    <category term="生活感悟" scheme="https://www.lewismind.site/categories/%E7%94%9F%E6%B4%BB%E6%84%9F%E6%82%9F/"/>
-    
-    
-    <category term="独立思考" scheme="https://www.lewismind.site/tags/%E7%8B%AC%E7%AB%8B%E6%80%9D%E8%80%83/"/>
+    <category term="MySQL" scheme="https://lewisbyte.github.io/tags/MySQL/"/>
     
   </entry>
   
   <entry>
     <title>独立开发探索</title>
-    <link href="https://www.lewismind.site/2025/12/09/20250002/"/>
-    <id>https://www.lewismind.site/2025/12/09/20250002/</id>
+    <link href="https://lewisbyte.github.io/2025/12/09/20250002/"/>
+    <id>https://lewisbyte.github.io/2025/12/09/20250002/</id>
     <published>2025-12-09T01:52:20.947Z</published>
     <updated>2025-12-09T01:52:20.947Z</updated>
     
@@ -227,17 +174,70 @@
     
     
     
-    <category term="技术开发" scheme="https://www.lewismind.site/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="独立开发" scheme="https://www.lewismind.site/tags/%E7%8B%AC%E7%AB%8B%E5%BC%80%E5%8F%91/"/>
+    <category term="独立开发" scheme="https://lewisbyte.github.io/tags/%E7%8B%AC%E7%AB%8B%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>技术点总结</title>
+    <link href="https://lewisbyte.github.io/2025/12/09/20250001/"/>
+    <id>https://lewisbyte.github.io/2025/12/09/20250001/</id>
+    <published>2025-12-09T01:52:20.947Z</published>
+    <updated>2025-12-09T01:52:20.947Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>ThreadLocal 就是对ThreadLocalMap的封装，数据本质还是在线程threadLocalMap中</li><li>线程池是队列满了之后，才会扩容：从coreSize 大小扩容到 maxSize</li><li>场景：如果线程池满了又不能丢任务，那么可以考虑将任务持久化到数据库中，这样就不会丢失任务</li><li>有界队列和无节队列区别：有界队列：像固定大小的水桶，水满后会溢出或停止接水。无界队列：像无底洞的水桶，可能装下整个海洋，但最终会淹没你的房间（OOM）</li><li>AQS 就是抽象队列同步器，用在JUC的同步器实现，用于状态变更、线程排队等操作</li><li>CompletableFuture 感觉功能很强大，很适合做任务编排， asyncTool后续可以深入了解一下</li><li>DelayQueue 通常用于实现定时任务调度和缓存过期删除等场景</li><li>区分度最高的列放在联合索引的最左侧：这是最重要的原则。区分度越高，通过索引筛选出的数据就越少，I&#x2F;O 操作也就越少。计算区分度的方法是 count(distinct column) &#x2F; count(*)。最频繁使用的列放在联合索引的左侧：这符合最左前缀匹配原则。将最常用的查询条件列放在最左侧，可以最大程度地利用索引。</li><li>隐式转换会导致索引失效，如数字id &#x3D; ‘111’;id的类型为数字的时候，会使用隐式转换</li><li>子查询性能差的原因：子查询的结果集无法使用索引，通常子查询的结果集会被存储到临时表中，不论是内存临时表还是磁盘临时表都不会存在索引，所以查询性能会受到一定的影响</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;ThreadLocal 就是对ThreadLocalMap的封装，数据本质还是在线程threadLocalMap中&lt;/li&gt;
+&lt;li&gt;线程池是队列满了之后，才会扩容：从coreSize 大小扩容到 maxSize&lt;/li&gt;
+&lt;li&gt;场景：如果线程池满了又不能丢任</summary>
+      
+    
+    
+    
+    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="Java" scheme="https://lewisbyte.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>大胆向这个世界求助</title>
+    <link href="https://lewisbyte.github.io/2025/12/09/20250003/"/>
+    <id>https://lewisbyte.github.io/2025/12/09/20250003/</id>
+    <published>2025-12-09T01:52:20.947Z</published>
+    <updated>2025-12-09T01:52:20.947Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>2025年开年后，每一周都过得非常魔幻又现实，之前在网络上看到的各种桥段竟然也真真切切的发生在我的身上，公司全员降薪，通过各种手段打压、威逼员工离职，查历史账恶心员工，也算是真实感受到了来自公司的恶意和来自生活的重拳出击。</li><li>在这过程中，虽然自己感到抑郁、生气、无奈、甚至有些绝望，甚至身体也出现了点问题，但我居然在这过程中感受到了另外一种生机勃勃的感觉，像是有一种生命力，一股力量，一份勇气从我心里默默生根发芽，在这个与公司不公的反抗过程中才好像活出了真正的自我，有了真正的生命力。我的扛压能力、应对意外事情的能力在快速生长。</li><li>如标题所说，我希望我以后都可以做到大胆向这个世界求助，不管对方是谁，去勇敢大胆的向对方求助。求助的这个过程中，重要的是将自己的目的变成他人的欲望，使我达到了目的，他也实现了欲望，这不是一种算计的做法，而是真切的站在对方的利益考虑问题，使双方都达到一个双赢的结局，那么你求助被帮助的概率则大大的提升。</li><li>一点点小小的感悟，谢谢你看到这里。</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;2025年开年后，每一周都过得非常魔幻又现实，之前在网络上看到的各种桥段竟然也真真切切的发生在我的身上，公司全员降薪，通过各种手段打压、威逼员工离职，查历史账恶心员工，也算是真实感受到了来自公司的恶意和来自生活的重拳出击。&lt;/li&gt;
+&lt;li&gt;在这过程中，虽然自己</summary>
+      
+    
+    
+    
+    <category term="生活感悟" scheme="https://lewisbyte.github.io/categories/%E7%94%9F%E6%B4%BB%E6%84%9F%E6%82%9F/"/>
+    
+    
+    <category term="独立思考" scheme="https://lewisbyte.github.io/tags/%E7%8B%AC%E7%AB%8B%E6%80%9D%E8%80%83/"/>
     
   </entry>
   
   <entry>
     <title>【ES源码探索-0003】- Distributed Area Internals 文档翻译</title>
-    <link href="https://www.lewismind.site/2025/12/09/0003-es/"/>
-    <id>https://www.lewismind.site/2025/12/09/0003-es/</id>
+    <link href="https://lewisbyte.github.io/2025/12/09/0003-es/"/>
+    <id>https://lewisbyte.github.io/2025/12/09/0003-es/</id>
     <published>2025-12-09T01:52:20.946Z</published>
     <updated>2025-12-09T01:52:20.946Z</updated>
     
@@ -252,17 +252,17 @@
     
     
     
-    <category term="技术开发" scheme="https://www.lewismind.site/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="elasticsearch" scheme="https://www.lewismind.site/tags/elasticsearch/"/>
+    <category term="elasticsearch" scheme="https://lewisbyte.github.io/tags/elasticsearch/"/>
     
   </entry>
   
   <entry>
     <title>【ES源码探索-0002】- 源码的模块</title>
-    <link href="https://www.lewismind.site/2025/12/09/0002-es/"/>
-    <id>https://www.lewismind.site/2025/12/09/0002-es/</id>
+    <link href="https://lewisbyte.github.io/2025/12/09/0002-es/"/>
+    <id>https://lewisbyte.github.io/2025/12/09/0002-es/</id>
     <published>2025-12-09T01:52:20.946Z</published>
     <updated>2025-12-09T01:52:20.946Z</updated>
     
@@ -278,17 +278,17 @@
     
     
     
-    <category term="技术开发" scheme="https://www.lewismind.site/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="elasticsearch" scheme="https://www.lewismind.site/tags/elasticsearch/"/>
+    <category term="elasticsearch" scheme="https://lewisbyte.github.io/tags/elasticsearch/"/>
     
   </entry>
   
   <entry>
     <title>【ES源码探索-0001】- 如何编译和远程调试elasticsearch源码</title>
-    <link href="https://www.lewismind.site/2025/12/09/0001-es/"/>
-    <id>https://www.lewismind.site/2025/12/09/0001-es/</id>
+    <link href="https://lewisbyte.github.io/2025/12/09/0001-es/"/>
+    <id>https://lewisbyte.github.io/2025/12/09/0001-es/</id>
     <published>2025-12-09T01:52:20.945Z</published>
     <updated>2025-12-09T01:52:20.946Z</updated>
     
@@ -304,17 +304,17 @@
     
     
     
-    <category term="技术开发" scheme="https://www.lewismind.site/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="elasticsearch" scheme="https://www.lewismind.site/tags/elasticsearch/"/>
+    <category term="elasticsearch" scheme="https://lewisbyte.github.io/tags/elasticsearch/"/>
     
   </entry>
   
   <entry>
     <title>需求挖掘</title>
-    <link href="https://www.lewismind.site/2025/11/12/20251114/"/>
-    <id>https://www.lewismind.site/2025/11/12/20251114/</id>
+    <link href="https://lewisbyte.github.io/2025/11/12/20251114/"/>
+    <id>https://lewisbyte.github.io/2025/11/12/20251114/</id>
     <published>2025-11-12T02:25:08.000Z</published>
     <updated>2025-12-11T07:28:49.223Z</updated>
     
@@ -335,14 +335,14 @@
     
     
     
-    <category term="需求挖掘" scheme="https://www.lewismind.site/tags/%E9%9C%80%E6%B1%82%E6%8C%96%E6%8E%98/"/>
+    <category term="需求挖掘" scheme="https://lewisbyte.github.io/tags/%E9%9C%80%E6%B1%82%E6%8C%96%E6%8E%98/"/>
     
   </entry>
   
   <entry>
     <title>marc转bibframe的困境和挑战</title>
-    <link href="https://www.lewismind.site/2025/08/27/20250013/"/>
-    <id>https://www.lewismind.site/2025/08/27/20250013/</id>
+    <link href="https://lewisbyte.github.io/2025/08/27/20250013/"/>
+    <id>https://lewisbyte.github.io/2025/08/27/20250013/</id>
     <published>2025-08-27T01:23:03.000Z</published>
     <updated>2025-12-09T01:52:20.950Z</updated>
     
@@ -358,17 +358,17 @@
     
     
     
-    <category term="随笔" scheme="https://www.lewismind.site/categories/%E9%9A%8F%E7%AC%94/"/>
+    <category term="随笔" scheme="https://lewisbyte.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
     
     
-    <category term="编程" scheme="https://www.lewismind.site/tags/%E7%BC%96%E7%A8%8B/"/>
+    <category term="编程" scheme="https://lewisbyte.github.io/tags/%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>【每周总结】- 探索</title>
-    <link href="https://www.lewismind.site/2025/04/03/20250011/"/>
-    <id>https://www.lewismind.site/2025/04/03/20250011/</id>
+    <link href="https://lewisbyte.github.io/2025/04/03/20250011/"/>
+    <id>https://lewisbyte.github.io/2025/04/03/20250011/</id>
     <published>2025-04-03T06:27:41.000Z</published>
     <updated>2025-12-09T01:52:20.950Z</updated>
     
@@ -384,17 +384,17 @@
     
     
     
-    <category term="每周总结" scheme="https://www.lewismind.site/categories/%E6%AF%8F%E5%91%A8%E6%80%BB%E7%BB%93/"/>
+    <category term="每周总结" scheme="https://lewisbyte.github.io/categories/%E6%AF%8F%E5%91%A8%E6%80%BB%E7%BB%93/"/>
     
     
-    <category term="每周总结" scheme="https://www.lewismind.site/tags/%E6%AF%8F%E5%91%A8%E6%80%BB%E7%BB%93/"/>
+    <category term="每周总结" scheme="https://lewisbyte.github.io/tags/%E6%AF%8F%E5%91%A8%E6%80%BB%E7%BB%93/"/>
     
   </entry>
   
   <entry>
     <title>低风险投资套利总结</title>
-    <link href="https://www.lewismind.site/2025/04/01/20250010/"/>
-    <id>https://www.lewismind.site/2025/04/01/20250010/</id>
+    <link href="https://lewisbyte.github.io/2025/04/01/20250010/"/>
+    <id>https://lewisbyte.github.io/2025/04/01/20250010/</id>
     <published>2025-04-01T09:32:22.000Z</published>
     <updated>2025-12-09T01:52:20.949Z</updated>
     
@@ -409,17 +409,17 @@
     
     
     
-    <category term="投资套利" scheme="https://www.lewismind.site/categories/%E6%8A%95%E8%B5%84%E5%A5%97%E5%88%A9/"/>
+    <category term="投资套利" scheme="https://lewisbyte.github.io/categories/%E6%8A%95%E8%B5%84%E5%A5%97%E5%88%A9/"/>
     
     
-    <category term="投资套利" scheme="https://www.lewismind.site/tags/%E6%8A%95%E8%B5%84%E5%A5%97%E5%88%A9/"/>
+    <category term="投资套利" scheme="https://lewisbyte.github.io/tags/%E6%8A%95%E8%B5%84%E5%A5%97%E5%88%A9/"/>
     
   </entry>
   
   <entry>
     <title>记一次天池比赛 - 性能挑战赛道</title>
-    <link href="https://www.lewismind.site/2020/01/01/20250004/"/>
-    <id>https://www.lewismind.site/2020/01/01/20250004/</id>
+    <link href="https://lewisbyte.github.io/2020/01/01/20250004/"/>
+    <id>https://lewisbyte.github.io/2020/01/01/20250004/</id>
     <published>2019-12-31T16:00:00.000Z</published>
     <updated>2025-12-09T01:52:20.948Z</updated>
     
@@ -434,17 +434,17 @@
     
     
     
-    <category term="技术开发" scheme="https://www.lewismind.site/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="Java" scheme="https://www.lewismind.site/tags/Java/"/>
+    <category term="Java" scheme="https://lewisbyte.github.io/tags/Java/"/>
     
   </entry>
   
   <entry>
     <title>【How-to】性能与扩展性的一点思考</title>
-    <link href="https://www.lewismind.site/2020/01/01/20250005/"/>
-    <id>https://www.lewismind.site/2020/01/01/20250005/</id>
+    <link href="https://lewisbyte.github.io/2020/01/01/20250005/"/>
+    <id>https://lewisbyte.github.io/2020/01/01/20250005/</id>
     <published>2019-12-31T16:00:00.000Z</published>
     <updated>2025-12-09T01:52:20.948Z</updated>
     
@@ -461,17 +461,17 @@
     
     
     
-    <category term="技术开发" scheme="https://www.lewismind.site/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="Java" scheme="https://www.lewismind.site/tags/Java/"/>
+    <category term="Java" scheme="https://lewisbyte.github.io/tags/Java/"/>
     
   </entry>
   
   <entry>
     <title>【How to】浅谈 Java web应用的优化</title>
-    <link href="https://www.lewismind.site/2020/01/01/20250006/"/>
-    <id>https://www.lewismind.site/2020/01/01/20250006/</id>
+    <link href="https://lewisbyte.github.io/2020/01/01/20250006/"/>
+    <id>https://lewisbyte.github.io/2020/01/01/20250006/</id>
     <published>2019-12-31T16:00:00.000Z</published>
     <updated>2025-12-09T01:52:20.948Z</updated>
     
@@ -488,41 +488,41 @@
     
     
     
-    <category term="技术开发" scheme="https://www.lewismind.site/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="Java" scheme="https://www.lewismind.site/tags/Java/"/>
+    <category term="Java" scheme="https://lewisbyte.github.io/tags/Java/"/>
     
   </entry>
   
   <entry>
-    <title>Java元数据和元编程的胡诌诌</title>
-    <link href="https://www.lewismind.site/2020/01/01/20250008/"/>
-    <id>https://www.lewismind.site/2020/01/01/20250008/</id>
+    <title>【How to】Java后端开发技能树</title>
+    <link href="https://lewisbyte.github.io/2020/01/01/20250007/"/>
+    <id>https://lewisbyte.github.io/2020/01/01/20250007/</id>
     <published>2019-12-31T16:00:00.000Z</published>
     <updated>2025-12-09T01:52:20.949Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天来简单说说java的元编程与元数据。 为什么想要说这样一个话题，目前其实在java的框架中就会大量应用到元编程、而在我的工作之中会大量使用到元数据进行应用开发。下面先所说的内容只包含我在工作实践、应用的方面理解，而不是整个名词的完整介绍，需要看详细的介绍可以点击 <a href="https://zh.wikipedia.org/wiki/%E5%85%83%E7%BC%96%E7%A8%8B">wiki：元编程</a> 和 <a href="https://zh.wikipedia.org/wiki/%E5%85%83%E6%95%B0%E6%8D%AE">wiki：元数据</a>查看详细的介绍。</p><h2 id="元数据"><a href="#元数据" class="headerlink" title="元数据"></a>元数据</h2><p>在我的开发工作中，元数据主要是做数据类型约束、接口定义，方法签名定义的作用。 大概的开发流程就是：</p><ol><li>定义元数据，比如定义一个实体，描述这个实体的属性字段名称，类型，长度等信息。根据这些信息构造成一个规范的xml文件。</li><li>根据上一步构造的xml文件，也就是这里所指的元数据。（使用一些魔法，雾）使用公司定制化开发的eclipse插件，用这些xml文件生成标准的Java pojo 和 Java interface。然后标准和实体已经定义完成就可以进行具体的方法和接口的实现。</li></ol><p>所以说在这里，元数据在应用中的开发中的作用就是做数据约束和标准定义。这样的开发模式可以说是非常好的一个思路。</p><ol><li>标准化了开发流程，对数据本身有了一个明确的约束。有利于后期的开发维护。</li><li>减少了重复，意义不大的工作，不需要手动对 Java pojo 和 Java interface 的定义。直接使用元数据来生成对应的Java class 即可。</li><li>由于元数据的规范化，其实在此基础上的扩展能力有了很大的想象力。比如实体的合法校验 支持 jsr 303 (bean validation)规范等等。</li></ol><h2 id="元编程"><a href="#元编程" class="headerlink" title="元编程"></a>元编程</h2><p>在Java世界的元编程，其实很简单的说就是注解（annotation）的应用。</p><p>这里的就有很多样例了，比如大名鼎鼎的lombok和spring里面的各种注解。为什么这里还将lombok和spring的注解做区分呢？因为这里的元编程应用时期不同：</p><ol><li>lombok 应用于编译期，在java编译生成class文件时，会”偷偷改掉”我们的代码模样，生成对应的模板代码（JSR 269: Pluggable Annotation Processing API），想详细了解的同学可以看这篇文章哦 <a href="http://blog.didispace.com/java-lombok-how-to-use/">Java开发神器Lombok的使用与原理</a></li><li>spring等其他注解主要是在运行期（不敢保证所有的都是在运行时的）。在运行时会调用对应的注解处理器处理对应的逻辑。这里的目的主要是减少模板代码，显得代码过于啰嗦、臃肿。</li></ol><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>元编程和元数据的理念都有一个共同的特点，就是减少模板代码，使用代码生成代码的思路去降低工作中繁杂、无用或者意义不大的工作任务。这是极其值得推广的思路，尤其在大型工程面前，可以省下的工作量就非常可观，而且代码量会更少，质量还会更好，也是印证了 less is more 的设计哲学。<br>元编程和元数据里还有很多概念和触及其他系统知识的东西（比如编译原理什么的，emmm），这篇文章就这样简单聊下啦，发现有错也请及时指出。</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>关于本博客是有关后端开发的技能树总结，目标是涵盖后端开发相关的相关语言知识及相关的中间件，性能测试、性能调优等各个方面的总结。同时也是自我总结、记录的过程。文章会长期进行维护。</p><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h2 id="测试（性能）相关"><a href="#测试（性能）相关" class="headerlink" title="测试（性能）相关"></a>测试（性能）相关</h2><h4 id="Jmeter"><a href="#Jmeter" class="headerlink" title="Jmeter"></a>Jmeter</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">著名的性能测试工具，基于Java的压力测试工具，（以及很好的批量数据造数数据工具）<br></code></pre></td></tr></table></figure><h4 id="火焰图"><a href="#火焰图" class="headerlink" title="火焰图"></a>火焰图</h4><p>Java方法性能分析，通过对JVM方法栈定时采样，生成全局方法的“火焰”图，相关的热点方法就像火焰一样直观的展示出来</p><p>Github地址：<code>https://github.com/jvm-profiling-tools/async-profiler</code></p><h2 id="容器及运维相关"><a href="#容器及运维相关" class="headerlink" title="容器及运维相关"></a>容器及运维相关</h2><h2 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">Docker</span> 是一个开源的应用容器引擎，可以快速的搭建依赖环境，抹除不同操作系统之间的差异，类似沙盒的形式，做到在不同系统下跨平台运行，真正的帮助程序员、运维环境搭建的麻烦<br></code></pre></td></tr></table></figure><h2 id="语言相关"><a href="#语言相关" class="headerlink" title="语言相关"></a>语言相关</h2><h4 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h4><h4 id="Groovy"><a href="#Groovy" class="headerlink" title="Groovy"></a>Groovy</h4><h4 id="Java-stream编程及函数式"><a href="#Java-stream编程及函数式" class="headerlink" title="Java-stream编程及函数式"></a>Java-stream编程及函数式</h4><h4 id="Java-collection-包体系"><a href="#Java-collection-包体系" class="headerlink" title="Java-collection 包体系"></a>Java-collection 包体系</h4><h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="flyway"><a href="#flyway" class="headerlink" title="flyway"></a>flyway</h3><h3 id="索引及性能调优"><a href="#索引及性能调优" class="headerlink" title="索引及性能调优"></a>索引及性能调优</h3>]]></content>
     
     
       
       
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;今天来简单说说java的元编程与元数据。 为什么想要说这样一个话题，目前其实在java的框架中就会大量应用到元编程、而在我的工作之中会大量使</summary>
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;关于本博客是有关后端开发的技能树总结，目标是涵盖后端开发相关的相关语言知识及相关的中间件，性能测试、性能调优等各个方面的总结。同时也是自我总</summary>
       
     
     
     
-    <category term="技术开发" scheme="https://www.lewismind.site/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="Java" scheme="https://www.lewismind.site/tags/Java/"/>
+    <category term="Java" scheme="https://lewisbyte.github.io/tags/Java/"/>
     
   </entry>
   
   <entry>
     <title>【How-to】java并发编程--线程池</title>
-    <link href="https://www.lewismind.site/2020/01/01/20250009/"/>
-    <id>https://www.lewismind.site/2020/01/01/20250009/</id>
+    <link href="https://lewisbyte.github.io/2020/01/01/20250009/"/>
+    <id>https://lewisbyte.github.io/2020/01/01/20250009/</id>
     <published>2019-12-31T16:00:00.000Z</published>
     <updated>2025-12-09T01:52:20.949Z</updated>
     
@@ -536,10 +536,10 @@
     
     
     
-    <category term="技术开发" scheme="https://www.lewismind.site/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="Java" scheme="https://www.lewismind.site/tags/Java/"/>
+    <category term="Java" scheme="https://lewisbyte.github.io/tags/Java/"/>
     
   </entry>
   

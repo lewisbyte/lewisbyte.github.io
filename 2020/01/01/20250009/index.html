@@ -24,7 +24,7 @@
     <meta name="description" content="为什么使用线程池？线程生命周期的开销非常高 1.频繁的创建，销毁线程需要使用额外的时间，资源。  资源消耗 1.若线程过多，会对系统造成巨大负担。 2.空闲的线程过多，会占用大量的内存，给垃圾回收器带来压力。 3.大量的线程竞争CPU会导致过多的CPU上下文切换的开销和性能开销，创建过多的线程会导致性能降低。  稳定性 1.在可创建的线程的数量上存在一个限制。过多的线程可能会导致OutOfMemo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【How-to】java并发编程--线程池">
-<meta property="og:url" content="https://www.lewismind.site/2020/01/01/20250009/index.html">
+<meta property="og:url" content="https://lewisbyte.github.io/2020/01/01/20250009/index.html">
 <meta property="og:site_name" content="保持好奇心">
 <meta property="og:description" content="为什么使用线程池？线程生命周期的开销非常高 1.频繁的创建，销毁线程需要使用额外的时间，资源。  资源消耗 1.若线程过多，会对系统造成巨大负担。 2.空闲的线程过多，会占用大量的内存，给垃圾回收器带来压力。 3.大量的线程竞争CPU会导致过多的CPU上下文切换的开销和性能开销，创建过多的线程会导致性能降低。  稳定性 1.在可创建的线程的数量上存在一个限制。过多的线程可能会导致OutOfMemo">
 <meta property="og:locale" content="zh_CN">
@@ -76,7 +76,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"www.lewismind.site","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lewisbyte.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -365,7 +365,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>【How-to】java并发编程--线程池</div>
-      <div>https://www.lewismind.site/2020/01/01/20250009/</div>
+      <div>https://lewisbyte.github.io/2020/01/01/20250009/</div>
     </div>
     <div class="license-meta">
       
@@ -409,9 +409,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/01/01/20250008/" title="Java元数据和元编程的胡诌诌">
+                      <a href="/2020/01/01/20250007/" title="【How to】Java后端开发技能树">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Java元数据和元编程的胡诌诌</span>
+                        <span class="hidden-mobile">【How to】Java后端开发技能树</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -419,8 +419,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/01/01/20250007/" title="【How to】Java后端开发技能树">
-                        <span class="hidden-mobile">【How to】Java后端开发技能树</span>
+                      <a href="/2020/01/01/20250008/" title="Java元数据和元编程的胡诌诌">
+                        <span class="hidden-mobile">Java元数据和元编程的胡诌诌</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
