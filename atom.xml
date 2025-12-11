@@ -154,33 +154,6 @@
   </entry>
   
   <entry>
-    <title>技术点总结</title>
-    <link href="https://lewisbyte.github.io/2025/12/09/20250001/"/>
-    <id>https://lewisbyte.github.io/2025/12/09/20250001/</id>
-    <published>2025-12-09T01:52:20.947Z</published>
-    <updated>2025-12-09T01:52:20.947Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li>ThreadLocal 就是对ThreadLocalMap的封装，数据本质还是在线程threadLocalMap中</li><li>线程池是队列满了之后，才会扩容：从coreSize 大小扩容到 maxSize</li><li>场景：如果线程池满了又不能丢任务，那么可以考虑将任务持久化到数据库中，这样就不会丢失任务</li><li>有界队列和无节队列区别：有界队列：像固定大小的水桶，水满后会溢出或停止接水。无界队列：像无底洞的水桶，可能装下整个海洋，但最终会淹没你的房间（OOM）</li><li>AQS 就是抽象队列同步器，用在JUC的同步器实现，用于状态变更、线程排队等操作</li><li>CompletableFuture 感觉功能很强大，很适合做任务编排， asyncTool后续可以深入了解一下</li><li>DelayQueue 通常用于实现定时任务调度和缓存过期删除等场景</li><li>区分度最高的列放在联合索引的最左侧：这是最重要的原则。区分度越高，通过索引筛选出的数据就越少，I&#x2F;O 操作也就越少。计算区分度的方法是 count(distinct column) &#x2F; count(*)。最频繁使用的列放在联合索引的左侧：这符合最左前缀匹配原则。将最常用的查询条件列放在最左侧，可以最大程度地利用索引。</li><li>隐式转换会导致索引失效，如数字id &#x3D; ‘111’;id的类型为数字的时候，会使用隐式转换</li><li>子查询性能差的原因：子查询的结果集无法使用索引，通常子查询的结果集会被存储到临时表中，不论是内存临时表还是磁盘临时表都不会存在索引，所以查询性能会受到一定的影响</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ul&gt;
-&lt;li&gt;ThreadLocal 就是对ThreadLocalMap的封装，数据本质还是在线程threadLocalMap中&lt;/li&gt;
-&lt;li&gt;线程池是队列满了之后，才会扩容：从coreSize 大小扩容到 maxSize&lt;/li&gt;
-&lt;li&gt;场景：如果线程池满了又不能丢任</summary>
-      
-    
-    
-    
-    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="Java" scheme="https://lewisbyte.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
     <title>独立开发探索</title>
     <link href="https://lewisbyte.github.io/2025/12/09/20250002/"/>
     <id>https://lewisbyte.github.io/2025/12/09/20250002/</id>
@@ -205,6 +178,33 @@
     
     
     <category term="独立开发" scheme="https://lewisbyte.github.io/tags/%E7%8B%AC%E7%AB%8B%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>技术点总结</title>
+    <link href="https://lewisbyte.github.io/2025/12/09/20250001/"/>
+    <id>https://lewisbyte.github.io/2025/12/09/20250001/</id>
+    <published>2025-12-09T01:52:20.947Z</published>
+    <updated>2025-12-09T01:52:20.947Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>ThreadLocal 就是对ThreadLocalMap的封装，数据本质还是在线程threadLocalMap中</li><li>线程池是队列满了之后，才会扩容：从coreSize 大小扩容到 maxSize</li><li>场景：如果线程池满了又不能丢任务，那么可以考虑将任务持久化到数据库中，这样就不会丢失任务</li><li>有界队列和无节队列区别：有界队列：像固定大小的水桶，水满后会溢出或停止接水。无界队列：像无底洞的水桶，可能装下整个海洋，但最终会淹没你的房间（OOM）</li><li>AQS 就是抽象队列同步器，用在JUC的同步器实现，用于状态变更、线程排队等操作</li><li>CompletableFuture 感觉功能很强大，很适合做任务编排， asyncTool后续可以深入了解一下</li><li>DelayQueue 通常用于实现定时任务调度和缓存过期删除等场景</li><li>区分度最高的列放在联合索引的最左侧：这是最重要的原则。区分度越高，通过索引筛选出的数据就越少，I&#x2F;O 操作也就越少。计算区分度的方法是 count(distinct column) &#x2F; count(*)。最频繁使用的列放在联合索引的左侧：这符合最左前缀匹配原则。将最常用的查询条件列放在最左侧，可以最大程度地利用索引。</li><li>隐式转换会导致索引失效，如数字id &#x3D; ‘111’;id的类型为数字的时候，会使用隐式转换</li><li>子查询性能差的原因：子查询的结果集无法使用索引，通常子查询的结果集会被存储到临时表中，不论是内存临时表还是磁盘临时表都不会存在索引，所以查询性能会受到一定的影响</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;ThreadLocal 就是对ThreadLocalMap的封装，数据本质还是在线程threadLocalMap中&lt;/li&gt;
+&lt;li&gt;线程池是队列满了之后，才会扩容：从coreSize 大小扩容到 maxSize&lt;/li&gt;
+&lt;li&gt;场景：如果线程池满了又不能丢任</summary>
+      
+    
+    
+    
+    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="Java" scheme="https://lewisbyte.github.io/tags/Java/"/>
     
   </entry>
   
@@ -235,31 +235,6 @@
   </entry>
   
   <entry>
-    <title>【ES源码探索-0003】- Distributed Area Internals 文档翻译</title>
-    <link href="https://lewisbyte.github.io/2025/12/09/0003-es/"/>
-    <id>https://lewisbyte.github.io/2025/12/09/0003-es/</id>
-    <published>2025-12-09T01:52:20.946Z</published>
-    <updated>2025-12-09T01:52:20.946Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li><a href="https://github.com/elastic/elasticsearch/blob/e7bbcb98834156f2dbfa1dd9a86c22a33cfbab23/docs/internal/DistributedArchitectureGuide.md">原文链接 - Distributed Area Internals</a></li></ul><h2 id="译文-分布式架构指南"><a href="#译文-分布式架构指南" class="headerlink" title="译文 - 分布式架构指南"></a>译文 - 分布式架构指南</h2><h2 id="分布式区域内部"><a href="#分布式区域内部" class="headerlink" title="分布式区域内部"></a>分布式区域内部</h2><p>分布式区域包含索引和协调系统。</p><p>索引路径从用户<code>REST</code>命令通过分片路由延伸到每个独立分片 <code>translog</code> 和 存储引擎. 重建索引实际上是从源索引读取并写入到目标索引（可能在不同的节点上）. 协调方面包含集群协调，分片分配，集群弹性伸缩统计，任务管理和跨集群复制，明显协调系统包含网络，服务发现插件系统，快照&#x2F;恢复逻辑和分片恢复。</p><p>一份通用的Elasticsearch组件指南可以查阅<a href="https://github.com/elastic/elasticsearch/blob/main/docs/internal/GeneralArchitectureGuide.md">这里</a></p><h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><p>(我们有很多线程池，是什么以及为什么)</p><h3 id="动作监听器"><a href="#动作监听器" class="headerlink" title="动作监听器"></a>动作监听器</h3><p>查阅<a href="https://github.com/elastic/elasticsearch/blob/main/server/src/main/java/org/elasticsearch/action/ActionListener.java">Java文档<code>ActionListener</code></a></p><p>(待办事项：为一系列 Listener 类添加有用的入门参考和解释。参考 Netty 部分。)</p><h3 id="REST-层"><a href="#REST-层" class="headerlink" title="REST 层"></a>REST 层</h3><p>REST和传输层通过<code>ActionModule</code>绑定在一起.在 <code>ActionModule#initRestHandlers</code> 使用 <code>RestController</code> 注册所有 REST 操作，并将传入请求与特定 REST 操作进行匹配.<code>RestController#registerHandler</code> 使用 <code>Rest*Action</code> 的 <code>#routes()</code> 实现将 HTTP 请求与特定的 <code>Rest*Action</code> 进行匹配。通常，REST操作遵循类命名约定<code>Rest*Action</code>，这使得它们更容易被找到，但并不总是可以找到。<code>#routes()</code>的定义也有助于查找 REST 操作。<code>RestController#dispatchRequest</code> 最终会在<code>RestHandler</code>的实现上调用<code>#handleRequest</code>.<code>RestHandler</code> 是 <code>BaseRestHandler</code>的基类，大多数 <code>Rest*Action</code> 实例都对<code>BaseRestHandler</code>其进行了扩展以实现特定的 REST 操作。</p><p><code>BaseRestHandler#handleRequest</code> 调用 <code>BaseRestHandler#prepareRequest</code>, 其<code>Rest*Action</code>继承的子类实现特定的操作。 <code>RestController#dispatchRequest</code> 通过 <code>RestHandler#handleRequest</code> 将 <code>RestChannel</code> 传递给 <code>Rest*Action</code>：<code>Rest*Action#prepareRequest</code> 实现返回一个 <code>RestChannelConsumer</code>，定义如何在通道上执行操作和回复（通常以完成 ActionListener 包装器的形式）。<code>Rest*Action#prepareRequest</code> 实现负责解析传入的请求，并验证请求的结构是否有效。<code>BaseRestHandler#handleRequest</code> 随后将检查所有请求参数是否已被使用：意外的请求参数会导致错误。</p><h3 id="REST操作是如何与Transport操作连接"><a href="#REST操作是如何与Transport操作连接" class="headerlink" title="REST操作是如何与Transport操作连接"></a>REST操作是如何与Transport操作连接</h3><p>Rest层使用<code>AbstractClient</code>的实现.<code>BaseRestHandler#prepareRequest</code> 使用 <code>NodeClient</code> 客户端：此客户端知道如何连接到指定的 TransportAction。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/elastic/elasticsearch/blob/e7bbcb98834156f2dbfa1dd9a86c22a33cfbab23/docs/internal/DistributedArchitectu</summary>
-      
-    
-    
-    
-    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="elasticsearch" scheme="https://lewisbyte.github.io/tags/elasticsearch/"/>
-    
-  </entry>
-  
-  <entry>
     <title>【ES源码探索-0002】- 源码的模块</title>
     <link href="https://lewisbyte.github.io/2025/12/09/0002-es/"/>
     <id>https://lewisbyte.github.io/2025/12/09/0002-es/</id>
@@ -274,6 +249,31 @@
     <summary type="html">&lt;h2 id=&quot;目录&quot;&gt;&lt;a href=&quot;#目录&quot; class=&quot;headerlink&quot; title=&quot;目录&quot;&gt;&lt;/a&gt;目录&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#benchmarks&quot;&gt;benchmarks&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#build-co</summary>
+      
+    
+    
+    
+    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="elasticsearch" scheme="https://lewisbyte.github.io/tags/elasticsearch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【ES源码探索-0003】- Distributed Area Internals 文档翻译</title>
+    <link href="https://lewisbyte.github.io/2025/12/09/0003-es/"/>
+    <id>https://lewisbyte.github.io/2025/12/09/0003-es/</id>
+    <published>2025-12-09T01:52:20.946Z</published>
+    <updated>2025-12-09T01:52:20.946Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><a href="https://github.com/elastic/elasticsearch/blob/e7bbcb98834156f2dbfa1dd9a86c22a33cfbab23/docs/internal/DistributedArchitectureGuide.md">原文链接 - Distributed Area Internals</a></li></ul><h2 id="译文-分布式架构指南"><a href="#译文-分布式架构指南" class="headerlink" title="译文 - 分布式架构指南"></a>译文 - 分布式架构指南</h2><h2 id="分布式区域内部"><a href="#分布式区域内部" class="headerlink" title="分布式区域内部"></a>分布式区域内部</h2><p>分布式区域包含索引和协调系统。</p><p>索引路径从用户<code>REST</code>命令通过分片路由延伸到每个独立分片 <code>translog</code> 和 存储引擎. 重建索引实际上是从源索引读取并写入到目标索引（可能在不同的节点上）. 协调方面包含集群协调，分片分配，集群弹性伸缩统计，任务管理和跨集群复制，明显协调系统包含网络，服务发现插件系统，快照&#x2F;恢复逻辑和分片恢复。</p><p>一份通用的Elasticsearch组件指南可以查阅<a href="https://github.com/elastic/elasticsearch/blob/main/docs/internal/GeneralArchitectureGuide.md">这里</a></p><h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><p>(我们有很多线程池，是什么以及为什么)</p><h3 id="动作监听器"><a href="#动作监听器" class="headerlink" title="动作监听器"></a>动作监听器</h3><p>查阅<a href="https://github.com/elastic/elasticsearch/blob/main/server/src/main/java/org/elasticsearch/action/ActionListener.java">Java文档<code>ActionListener</code></a></p><p>(待办事项：为一系列 Listener 类添加有用的入门参考和解释。参考 Netty 部分。)</p><h3 id="REST-层"><a href="#REST-层" class="headerlink" title="REST 层"></a>REST 层</h3><p>REST和传输层通过<code>ActionModule</code>绑定在一起.在 <code>ActionModule#initRestHandlers</code> 使用 <code>RestController</code> 注册所有 REST 操作，并将传入请求与特定 REST 操作进行匹配.<code>RestController#registerHandler</code> 使用 <code>Rest*Action</code> 的 <code>#routes()</code> 实现将 HTTP 请求与特定的 <code>Rest*Action</code> 进行匹配。通常，REST操作遵循类命名约定<code>Rest*Action</code>，这使得它们更容易被找到，但并不总是可以找到。<code>#routes()</code>的定义也有助于查找 REST 操作。<code>RestController#dispatchRequest</code> 最终会在<code>RestHandler</code>的实现上调用<code>#handleRequest</code>.<code>RestHandler</code> 是 <code>BaseRestHandler</code>的基类，大多数 <code>Rest*Action</code> 实例都对<code>BaseRestHandler</code>其进行了扩展以实现特定的 REST 操作。</p><p><code>BaseRestHandler#handleRequest</code> 调用 <code>BaseRestHandler#prepareRequest</code>, 其<code>Rest*Action</code>继承的子类实现特定的操作。 <code>RestController#dispatchRequest</code> 通过 <code>RestHandler#handleRequest</code> 将 <code>RestChannel</code> 传递给 <code>Rest*Action</code>：<code>Rest*Action#prepareRequest</code> 实现返回一个 <code>RestChannelConsumer</code>，定义如何在通道上执行操作和回复（通常以完成 ActionListener 包装器的形式）。<code>Rest*Action#prepareRequest</code> 实现负责解析传入的请求，并验证请求的结构是否有效。<code>BaseRestHandler#handleRequest</code> 随后将检查所有请求参数是否已被使用：意外的请求参数会导致错误。</p><h3 id="REST操作是如何与Transport操作连接"><a href="#REST操作是如何与Transport操作连接" class="headerlink" title="REST操作是如何与Transport操作连接"></a>REST操作是如何与Transport操作连接</h3><p>Rest层使用<code>AbstractClient</code>的实现.<code>BaseRestHandler#prepareRequest</code> 使用 <code>NodeClient</code> 客户端：此客户端知道如何连接到指定的 TransportAction。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/elastic/elasticsearch/blob/e7bbcb98834156f2dbfa1dd9a86c22a33cfbab23/docs/internal/DistributedArchitectu</summary>
       
     
     
@@ -417,6 +417,31 @@
   </entry>
   
   <entry>
+    <title>记一次天池比赛 - 性能挑战赛道</title>
+    <link href="https://lewisbyte.github.io/2020/01/01/20250004/"/>
+    <id>https://lewisbyte.github.io/2020/01/01/20250004/</id>
+    <published>2019-12-31T16:00:00.000Z</published>
+    <updated>2025-12-09T01:52:20.948Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="叨叨"><a href="#叨叨" class="headerlink" title="叨叨"></a>叨叨</h2><ul><li>吐槽一下csdn，现在做的越来越拉胯，查个资料都需要登录之后才能复制代码，这吃相越来越难看，那我为啥还写呢？我实在懒得换平台了</li><li>闲的无聊的记录，就是分享一下自己的一点点心得，有什么建议欢迎提出</li><li><a href="https://tianchi.aliyun.com/competition/entrance/531907/introduction">比赛链接：天池-云上开发，高效智能–阿里云ECS Cloudbuild开发者大赛性能挑战赛道</a></li><li><a href="https://github.com/lewisbyte/tianchi-im">我参赛的源码github链接</a></li></ul><h2 id="赛题"><a href="#赛题" class="headerlink" title="赛题"></a>赛题</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><code class="hljs bash">赛题背景<br>基于公共云构建产品、系统和应用已经是当前最热门的技术趋势了，公共云不仅提供了非常丰富的基础设施资源类型，如服务器、网络、存储和数据库等资源，还为这些资源提供了极高的可靠性保证，综合性价比非常有竞争力，尤其是阿里云发布的第七代云服务器ECS，搭载最新一代英特尔®至强®可扩展处理器（代号Ice Lake）以及阿里云自研的第三代神龙架构，可以更好地满足各种类型的计算任务。本赛道将基于这款云服务器进行，希望通过此次比赛可以更具体更全面地展示其性能。<br><br>Web Services是各行业中最为常见的软件系统之一，本赛题探讨Web Service在云上部署的性能优化，希望参赛者通过代码撰写、操作系统与数据库选型、各种参数调优等手段，优化云端Web服务的性能和保障服务的高可用。<br><br>赛题描述<br>构建一个高性能、高稳定的Web Service，具体形式是实现一个在线实时聊天室Web Service。<br><br>该服务需要完成以下功能，下文将以部分API方式进行说明：<br><br>用户注册、用户登录等。<br>创建房间、查看房间等。<br>用户进入、退出实时聊天房间，每个用户只能进入一个聊天室，进入某个聊天室时，会自动退出上一个聊天室等。<br>用户发言和实时收取其他人的消息。<br>注：聊天室、消息和用户，三个数据必须持久化；在线人数无须持久化。<br><br>完整API Spec请参考这里。<br><br>复赛要求如下：<br>1.所有的数据持久化都必须是集群化(3台机器)的，任何一台机器宕机，其他的两台机器应该能继续对外提供完整的数据查询和插入服务。<br><br>2.在任何一台机器上登录和进入聊天室，其他的机器都应该有相同判断，即该用户登录以及进入聊天室。<br><br>3.程序在机器启动后，会收到请求/updateCluster的post请求，body是三台机器的ip的list,比如 [“192.0.0.1”,”192.0.0.2”,”192.0.0.3”]。<br><br>4.经过上面的步骤等待一分钟后，会收到/checkCluster的GET请求，需要返回http status 200，然后开始集群测试。<br><br>环境要求<br>操作系统：任意阿里云的官方镜像，任意Windows或Linux、OS。<br><br>编程语言：任意语言，Java/Go/Python/JS等。<br><br>数据库：任意数据库，MySQL/Redis等。但所有数据必须落盘，即使实例重启，也不允许丢任何数据。<br><br>提交说明<br>最终的产出以zip包形式(不得超过100M)提供，zip包里面需要包括以下内容：<br><br>可部署的二进制文件，或代码，如python。代码必须有一个良好的规范，建议参考所选编程语言的通用规范。<br>部署脚本。<br>环境配置，以资源编排ROS模板展示。<br>参考示例zip包结构。<br>评测系统收到提交的任务后，将会：<br><br>安全扫码，如发现病毒或可疑代码将直接取消比赛资格，作废任何已有成绩。<br>解压zip示例中的deploy_application.zip 。<br>使用ros json 模板进行ECS环境部署，参考注释，可能需要调整镜像ID。<br>系统自动将deploy_application.zip包下载并解压到目标目录。<br>调用deploy_application.zip里面的start.sh来启动service。<br>部署完成以后将会开始评测，请使用端口8080。<br><br>请参考示例git repo 2021-contest/demo/build下的zip包。<br><br>评判标准<br>评测分为两个阶段：分别为完成性验证阶段和性能测试阶段。<br><br>完成性验证阶段，需要满足综合任务描述与环境要求中提到的数据落盘、数据持久化等要求（复赛环节注意新增要求），否则最终得分为0。<br><br>性能测试阶段，通过接口完整性、API的QPS、API的延时情况，在选手提交zip包之后，计算性能测试的综合得分，其中：<br><br>1、接口功能越完整正确，得分越高。<br>2、综合API的QPS，QPS越高，得分越高。<br>3、综合API的延时，延时越低，得分越高。<br><br>计算性能测试的综合得分=n*10+50*(qps/10000)*k+50*n∗10+50∗(qps/10000)∗k+50∗(1/time_deplay)*m。∗m。<br>其中，n为评测的接口个数，k是需要进行评测qps的接口个数，m是需要评测的延时接口个数。<br><br>评测流程<br>参赛者提交的服务，最终将部署在搭载最新一代英特尔®至强®可扩展处理器（代号Ice Lake）阿里云第七代ECS实例，4核8G （规格）上。<br><br>评测系统将对该服务进行压测，压测时会使用多个场景进行压测，且场景可能会发生变化，但是都会是多个API的组合。<br><br>大赛更多细节，包括API Spec、Demo和zip包示例，请参考以下链接，将持续更新：<br><br>https://code.aliyun.com/ecs-contest-support/2021-contest/tree/master 。<br></code></pre></td></tr></table></figure><h2 id="解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）"><a href="#解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）" class="headerlink" title="解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）"></a>解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）</h2><ol><li>先使用<code>spring-boot</code> 快速写了一个baseline 的东东，把题目的样例都跑过了，结果：<code>api是满分190，性能分数只有0分</code>。然后拿wrk 压测发现<code>tps=1K</code>左右，然后就尝试写了一个返回字符串的方法去压测，最后拿到报告只有<code>tps=5K</code> 这样子。spring-boot 原来这就是你的极限了🐴，垃圾（小声BB，于是接下来就开始专注性能这块了。</li><li>我调研了一下，所有人都在吹 <code>vert.x</code>的性能有多好多好。fine！那就搞起吧，社畜狗一边加班一遍肝<code>vert.x</code>,终于在看了2天文档，写了个demo 出来。然后故技重施又：写了一个返回字符串的空方法去压测，发现效果喜人，直接将tps的值拉到一个新高度 <code>tps=100000+</code>，是的，xdm你没有听错，性能提高了接近20倍，这个还是在我辣鸡的macbook上面压测的结果，我尝试在<code>阿里esc</code>上面进行<code>jvm预热</code>后再压测，tps达到了恐怖的<code>130000</code>，就是这么强！！那妥了，天命人就是你了-<code>vert.x</code>！</li><li>啪啪啪，一顿拍完，效果还不错，<code>tps=100多分了，总分300+还可以了</code>，换框架的收益可以说是十分明显。然后一看排行榜发现居然有大佬居然有700+分，看来还是有很大的提升空间，</li><li>于是我开始尝试：<code>对查询的接口加上缓存</code>，对查询的各个点进行优化，如果查询命中就放到缓存中，如果没命中就放入一个无效值，避免下次还去查询数据库，缓存使用<code>guava 的 Chche实现，使用LRU策略淘汰</code>。发现效果果然不错，总分冲击到了<code>400+</code>，查询的tps 查询也达到了100000+</li><li>接下来，查询的优化完毕，就开始优化插入的接口。借鉴批量处理的思维：<code>将数据库的插入操作，从单条插入修改成了多条异步插入</code>，主要的设计思想呢：<code>就是将需要插入的任务扔到队列里面，然后搞一个定时任务定时处理任务队列里的数据，进行批量插入。我设置的定时任务间隔是30ms，相当于实现了一个简单的生产消费模型</code>，具体代码可以查看<a href="https://github.com/lewisbyte/tianchi-im/blob/vert.x/src/main/java/tianchi/im/starter/dao/AsyncBatchInsertDao.java">异步插入</a>和<a href="https://github.com/lewisbyte/tianchi-im/blob/vert.x/src/main/java/tianchi/im/starter/schedule/ScheduleTaskConf.java">定时任务消费</a>，这边将tps 提升了几倍，最后测试数据库写入的接口<code>tps达到了47000+</code></li><li>接下来就是对数据库参数进行调优，我这边数据库用的是<code>postgre-sql</code>，然后发现对数据库参数调优其实没啥作用（还做了各种数据表分区，表sharding的处理，一顿操作猛如虎，2333）然于是到此分数就定格到了<code>519.94</code>，初赛14名，说实话不是什么出彩的好成绩，只是分享给大家看一乐呵</li><li>当然成功进入复赛，但是那段时间社畜需要996没时间搞比赛，所以复赛就没打了</li><li>就介样儿吧，拜拜</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;叨叨&quot;&gt;&lt;a href=&quot;#叨叨&quot; class=&quot;headerlink&quot; title=&quot;叨叨&quot;&gt;&lt;/a&gt;叨叨&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;吐槽一下csdn，现在做的越来越拉胯，查个资料都需要登录之后才能复制代码，这吃相越来越难看，那我为啥还写呢？我实在懒得换平台了&lt;</summary>
+      
+    
+    
+    
+    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="Java" scheme="https://lewisbyte.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【How to】浅谈 Java web应用的优化</title>
     <link href="https://lewisbyte.github.io/2020/01/01/20250006/"/>
     <id>https://lewisbyte.github.io/2020/01/01/20250006/</id>
@@ -432,6 +457,30 @@
 &lt;li&gt;最近项目快要上线了，趁着现在有点想法、有时间就写点文字记录一下&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&quot;web应用优化之数据库&quot;&gt;</summary>
+      
+    
+    
+    
+    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="Java" scheme="https://lewisbyte.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java元数据和元编程的胡诌诌</title>
+    <link href="https://lewisbyte.github.io/2020/01/01/20250008/"/>
+    <id>https://lewisbyte.github.io/2020/01/01/20250008/</id>
+    <published>2019-12-31T16:00:00.000Z</published>
+    <updated>2025-12-09T01:52:20.949Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天来简单说说java的元编程与元数据。 为什么想要说这样一个话题，目前其实在java的框架中就会大量应用到元编程、而在我的工作之中会大量使用到元数据进行应用开发。下面先所说的内容只包含我在工作实践、应用的方面理解，而不是整个名词的完整介绍，需要看详细的介绍可以点击 <a href="https://zh.wikipedia.org/wiki/%E5%85%83%E7%BC%96%E7%A8%8B">wiki：元编程</a> 和 <a href="https://zh.wikipedia.org/wiki/%E5%85%83%E6%95%B0%E6%8D%AE">wiki：元数据</a>查看详细的介绍。</p><h2 id="元数据"><a href="#元数据" class="headerlink" title="元数据"></a>元数据</h2><p>在我的开发工作中，元数据主要是做数据类型约束、接口定义，方法签名定义的作用。 大概的开发流程就是：</p><ol><li>定义元数据，比如定义一个实体，描述这个实体的属性字段名称，类型，长度等信息。根据这些信息构造成一个规范的xml文件。</li><li>根据上一步构造的xml文件，也就是这里所指的元数据。（使用一些魔法，雾）使用公司定制化开发的eclipse插件，用这些xml文件生成标准的Java pojo 和 Java interface。然后标准和实体已经定义完成就可以进行具体的方法和接口的实现。</li></ol><p>所以说在这里，元数据在应用中的开发中的作用就是做数据约束和标准定义。这样的开发模式可以说是非常好的一个思路。</p><ol><li>标准化了开发流程，对数据本身有了一个明确的约束。有利于后期的开发维护。</li><li>减少了重复，意义不大的工作，不需要手动对 Java pojo 和 Java interface 的定义。直接使用元数据来生成对应的Java class 即可。</li><li>由于元数据的规范化，其实在此基础上的扩展能力有了很大的想象力。比如实体的合法校验 支持 jsr 303 (bean validation)规范等等。</li></ol><h2 id="元编程"><a href="#元编程" class="headerlink" title="元编程"></a>元编程</h2><p>在Java世界的元编程，其实很简单的说就是注解（annotation）的应用。</p><p>这里的就有很多样例了，比如大名鼎鼎的lombok和spring里面的各种注解。为什么这里还将lombok和spring的注解做区分呢？因为这里的元编程应用时期不同：</p><ol><li>lombok 应用于编译期，在java编译生成class文件时，会”偷偷改掉”我们的代码模样，生成对应的模板代码（JSR 269: Pluggable Annotation Processing API），想详细了解的同学可以看这篇文章哦 <a href="http://blog.didispace.com/java-lombok-how-to-use/">Java开发神器Lombok的使用与原理</a></li><li>spring等其他注解主要是在运行期（不敢保证所有的都是在运行时的）。在运行时会调用对应的注解处理器处理对应的逻辑。这里的目的主要是减少模板代码，显得代码过于啰嗦、臃肿。</li></ol><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>元编程和元数据的理念都有一个共同的特点，就是减少模板代码，使用代码生成代码的思路去降低工作中繁杂、无用或者意义不大的工作任务。这是极其值得推广的思路，尤其在大型工程面前，可以省下的工作量就非常可观，而且代码量会更少，质量还会更好，也是印证了 less is more 的设计哲学。<br>元编程和元数据里还有很多概念和触及其他系统知识的东西（比如编译原理什么的，emmm），这篇文章就这样简单聊下啦，发现有错也请及时指出。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;今天来简单说说java的元编程与元数据。 为什么想要说这样一个话题，目前其实在java的框架中就会大量应用到元编程、而在我的工作之中会大量使</summary>
       
     
     
@@ -471,67 +520,18 @@
   </entry>
   
   <entry>
-    <title>记一次天池比赛 - 性能挑战赛道</title>
-    <link href="https://lewisbyte.github.io/2020/01/01/20250004/"/>
-    <id>https://lewisbyte.github.io/2020/01/01/20250004/</id>
-    <published>2019-12-31T16:00:00.000Z</published>
-    <updated>2025-12-09T01:52:20.948Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="叨叨"><a href="#叨叨" class="headerlink" title="叨叨"></a>叨叨</h2><ul><li>吐槽一下csdn，现在做的越来越拉胯，查个资料都需要登录之后才能复制代码，这吃相越来越难看，那我为啥还写呢？我实在懒得换平台了</li><li>闲的无聊的记录，就是分享一下自己的一点点心得，有什么建议欢迎提出</li><li><a href="https://tianchi.aliyun.com/competition/entrance/531907/introduction">比赛链接：天池-云上开发，高效智能–阿里云ECS Cloudbuild开发者大赛性能挑战赛道</a></li><li><a href="https://github.com/lewisbyte/tianchi-im">我参赛的源码github链接</a></li></ul><h2 id="赛题"><a href="#赛题" class="headerlink" title="赛题"></a>赛题</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><code class="hljs bash">赛题背景<br>基于公共云构建产品、系统和应用已经是当前最热门的技术趋势了，公共云不仅提供了非常丰富的基础设施资源类型，如服务器、网络、存储和数据库等资源，还为这些资源提供了极高的可靠性保证，综合性价比非常有竞争力，尤其是阿里云发布的第七代云服务器ECS，搭载最新一代英特尔®至强®可扩展处理器（代号Ice Lake）以及阿里云自研的第三代神龙架构，可以更好地满足各种类型的计算任务。本赛道将基于这款云服务器进行，希望通过此次比赛可以更具体更全面地展示其性能。<br><br>Web Services是各行业中最为常见的软件系统之一，本赛题探讨Web Service在云上部署的性能优化，希望参赛者通过代码撰写、操作系统与数据库选型、各种参数调优等手段，优化云端Web服务的性能和保障服务的高可用。<br><br>赛题描述<br>构建一个高性能、高稳定的Web Service，具体形式是实现一个在线实时聊天室Web Service。<br><br>该服务需要完成以下功能，下文将以部分API方式进行说明：<br><br>用户注册、用户登录等。<br>创建房间、查看房间等。<br>用户进入、退出实时聊天房间，每个用户只能进入一个聊天室，进入某个聊天室时，会自动退出上一个聊天室等。<br>用户发言和实时收取其他人的消息。<br>注：聊天室、消息和用户，三个数据必须持久化；在线人数无须持久化。<br><br>完整API Spec请参考这里。<br><br>复赛要求如下：<br>1.所有的数据持久化都必须是集群化(3台机器)的，任何一台机器宕机，其他的两台机器应该能继续对外提供完整的数据查询和插入服务。<br><br>2.在任何一台机器上登录和进入聊天室，其他的机器都应该有相同判断，即该用户登录以及进入聊天室。<br><br>3.程序在机器启动后，会收到请求/updateCluster的post请求，body是三台机器的ip的list,比如 [“192.0.0.1”,”192.0.0.2”,”192.0.0.3”]。<br><br>4.经过上面的步骤等待一分钟后，会收到/checkCluster的GET请求，需要返回http status 200，然后开始集群测试。<br><br>环境要求<br>操作系统：任意阿里云的官方镜像，任意Windows或Linux、OS。<br><br>编程语言：任意语言，Java/Go/Python/JS等。<br><br>数据库：任意数据库，MySQL/Redis等。但所有数据必须落盘，即使实例重启，也不允许丢任何数据。<br><br>提交说明<br>最终的产出以zip包形式(不得超过100M)提供，zip包里面需要包括以下内容：<br><br>可部署的二进制文件，或代码，如python。代码必须有一个良好的规范，建议参考所选编程语言的通用规范。<br>部署脚本。<br>环境配置，以资源编排ROS模板展示。<br>参考示例zip包结构。<br>评测系统收到提交的任务后，将会：<br><br>安全扫码，如发现病毒或可疑代码将直接取消比赛资格，作废任何已有成绩。<br>解压zip示例中的deploy_application.zip 。<br>使用ros json 模板进行ECS环境部署，参考注释，可能需要调整镜像ID。<br>系统自动将deploy_application.zip包下载并解压到目标目录。<br>调用deploy_application.zip里面的start.sh来启动service。<br>部署完成以后将会开始评测，请使用端口8080。<br><br>请参考示例git repo 2021-contest/demo/build下的zip包。<br><br>评判标准<br>评测分为两个阶段：分别为完成性验证阶段和性能测试阶段。<br><br>完成性验证阶段，需要满足综合任务描述与环境要求中提到的数据落盘、数据持久化等要求（复赛环节注意新增要求），否则最终得分为0。<br><br>性能测试阶段，通过接口完整性、API的QPS、API的延时情况，在选手提交zip包之后，计算性能测试的综合得分，其中：<br><br>1、接口功能越完整正确，得分越高。<br>2、综合API的QPS，QPS越高，得分越高。<br>3、综合API的延时，延时越低，得分越高。<br><br>计算性能测试的综合得分=n*10+50*(qps/10000)*k+50*n∗10+50∗(qps/10000)∗k+50∗(1/time_deplay)*m。∗m。<br>其中，n为评测的接口个数，k是需要进行评测qps的接口个数，m是需要评测的延时接口个数。<br><br>评测流程<br>参赛者提交的服务，最终将部署在搭载最新一代英特尔®至强®可扩展处理器（代号Ice Lake）阿里云第七代ECS实例，4核8G （规格）上。<br><br>评测系统将对该服务进行压测，压测时会使用多个场景进行压测，且场景可能会发生变化，但是都会是多个API的组合。<br><br>大赛更多细节，包括API Spec、Demo和zip包示例，请参考以下链接，将持续更新：<br><br>https://code.aliyun.com/ecs-contest-support/2021-contest/tree/master 。<br></code></pre></td></tr></table></figure><h2 id="解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）"><a href="#解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）" class="headerlink" title="解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）"></a>解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）</h2><ol><li>先使用<code>spring-boot</code> 快速写了一个baseline 的东东，把题目的样例都跑过了，结果：<code>api是满分190，性能分数只有0分</code>。然后拿wrk 压测发现<code>tps=1K</code>左右，然后就尝试写了一个返回字符串的方法去压测，最后拿到报告只有<code>tps=5K</code> 这样子。spring-boot 原来这就是你的极限了🐴，垃圾（小声BB，于是接下来就开始专注性能这块了。</li><li>我调研了一下，所有人都在吹 <code>vert.x</code>的性能有多好多好。fine！那就搞起吧，社畜狗一边加班一遍肝<code>vert.x</code>,终于在看了2天文档，写了个demo 出来。然后故技重施又：写了一个返回字符串的空方法去压测，发现效果喜人，直接将tps的值拉到一个新高度 <code>tps=100000+</code>，是的，xdm你没有听错，性能提高了接近20倍，这个还是在我辣鸡的macbook上面压测的结果，我尝试在<code>阿里esc</code>上面进行<code>jvm预热</code>后再压测，tps达到了恐怖的<code>130000</code>，就是这么强！！那妥了，天命人就是你了-<code>vert.x</code>！</li><li>啪啪啪，一顿拍完，效果还不错，<code>tps=100多分了，总分300+还可以了</code>，换框架的收益可以说是十分明显。然后一看排行榜发现居然有大佬居然有700+分，看来还是有很大的提升空间，</li><li>于是我开始尝试：<code>对查询的接口加上缓存</code>，对查询的各个点进行优化，如果查询命中就放到缓存中，如果没命中就放入一个无效值，避免下次还去查询数据库，缓存使用<code>guava 的 Chche实现，使用LRU策略淘汰</code>。发现效果果然不错，总分冲击到了<code>400+</code>，查询的tps 查询也达到了100000+</li><li>接下来，查询的优化完毕，就开始优化插入的接口。借鉴批量处理的思维：<code>将数据库的插入操作，从单条插入修改成了多条异步插入</code>，主要的设计思想呢：<code>就是将需要插入的任务扔到队列里面，然后搞一个定时任务定时处理任务队列里的数据，进行批量插入。我设置的定时任务间隔是30ms，相当于实现了一个简单的生产消费模型</code>，具体代码可以查看<a href="https://github.com/lewisbyte/tianchi-im/blob/vert.x/src/main/java/tianchi/im/starter/dao/AsyncBatchInsertDao.java">异步插入</a>和<a href="https://github.com/lewisbyte/tianchi-im/blob/vert.x/src/main/java/tianchi/im/starter/schedule/ScheduleTaskConf.java">定时任务消费</a>，这边将tps 提升了几倍，最后测试数据库写入的接口<code>tps达到了47000+</code></li><li>接下来就是对数据库参数进行调优，我这边数据库用的是<code>postgre-sql</code>，然后发现对数据库参数调优其实没啥作用（还做了各种数据表分区，表sharding的处理，一顿操作猛如虎，2333）然于是到此分数就定格到了<code>519.94</code>，初赛14名，说实话不是什么出彩的好成绩，只是分享给大家看一乐呵</li><li>当然成功进入复赛，但是那段时间社畜需要996没时间搞比赛，所以复赛就没打了</li><li>就介样儿吧，拜拜</li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;叨叨&quot;&gt;&lt;a href=&quot;#叨叨&quot; class=&quot;headerlink&quot; title=&quot;叨叨&quot;&gt;&lt;/a&gt;叨叨&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;吐槽一下csdn，现在做的越来越拉胯，查个资料都需要登录之后才能复制代码，这吃相越来越难看，那我为啥还写呢？我实在懒得换平台了&lt;</summary>
-      
-    
-    
-    
-    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="Java" scheme="https://lewisbyte.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【How to】Java后端开发技能树</title>
-    <link href="https://lewisbyte.github.io/2020/01/01/20250007/"/>
-    <id>https://lewisbyte.github.io/2020/01/01/20250007/</id>
+    <title>【How-to】java并发编程--线程池</title>
+    <link href="https://lewisbyte.github.io/2020/01/01/20250009/"/>
+    <id>https://lewisbyte.github.io/2020/01/01/20250009/</id>
     <published>2019-12-31T16:00:00.000Z</published>
     <updated>2025-12-09T01:52:20.949Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>关于本博客是有关后端开发的技能树总结，目标是涵盖后端开发相关的相关语言知识及相关的中间件，性能测试、性能调优等各个方面的总结。同时也是自我总结、记录的过程。文章会长期进行维护。</p><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h2 id="测试（性能）相关"><a href="#测试（性能）相关" class="headerlink" title="测试（性能）相关"></a>测试（性能）相关</h2><h4 id="Jmeter"><a href="#Jmeter" class="headerlink" title="Jmeter"></a>Jmeter</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">著名的性能测试工具，基于Java的压力测试工具，（以及很好的批量数据造数数据工具）<br></code></pre></td></tr></table></figure><h4 id="火焰图"><a href="#火焰图" class="headerlink" title="火焰图"></a>火焰图</h4><p>Java方法性能分析，通过对JVM方法栈定时采样，生成全局方法的“火焰”图，相关的热点方法就像火焰一样直观的展示出来</p><p>Github地址：<code>https://github.com/jvm-profiling-tools/async-profiler</code></p><h2 id="容器及运维相关"><a href="#容器及运维相关" class="headerlink" title="容器及运维相关"></a>容器及运维相关</h2><h2 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">Docker</span> 是一个开源的应用容器引擎，可以快速的搭建依赖环境，抹除不同操作系统之间的差异，类似沙盒的形式，做到在不同系统下跨平台运行，真正的帮助程序员、运维环境搭建的麻烦<br></code></pre></td></tr></table></figure><h2 id="语言相关"><a href="#语言相关" class="headerlink" title="语言相关"></a>语言相关</h2><h4 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h4><h4 id="Groovy"><a href="#Groovy" class="headerlink" title="Groovy"></a>Groovy</h4><h4 id="Java-stream编程及函数式"><a href="#Java-stream编程及函数式" class="headerlink" title="Java-stream编程及函数式"></a>Java-stream编程及函数式</h4><h4 id="Java-collection-包体系"><a href="#Java-collection-包体系" class="headerlink" title="Java-collection 包体系"></a>Java-collection 包体系</h4><h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="flyway"><a href="#flyway" class="headerlink" title="flyway"></a>flyway</h3><h3 id="索引及性能调优"><a href="#索引及性能调优" class="headerlink" title="索引及性能调优"></a>索引及性能调优</h3>]]></content>
+    <content type="html"><![CDATA[<h2 id="为什么使用线程池？"><a href="#为什么使用线程池？" class="headerlink" title="为什么使用线程池？"></a>为什么使用线程池？</h2><h3 id="线程生命周期的开销非常高"><a href="#线程生命周期的开销非常高" class="headerlink" title="线程生命周期的开销非常高"></a>线程生命周期的开销非常高</h3><ul><li>1.频繁的创建，销毁线程需要使用额外的时间，资源。</li></ul><h3 id="资源消耗"><a href="#资源消耗" class="headerlink" title="资源消耗"></a>资源消耗</h3><ul><li>1.若线程过多，会对系统造成巨大负担。</li><li>2.空闲的线程过多，会占用大量的内存，给垃圾回收器带来压力。</li><li>3.大量的线程竞争CPU会导致过多的CPU上下文切换的开销和性能开销，创建过多的线程会导致性能降低。</li></ul><h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><ul><li>1.在可创建的线程的数量上存在一个限制。过多的线程可能会导致OutOfMemoryError（每个线程维护2个执行栈，一个用于java代码，另一个用于原生代码。通常，JVM在默认情况下会生成一个复合的栈，大小约为0.5MB(可以通过JVM标志-Xss或者通过Thread 的构造函数来修改这个值)如果将2^32除以每个线程的栈大小，那么线程将被限制为几千到几万）</li></ul><h2 id="创建线程池的方式"><a href="#创建线程池的方式" class="headerlink" title="创建线程池的方式"></a>创建线程池的方式</h2><h3 id="通过Executors的静态工厂方法创建"><a href="#通过Executors的静态工厂方法创建" class="headerlink" title="通过Executors的静态工厂方法创建"></a>通过Executors的静态工厂方法创建</h3><ul><li><p>newFixedThreadPool：创建一个固定的大小的线程池,每提交一个任务时就创建一个线程，直到达到线程的最大数量</p></li><li><p>newCacheThreadPool：创建可缓存的线程，可回收空闲的线程，或创建线程。线程池的数量规模不受限制。</p></li><li><p>newSingleThreadPool：一个单线程的线程池。若线程异常结束，则使用另一个线程替代。</p></li><li><p>newScheduledThreadPool：创建固定长度的线程池。以延时或定时的方式来执行任务。</p></li></ul><h2 id="线程池的生命周期"><a href="#线程池的生命周期" class="headerlink" title="线程池的生命周期"></a>线程池的生命周期</h2><ul><li>Executor 的实现通常会创建线程来执行任务。但JVM只有在所有（非守护）线程全部终止后才会退出。</li></ul><h2 id="线程池的接口"><a href="#线程池的接口" class="headerlink" title="线程池的接口"></a>线程池的接口</h2><ul><li>Executor ：只含有任务提交的方法： execute（Runnable task）；</li><li>ExecutorService：为了解决执行服务的生命周期问题，ExecutorService添加了一些用于生命周期管理的方法。</li></ul><h2 id="以上内容摘自-《java并发编程实战》"><a href="#以上内容摘自-《java并发编程实战》" class="headerlink" title="以上内容摘自 《java并发编程实战》"></a>以上内容摘自 《java并发编程实战》</h2><h2 id="为什么不同的业务使用不同的线程池？（以下为个人总结，不能保证正确性）"><a href="#为什么不同的业务使用不同的线程池？（以下为个人总结，不能保证正确性）" class="headerlink" title="为什么不同的业务使用不同的线程池？（以下为个人总结，不能保证正确性）"></a>为什么不同的业务使用不同的线程池？（以下为个人总结，不能保证正确性）</h2><ul><li>1.一些耗时的长业务和一些响应快的短业务在一起执行，会阻塞影响短业务，业务之间相互影响。</li><li>2.IO密集 和 CPU密集 的服务应该采用不同的线程池。</li></ul><h2 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs">有时候我们会发现新上线的部分业务出现了问题，并且影响了其他功能。<br>我有时候想到从架构上如何避免这个问题，然后有了这样的一个思路。<br> <br>开发的时候我们基本上不会考虑到这种问题，整个服务就共用一个线程池，甚至有些系统是单线程的。<br>一旦出现问题整个服务就一起挂掉了<br>这个肯定是我们不想看到的。<br>解决这个问题方法就是把不同模块放在不同的线程里面，如果之前使用的是线程池那么 <br>不同业务也要用不同的线程池分开。因为如果这个业务有问题，这个业务所在的线程池也会很快的阻塞掉。<br>如果不同的业务分开到不同的线程池里面去，至少不会因为这个业务导致其他业务不可用。<br> <br>再配合上一篇干掉耗时任务的方法，可以保证线上服务不会全完蛋<br></code></pre></td></tr></table></figure><p><a href="http://freyja.iteye.com/blog/2394895">构建更健壮的系统：不同的业务放在不同的线程&#x2F;线程池里面</a></p><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs x86asm">合理的配置线程池<br><br>要想合理的配置线程池，就必须首先分析任务特性，可以从以下几个角度来进行分析：<br><br>任务的性质：<span class="hljs-meta">CPU</span>密集型任务，IO密集型任务和混合型任务。<br>任务的优先级：高，中和低。<br>任务的执行时间：长，中和短。<br>任务的依赖性：是否依赖其他系统资源，如数据库连接。<br>任务性质不同的任务可以用不同规模的线程池分开处理。<span class="hljs-meta">CPU</span>密集型任务配置尽可能小的线程，<br>如配置Ncpu+<span class="hljs-number">1</span>个线程的线程池。IO密集型任务则由于线程并不是一直在执行任务，则配置尽可能多<br>的线程，如<span class="hljs-number">2</span>*Ncpu。混合型的任务，如果可以拆分，则将其拆分成一个<span class="hljs-meta">CPU</span>密集型任务和一个IO密集型<br>任务，只要这两个任务执行的时间相差不是太大，那么分解后执行的吞吐率要高于串行执行的吞吐率，<br>如果这两个任务执行时间相差太大，则没必要进行分解。我们可以通过<br>Runtime<span class="hljs-number">.</span>getRuntime().availableProcessors()方法获得当前设备的<span class="hljs-meta">CPU</span>个数。<br></code></pre></td></tr></table></figure><p><a href="http://www.infoq.com/cn/articles/java-threadPool">聊聊并发（三）——JAVA线程池的分析和使用</a></p>]]></content>
     
     
       
       
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;关于本博客是有关后端开发的技能树总结，目标是涵盖后端开发相关的相关语言知识及相关的中间件，性能测试、性能调优等各个方面的总结。同时也是自我总</summary>
-      
-    
-    
-    
-    <category term="技术开发" scheme="https://lewisbyte.github.io/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="Java" scheme="https://lewisbyte.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java元数据和元编程的胡诌诌</title>
-    <link href="https://lewisbyte.github.io/2020/01/01/20250008/"/>
-    <id>https://lewisbyte.github.io/2020/01/01/20250008/</id>
-    <published>2019-12-31T16:00:00.000Z</published>
-    <updated>2025-12-09T01:52:20.949Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天来简单说说java的元编程与元数据。 为什么想要说这样一个话题，目前其实在java的框架中就会大量应用到元编程、而在我的工作之中会大量使用到元数据进行应用开发。下面先所说的内容只包含我在工作实践、应用的方面理解，而不是整个名词的完整介绍，需要看详细的介绍可以点击 <a href="https://zh.wikipedia.org/wiki/%E5%85%83%E7%BC%96%E7%A8%8B">wiki：元编程</a> 和 <a href="https://zh.wikipedia.org/wiki/%E5%85%83%E6%95%B0%E6%8D%AE">wiki：元数据</a>查看详细的介绍。</p><h2 id="元数据"><a href="#元数据" class="headerlink" title="元数据"></a>元数据</h2><p>在我的开发工作中，元数据主要是做数据类型约束、接口定义，方法签名定义的作用。 大概的开发流程就是：</p><ol><li>定义元数据，比如定义一个实体，描述这个实体的属性字段名称，类型，长度等信息。根据这些信息构造成一个规范的xml文件。</li><li>根据上一步构造的xml文件，也就是这里所指的元数据。（使用一些魔法，雾）使用公司定制化开发的eclipse插件，用这些xml文件生成标准的Java pojo 和 Java interface。然后标准和实体已经定义完成就可以进行具体的方法和接口的实现。</li></ol><p>所以说在这里，元数据在应用中的开发中的作用就是做数据约束和标准定义。这样的开发模式可以说是非常好的一个思路。</p><ol><li>标准化了开发流程，对数据本身有了一个明确的约束。有利于后期的开发维护。</li><li>减少了重复，意义不大的工作，不需要手动对 Java pojo 和 Java interface 的定义。直接使用元数据来生成对应的Java class 即可。</li><li>由于元数据的规范化，其实在此基础上的扩展能力有了很大的想象力。比如实体的合法校验 支持 jsr 303 (bean validation)规范等等。</li></ol><h2 id="元编程"><a href="#元编程" class="headerlink" title="元编程"></a>元编程</h2><p>在Java世界的元编程，其实很简单的说就是注解（annotation）的应用。</p><p>这里的就有很多样例了，比如大名鼎鼎的lombok和spring里面的各种注解。为什么这里还将lombok和spring的注解做区分呢？因为这里的元编程应用时期不同：</p><ol><li>lombok 应用于编译期，在java编译生成class文件时，会”偷偷改掉”我们的代码模样，生成对应的模板代码（JSR 269: Pluggable Annotation Processing API），想详细了解的同学可以看这篇文章哦 <a href="http://blog.didispace.com/java-lombok-how-to-use/">Java开发神器Lombok的使用与原理</a></li><li>spring等其他注解主要是在运行期（不敢保证所有的都是在运行时的）。在运行时会调用对应的注解处理器处理对应的逻辑。这里的目的主要是减少模板代码，显得代码过于啰嗦、臃肿。</li></ol><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>元编程和元数据的理念都有一个共同的特点，就是减少模板代码，使用代码生成代码的思路去降低工作中繁杂、无用或者意义不大的工作任务。这是极其值得推广的思路，尤其在大型工程面前，可以省下的工作量就非常可观，而且代码量会更少，质量还会更好，也是印证了 less is more 的设计哲学。<br>元编程和元数据里还有很多概念和触及其他系统知识的东西（比如编译原理什么的，emmm），这篇文章就这样简单聊下啦，发现有错也请及时指出。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;今天来简单说说java的元编程与元数据。 为什么想要说这样一个话题，目前其实在java的框架中就会大量应用到元编程、而在我的工作之中会大量使</summary>
+    <summary type="html">&lt;h2 id=&quot;为什么使用线程池？&quot;&gt;&lt;a href=&quot;#为什么使用线程池？&quot; class=&quot;headerlink&quot; title=&quot;为什么使用线程池？&quot;&gt;&lt;/a&gt;为什么使用线程池？&lt;/h2&gt;&lt;h3 id=&quot;线程生命周期的开销非常高&quot;&gt;&lt;a href=&quot;#线程生命周期的开销非常高&quot;</summary>
       
     
     
