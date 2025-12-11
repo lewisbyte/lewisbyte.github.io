@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>Linux应用性能调优-LTS</title>
+    <link href="/2025/12/09/linux/"/>
+    <url>/2025/12/09/linux/</url>
+    
+    <content type="html"><![CDATA[<ul><li>总结、收集 Linux 实用命令、系统应用调优相关的技巧</li><li>本文基于 Ubuntu-22.04、Centos-7 版本</li></ul><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul><li><a href="#%E5%86%85%E5%AD%98%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90">内存问题分析</a></li><li><a href="#CPU%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90">CPU问题分析</a></li><li><a href="#%E7%A3%81%E7%9B%98%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90">磁盘问题分析</a></li><li><a href="#%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90">网络问题分析</a></li></ul><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul><li><a href="#%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF">系统信息</a><ul><li><a href="#top">系统信息-top</a></li><li><a href="#sar">系统信息-sar</a></li><li><a href="#watch">系统信息-watch</a></li><li><a href="#pidstat">系统信息-pidstat</a></li><li><a href="#mpstat">系统信息-mpstat</a></li><li><a href="#vmstat">系统信息-vmstat</a></li><li><a href="#dstat">系统信息-dstat</a></li><li><a href="#cachestat">系统信息-cachestat</a></li><li><a href="#cachetop">系统信息-cachetop</a></li><li><a href="#slabtop">系统信息-slabtop</a></li><li><a href="#strace">系统信息-strace</a></li><li><a href="#perf">系统信息-perf</a></li><li><a href="#pstree">系统信息-pstree</a></li><li><a href="#valgrind">系统信息-valgrind</a></li><li><a href="#procfs">系统信息-procfs</a></li></ul></li><li><a href="#%E6%96%87%E4%BB%B6%E7%A3%81%E7%9B%98">文件磁盘</a><ul><li><a href="#iostat">磁盘信息-iostat</a></li><li><a href="#iotop">磁盘信息-iotop</a></li><li><a href="#lsof">文件信息-lsof</a><br>-<a href="#%E7%B3%BB%E7%BB%9F%E6%B5%8B%E8%AF%95">系统测试</a></li><li><a href="#stress">测试-cpu-stress</a></li><li><a href="#sysbench">测试-系统-sysbench</a></li><li><a href="#dd">测试-磁盘-dd</a></li><li><a href="#fio">测试-磁盘-fio</a></li></ul></li><li><a href="#%E7%BD%91%E7%BB%9C">网络</a><ul><li><a href="#nslookup">网络调试-nslookup</a></li><li><a href="#dig">网络调试-dig</a></li><li><a href="#ping">网络测试-ping</a></li><li><a href="#iperf">网络测试-iperf</a></li><li><a href="#tcpdump">网络信息-tcpdump</a></li></ul></li></ul><h3 id="CPU问题分析"><a href="#CPU问题分析" class="headerlink" title="CPU问题分析"></a>CPU问题分析</h3><p><img src="/image/002-cpu.png" alt="CPU问题分析图"></p><h3 id="内存问题分析"><a href="#内存问题分析" class="headerlink" title="内存问题分析"></a>内存问题分析</h3><p><img src="/image/001-mem.png" alt="内存问题分析图"></p><h3 id="磁盘问题分析"><a href="#磁盘问题分析" class="headerlink" title="磁盘问题分析"></a>磁盘问题分析</h3><p><img src="/image/005-disk.png" alt="磁盘问题分析图"></p><h3 id="网络问题分析"><a href="#网络问题分析" class="headerlink" title="网络问题分析"></a>网络问题分析</h3><p><img src="/image/009.png" alt="磁盘问题分析图"></p><h2 id="系统信息"><a href="#系统信息" class="headerlink" title="系统信息"></a>系统信息</h2><h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><ul><li><p>[简介]: top （table of processes）是一个任务管理器程序，它可运行于许多类Unix操作系统上，它用于显示有关CPU和内存利用率的信息。</p></li><li><p>us: 用户态使用率</p></li><li><p>sy: 内核态使用率</p></li><li><p>id: 空闲率</p></li><li><p>Mem: 物理内存使用量</p></li><li><p>Swap: 虚拟内存分区使用量</p></li><li><p>进程关键指标: S 列（也就是 Status 列）含义</p><ul><li>R 是 Running 或 Runnable 的缩写，表示进程在 CPU 的就绪队列中，正在运行或者正在等待运行。</li><li>D 是 Disk Sleep 的缩写，也就是不可中断状态睡眠（Uninterruptible Sleep），一般表示进程正在跟硬件交互，并且交互过程不允许被其他进程或中断打断。</li><li>Z 是 Zombie 的缩写，如果你玩过“植物大战僵尸”这款游戏，应该知道它的意思。它表示僵尸进程，也就是 进程实际上已经结束了，但是父进程还没有回收它的资源（比如进程的描述符、PID 等）。</li><li>I 是 Idle 的缩写，也就是空闲状态，用在不可中断睡眠的内核线程上。前面说了，硬件交互导致的不可中断进程用 D 表示，但对某些内核线程来说，它们有可能实际上并没有任何负载，用 Idle 正是为了区分这种情况。要注意，D 状态的进程会导致平均负载升高，I 状态的进程却不会。</li></ul></li><li><p>VIRT 是进程虚拟内存的大小，只要是进程申请过的内存，即便还没有真正分配物理内存，也会计算在内。</p></li><li><p>RES 是常驻内存的大小，也就是进程实际使用的物理内存大小，但不包括 Swap 和共享内存。</p></li><li><p>SHR 是共享内存的大小，比如与其他进程共同使用的共享内存、加载的动态链接库以及程序的代码段等。</p></li><li><p>%MEM 是进程使用物理内存占系统总内存的百分比。</p></li></ul><h3 id="sar"><a href="#sar" class="headerlink" title="sar"></a>sar</h3><ul><li><p>[简介]:sar是System Activity Reporter（系统活动情况报告）的缩写。sar工具将对系统当前的状态进行取样，然后通过计算数据和比例来表达系统的当前运行状态。它的特点是可以连续对系统取样，获得大量的取样数据；取样数据和分析的结果都可以存入文件，所需的负载很小。sar是目前Linux上最为全面的系统性能分析工具之一，可以从14个大方面对系统的活动进行报告，包括文件的读写情况、系统调用的使用情况、串口、CPU效率、内存使用状况、进程活动及IPC有关的活动等，使用也是较为复杂。</p></li><li><p>sar -u : 默认情况下显示的cpu使用率等信息就是sar -u；</p><ul><li>%user 用户模式下消耗的CPU时间的比例；</li><li>%nice 通过nice改变了进程调度优先级的进程，在用户模式下消耗的CPU时间的比例</li><li>%system 系统模式下消耗的CPU时间的比例；</li><li>%iowait CPU等待磁盘I&#x2F;O导致空闲状态消耗的时间比例；</li><li>%steal 利用Xen等操作系统虚拟化技术，等待其它虚拟CPU计算占用的时间比例；</li><li>%idle CPU空闲时间比例；</li></ul></li><li><p>sar -q: 查看平均负载</p><ul><li>runq-sz：运行队列的长度（等待运行的进程数）</li><li>plist-sz：进程列表中进程（processes）和线程（threads）的数量</li><li>ldavg-1：最后1分钟的系统平均负载 ldavg-5：过去5分钟的系统平均负载</li><li>ldavg-15：过去15分钟的系统平均负载</li></ul></li><li><p>sar -r： 指定-r之后，可查看物理内存使用状况；</p><ul><li>kbmemfree：这个值和free命令中的free值基本一致,所以它不包括buffer和cache的空间.</li><li>kbmemused：这个值和free命令中的used值基本一致,所以它包括buffer和cache的空间.</li><li>%memused：物理内存使用率，这个值是kbmemused和内存总量(不包括swap)的一个百分比.</li><li>kbbuffers和kbcached：这两个值就是free命令中的buffer和cache.</li><li>kbcommit：保证当前系统所需要的内存,即为了确保不溢出而需要的内存(RAM+swap).</li><li>%commit：这个值是kbcommit与内存总量(包括swap)的一个百分比.</li></ul></li><li><p>sar -W：查看页面交换发生状况</p><ul><li>pswpin&#x2F;s：每秒系统换入的交换页面（swap page）数量</li><li>pswpout&#x2F;s：每秒系统换出的交换页面（swap page）数量</li></ul></li><li><p>场景使用</p><ul><li>怀疑CPU存在瓶颈，可用 sar -u 和 sar -q 等来查看</li><li>怀疑内存存在瓶颈，可用sar -B、sar -r 和 sar -W 等来查看</li><li>怀疑I&#x2F;O存在瓶颈，可用 sar -b、sar -u 和 sar -d 等来查看</li></ul></li><li><p>参数含义解释</p><ul><li>-A 汇总所有的报告</li><li>-a 报告文件读写使用情况</li><li>-B 报告附加的缓存的使用情况</li><li>-b 报告缓存的使用情况</li><li>-c 报告系统调用的使用情况</li><li>-d 报告磁盘的使用情况</li><li>-g 报告串口的使用情况</li><li>-h 报告关于buffer使用的统计数据</li><li>-m 报告IPC消息队列和信号量的使用情况</li><li>-n 报告命名cache的使用情况</li><li>-p 报告调页活动的使用情况</li><li>-q 报告运行队列和交换队列的平均长度</li><li>-R 报告进程的活动情况</li><li>-r 报告没有使用的内存页面和硬盘块</li><li>-u 报告CPU的利用率</li><li>-v 报告进程、i节点、文件和锁表状态</li><li>-w 报告系统交换活动状况</li><li>-y 报告TTY设备活动状况</li></ul></li></ul><h3 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h3><ul><li>[简介]: Linux中的watch 命令提供了一种方式处理重复的任务。默认watch会每2秒重复执行命令。你一定也想到了,watch是一个很好的观察log文件的工具。下面是一个例子。</li><li>例如执行命令<code>watch -n 1 -d ps</code> 每隔一秒高亮显示进程信息</li></ul><h3 id="pidstat"><a href="#pidstat" class="headerlink" title="pidstat"></a>pidstat</h3><ul><li>[简介]:</li><li>样例: 如监控进程pid<code>4344</code>]信息: <code>pidstat -d -p 4344 1 3</code>，-d 展示 I&#x2F;O 统计数据，-p 指定进程号，间隔 1 秒输出 3 组数据</li><li>参数含义: kB_rd 表示每秒读的 KB 数， kB_wr 表示每秒写的 KB 数，iodelay 表示 I&#x2F;O 的延迟（单位是时钟周期）</li></ul><h3 id="dstat"><a href="#dstat" class="headerlink" title="dstat"></a>dstat</h3><ul><li>[简介] dstat 是一个新的性能工具，它吸收了 vmstat、iostat、ifstat 等几种工具的优点，可以同时观察系统的 CPU、磁盘 I&#x2F;O、网络以及内存使用情况。</li><li>安装执行命令 <code>apt install dstat -y</code></li></ul><h2 id="文件磁盘"><a href="#文件磁盘" class="headerlink" title="文件磁盘"></a>文件磁盘</h2><h3 id="iostat"><a href="#iostat" class="headerlink" title="iostat"></a>iostat</h3><ul><li>[简介] iostat 是最常用的磁盘 I&#x2F;O 性能观测工具，它提供了每个磁盘的使用率、IOPS、吞吐量等各种常见的性能指标，当然，这些指标实际上来自 &#x2F;proc&#x2F;diskstats。</li><li>[样例] <code>iostat -d -x 1</code></li><li><a href="image/004-iostat.png">参数含义</a></li><li>%util ，就是我们前面提到的磁盘 I&#x2F;O 使用率；</li><li>r&#x2F;s+ w&#x2F;s ，就是 IOPS；</li><li>rkB&#x2F;s+wkB&#x2F;s ，就是吞吐量；</li><li>r_await+w_await ，就是响应时间。</li></ul><h3 id="iotop"><a href="#iotop" class="headerlink" title="iotop"></a>iotop</h3><ul><li>[简介] 一个类似于 top 的工具，你可以按照 I&#x2F;O 大小对进程排序，然后找到 I&#x2F;O 较大的那些进程</li><li>[样例] <code>iotop</code></li></ul><h3 id="lsof"><a href="#lsof" class="headerlink" title="lsof"></a>lsof</h3><ul><li>[简介] 用于查看你进程打开的文件，打开文件的进程，进程打开的端口(TCP、UDP)。 找回&#x2F;恢复删除的文件</li><li>[样例] <code>lsof -p $pid</code> 查看对应进程关联打开的 网络、文件、设备、socket链接 等。如果要查看某个pid的TCP类型文件，执行<code>lsof -p $pid | grep TCP</code> 即可查看到监听的TCP网络及端口相关信息</li><li>[样例] <code>lsof -i $port</code> 查看对应端口的占用情况</li></ul><h3 id="mpstat"><a href="#mpstat" class="headerlink" title="mpstat"></a>mpstat</h3><ul><li>[简介] todo</li></ul><h3 id="vmstat"><a href="#vmstat" class="headerlink" title="vmstat"></a>vmstat</h3><ul><li>[简介] todo</li></ul><h3 id="cachestat"><a href="#cachestat" class="headerlink" title="cachestat"></a>cachestat</h3><ul><li>[简介] 缓存命中率</li><li>[样例] <code>cachestat 1 3</code></li><li>[参数含义]<ul><li>TOTAL ，表示总的 I&#x2F;O 次数；</li><li>MISSES ，表示缓存未命中的次数；</li><li>HITS ，表示缓存命中的次数；</li><li>DIRTIES， 表示新增到缓存中的脏页数；</li><li>BUFFERS_MB 表示 Buffers 的大小，以 MB 为单位；</li><li>CACHED_MB 表示 Cache 的大小，以 MB 为单位</li></ul></li></ul><h3 id="cachetop"><a href="#cachetop" class="headerlink" title="cachetop"></a>cachetop</h3><ul><li>[简介] 缓存命中率：输出跟 top 类似，默认按照缓存的命中次数（HITS）排序，展示了每个进程的缓存命中情况。具体到每一个指标，这里的 HITS、MISSES 和 DIRTIES ，跟 cachestat 里的含义一样，分别代表间隔时间内的缓存命中次数、未命中次数以及新增到缓存中的脏页数。</li><li>[样例] <code>cachetop</code></li></ul><h3 id="slabtop"><a href="#slabtop" class="headerlink" title="slabtop"></a>slabtop</h3><ul><li>[简介] 实时显示内核slab内存缓存信息，使用 slabtop ，来找到占用内存最多的缓存类型。内核的模块在分配资源的时候，为了提高效率和资源的利用率，都是透过slab来分配的。通过slab的信息，再配合源码能粗粗了解系统的运行情况，比如说什么资源有没有不正常的多，或者什么资源有没有泄漏。linux系统透过&#x2F;proc&#x2F;slabinfo来向用户暴露slab的使用情况。Linux 所使用的 slab 分配器的基础是 Jeff Bonwick 为 SunOS 操作系统首次引入的一种算法。Jeff 的分配器是围绕对象缓存进行的。在内核中，会为有限的对象集（例如文件描述符和其他常见结构）分配大量内存。Jeff 发现对内核中普通对象进行初始化所需的时间超过了对其进行分配和释放所需的时间。因此他的结论是不应该将内存释放回一个全局的内存池，而是将内存保持为针对特定目而初始化的状态。Linux slab 分配器使用了这种思想和其他一些思想来构建一个在空间和时间上都具有高效性的内存分配器。保存着监视系统中所有活动的 slab 缓存的信息的文件为&#x2F;proc&#x2F;slabinfo。</li><li>[样例] <code>slabtop</code></li></ul><h3 id="strace"><a href="#strace" class="headerlink" title="strace"></a>strace</h3><ul><li>[简介] 跟进程系统调用的工具,观察对应pid进程的系统调用</li><li>[安装] <code>apt install strace</code></li><li>[样例]: 运行 strace 命令，并用 -p 参数指定 PID 号 <code>strace -p 6082</code></li></ul><h3 id="perf"><a href="#perf" class="headerlink" title="perf"></a>perf</h3><ul><li>[简介] todo</li><li>[安装] todo</li><li>[样例]: 采样操作系统函数调用 <code>perf record -g</code>，获取调用报告 <code>perf report</code></li></ul><h3 id="pstree"><a href="#pstree" class="headerlink" title="pstree"></a>pstree</h3><ul><li>[简介]</li><li>[样例] <code>pstree -aps 3084</code>; a 表示输出命令行选项 ; p 表 PID; s 表示指定进程的父进程</li></ul><h3 id="valgrind"><a href="#valgrind" class="headerlink" title="valgrind"></a>valgrind</h3><ul><li><p>[简介] 内存泄露检测工具，应用最广泛的工具，一个重量级的内存检查器，能够发现开发中绝大多数内存错误使用情况</p></li><li><p><a href="https://zhuanlan.zhihu.com/p/56538645">内存检测王者之剑—valgrind</a></p></li><li><p>[简介]</p></li></ul><h2 id="系统测试"><a href="#系统测试" class="headerlink" title="系统测试"></a>系统测试</h2><h3 id="stress"><a href="#stress" class="headerlink" title="stress"></a>stress</h3><ul><li>[简介] cpu、io 压测测试</li></ul><h3 id="iperf"><a href="#iperf" class="headerlink" title="iperf"></a>iperf</h3><ul><li>[简介] 网络性能测试</li></ul><h3 id="sysbench"><a href="#sysbench" class="headerlink" title="sysbench"></a>sysbench</h3><ul><li>[简介] sysbench是跨平台的基准测试工具</li></ul><h3 id="dd"><a href="#dd" class="headerlink" title="dd"></a>dd</h3><ul><li>[简介]Linux dd 命令用于读取、转换并输出数据。dd 可从标准输入或文件中读取数据，根据指定的格式来转换数据，再输出到文件、设备或标准输出。</li><li>[使用场景]适用于测试磁盘的顺序读写场景</li><li>[样例] 生成一个 512MB 的临时文件 <code>dd if=/dev/sda1 of=file bs=1M count=512</code>，</li><li>[样例] 写入指定目录文件夹路径文件 <code>dd if=/dev/zero of=/Users/lewis/fx/test.file  bs=1M  count=10000K iflag=direct</code></li></ul><h3 id="fio"><a href="#fio" class="headerlink" title="fio"></a>fio</h3><ul><li>[简介]: 测试磁盘的 IOPS、吞吐量以及响应时间等核心指标</li></ul><h2 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h2><h3 id="procfs"><a href="#procfs" class="headerlink" title="procfs"></a>procfs</h3><ul><li><p>[简介]: 在许多类 Unix 计算机系统中， procfs 是 进程 文件系统 (file system) 的缩写，包含一个伪文件系统（启动时动态生成的文件系统），用于通过内核访问进程信息。这个文件系统通常被挂载到 &#x2F;proc 目录。由于 &#x2F;proc 不是一个真正的文件系统，它也就不占用存储空间，只是占用有限的内存。</p></li><li><p>执行命令 <code>ls /etc/proc</code> ，即可查阅系统进程的文件信息</p></li><li><p>进程相关</p><ul><li>每个正在运行的进程对应于&#x2F;proc下的一个目录，目录名就是进程的PID，每个目录包含:</li><li>&#x2F;proc&#x2F;PID&#x2F;cmdline, 启动该进程的命令行.</li><li>&#x2F;proc&#x2F;PID&#x2F;cwd, 当前工作目录的符号链接.</li><li>&#x2F;proc&#x2F;PID&#x2F;environ 影响进程的环境变量的名字和值.</li><li>&#x2F;proc&#x2F;PID&#x2F;exe, 最初的可执行文件的符号链接, 如果它还存在的话。</li><li>&#x2F;proc&#x2F;PID&#x2F;fd, 一个目录，包含每个打开的文件描述符的符号链接.</li><li>&#x2F;proc&#x2F;PID&#x2F;fdinfo, 一个目录，包含每个打开的文件描述符的位置和标记</li><li>&#x2F;proc&#x2F;PID&#x2F;maps, 一个文本文件包含内存映射文件与块的信息。</li><li>&#x2F;proc&#x2F;PID&#x2F;mem, 一个二进制图像(image)表示进程的虚拟内存, 只能通过ptrace化进程访问.</li><li>&#x2F;proc&#x2F;PID&#x2F;root, 该进程所能看到的根路径的符号链接。如果没有chroot监狱，那么进程的根路径是&#x2F;.</li><li>&#x2F;proc&#x2F;PID&#x2F;status包含了进程的基本信息，包括运行状态、内存使用。</li><li>&#x2F;proc&#x2F;PID&#x2F;task, 一个目录包含了硬链接到该进程启动的任何任务</li></ul></li><li><p>系统相关</p><ul><li>&#x2F;proc&#x2F;softirqs 系统软中断</li><li>&#x2F;proc&#x2F;crypto, 可利用的加密模块列表</li><li>&#x2F;proc&#x2F;devices, 字符设备与块设备列表，按照设备ID排序，但给出了&#x2F;dev名字的主要部分</li><li>&#x2F;proc&#x2F;diskstats, 给出了每一块逻辑磁盘设备的一些信息</li><li>&#x2F;proc&#x2F;filesystems, 当前时刻内核支持的文件系统的列表</li><li>&#x2F;proc&#x2F;interrupts, &#x2F;proc&#x2F;iomem, &#x2F;proc&#x2F;ioports, &#x2F;proc&#x2F;irq, 设备的一些与中断、内存访问有  - 关的信息</li><li>&#x2F;proc&#x2F;kmsg, 用于跟踪读取内核消息</li><li>&#x2F;proc&#x2F;meminfo, 包含内核管理内存的一些汇总信息</li><li>&#x2F;proc&#x2F;modules, 是&#x2F;proc最重要的文件之一, 包含了当前加载的内核模块列表</li><li>&#x2F;proc&#x2F;mounts, 包含了当前安装设备及安装点的符号链接</li><li>&#x2F;proc&#x2F;net&#x2F;, 一个目录包含了当前网络栈的信息，特别是&#x2F;proc&#x2F;net&#x2F;nf_conntrack列出了存在的网络连  - 接(对跟踪路由特别有用，因为iptables转发被用于重定向网络连接)</li><li>&#x2F;proc&#x2F;partitions, 一个设备号、尺寸与&#x2F;dev名的列表，内核用于辨别已存在的硬盘分区</li><li>&#x2F;proc&#x2F;scsi, 给出任何通过SCSI或RAID控制器挂接的设备的信息</li><li>&#x2F;proc&#x2F;self (即&#x2F;proc&#x2F;PID&#x2F;其中进程ID是当前进程的) 为当前进程的符号链接</li><li>&#x2F;proc&#x2F;slabinfo, Linux内核频繁使用的对象的统计信息</li><li>&#x2F;proc&#x2F;swaps, 活动交换分区的信息，如尺寸、优先级等。</li><li>&#x2F;proc&#x2F;sys，动态可配置的内核选项. 其下的目录对应与内核区域，包含了可读与可写的虚拟文件  - （virtual file）.</li><li>&#x2F;proc&#x2F;sysvipc, 包括共享内存与进程间通信 (IPC)信息</li><li>&#x2F;proc&#x2F;tty, 包含当前终端信息; &#x2F;proc&#x2F;tty&#x2F;driver是可利用的tty类型列表，其中的每一个是该类型的  - 可用设备列表。</li><li>&#x2F;proc&#x2F;uptime, 内核启动后经过的秒数与idle模式的秒数</li><li>&#x2F;proc&#x2F;version, 包含Linux内核版本，发布号（distribution number）, 编译内核的gcc版本，其他  - 相关的版本</li><li>&#x2F;proc&#x2F;{pid}&#x2F;smaps，读取某个pid进程对应的虚拟内存区间到信息</li><li>其他文件依赖于不同的硬件，模块配置与内核改变</li><li>&#x2F;proc&#x2F;sys&#x2F;vm&#x2F;swappiness，Linux 提供了一个 &#x2F;proc&#x2F;sys&#x2F;vm&#x2F;swappiness 选项，用来调整使用 Swap 的积极程度。swappiness 的范围是 0-100，数值越大，越积极使用 Swap，也就是更倾向于回收匿名页；数值越小，越消极使用 Swap，也就是更倾向于回收文件页。</li></ul></li></ul><h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><h3 id="nslookup"><a href="#nslookup" class="headerlink" title="nslookup"></a>nslookup</h3><ul><li>[简介] 用于分析 DNS 的解析过程</li></ul><h3 id="dig"><a href="#dig" class="headerlink" title="dig"></a>dig</h3><ul><li>[简介] 用于分析 DNS 的解析过程</li></ul><h3 id="ping"><a href="#ping" class="headerlink" title="ping"></a>ping</h3><ul><li>[简介] 用于测试服务器延时</li></ul><h3 id="tcpdump"><a href="#tcpdump" class="headerlink" title="tcpdump"></a>tcpdump</h3><ul><li>[简介] 用于网络抓包</li><li>[输出格式] <code>时间戳 协议 源地址. 源端口 &gt; 目的地址. 目的端口 网络包详细信息</code><br><img src="/image/006-tcpdump.png" alt="tcpdump-选项"><br><img src="/image/007-tcpdump.png" alt="tcpdump-表达式过滤"></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Linux</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>es索引数据写入异常问题排查</title>
+    <link href="/2025/12/09/es_read_only_allow_delete/"/>
+    <url>/2025/12/09/es_read_only_allow_delete/</url>
+    
+    <content type="html"><![CDATA[<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul><li><a href="#%E7%8E%AF%E5%A2%83%E4%BF%A1%E6%81%AF">环境信息</a></li><li><a href="#%E7%8E%B0%E8%B1%A1">现象</a></li><li><a href="#%E5%88%86%E6%9E%90">分析</a></li><li><a href="#%E6%BA%90%E7%A0%81%E8%B0%83%E8%AF%95%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B">源码调试解析过程</a></li></ul><h3 id="环境信息"><a href="#环境信息" class="headerlink" title="环境信息"></a>环境信息</h3><ul><li>elasticsearch 6.8.2</li><li>jdk-8</li><li>cpu-24核心、64gb内存</li><li>数据量：943GB</li></ul><h3 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h3><ul><li><p>1.在进行对索引写入数据的时候，报出异常：<code>forbidden/12/index read-only / allow delete (api) status 403</code></p><ul><li><img src="/image/013.jpg" alt="index的settings设置"></li><li><img src="/image/014.png" alt="写入数据报错信息"></li></ul></li><li><ol start="2"><li>单节点批量写入数据，性能较低，2亿条数据，导数耗时5个多小时，需要优化导数性能</li></ol></li><li><ol start="3"><li>es节点磁盘剩余空间50%</li></ol></li><li><ol start="4"><li>JVM内存堆大小为23GB，在大量写入数据的时候，出现频繁的full gc</li></ol></li></ul><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul><li><ol><li>内存不足</li></ol><ul><li>JVMMemoryPressure 超过92%并持续30分钟时，ES触发保护机制，并且阻止写入操作，以防止集群达到红色状态，启用写保护后，写入操作将失败，并且抛出 ClusterBlockException ，无法创建新索引，并且抛出 IndexCreateBlockException ,当五分钟内恢复不到88%以下时，将禁用写保护。</li><li>ES内存压力保护机制说明：<a href="https://www.elastic.co/guide/en/cloud/current/ec-memory-pressure.html">https://www.elastic.co/guide/en/cloud/current/ec-memory-pressure.html</a></li></ul></li><li><ol start="2"><li>磁盘空间不足</li></ol><ul><li>es的默认磁盘水位警戒线是85%，一旦磁盘使用率超过85%，es不会再为该节点分配分片，es还有一个磁盘水位警戒线是90%，超过后，将尝试将分片重定位到其他节点。</li></ul></li><li><ol start="3"><li>写入性能低：目前索引的副本数为1，分片数为2，2000万数据写入，es耗时为162分钟。目前看已经达到单点性能上限。目前环境总量数据有27.7亿条数据，磁盘占用空间为943GB，ES官方推荐内存比数据为1:10的比例，那么就需要90GB左右的JVM堆内存空间，目前只有1个ES单节点（30GB内存），建议再扩展2个ES节点，可以加快导数速度，保证准生产环境的稳定运行。</li></ol></li></ul><h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ul><li><ol><li>磁盘扩容，增加索引shards分片数，分摊节点磁盘写入压力</li></ol></li><li><ol start="2"><li>再扩展2个ES数据节点，扩展整个es集群内存，降低内存压力，避免触发自动保护机制</li></ol></li><li><ol start="3"><li>手动修改历史索引的_settings，将 index.blocks.read_only_allow_delete 改成 false，保证索引的可用性。</li></ol></li></ul><h3 id="源码调试解析过程"><a href="#源码调试解析过程" class="headerlink" title="源码调试解析过程"></a>源码调试解析过程</h3><h4 id="场景1-手动设置为只读索引"><a href="#场景1-手动设置为只读索引" class="headerlink" title="场景1. 手动设置为只读索引"></a>场景1. 手动设置为只读索引</h4><ul><li>1.添加样例测试索引： <code>http://localhost:9200/sample_index/_doc/1</code></li></ul><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br><span class="hljs-attr">&quot;foo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;bar&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure><ul><li>2.更新所有索引的属性为只读索引：<code>http://localhost:9200/_all/_settings</code></li></ul><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;index.blocks.read_only_allow_delete&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure><ul><li>3.查看样例测试索引：<code>http://localhost:9200/sample_index?pretty</code></li></ul><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;sample_index&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;aliases&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;mappings&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;_doc&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;properties&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>          <span class="hljs-attr">&quot;foo&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;type&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;text&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;fields&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>              <span class="hljs-attr">&quot;keyword&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                <span class="hljs-attr">&quot;type&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;keyword&quot;</span><span class="hljs-punctuation">,</span><br>                <span class="hljs-attr">&quot;ignore_above&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-number">256</span><br>              <span class="hljs-punctuation">&#125;</span><br>            <span class="hljs-punctuation">&#125;</span><br>          <span class="hljs-punctuation">&#125;</span><br>        <span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;settings&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;index&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;number_of_shards&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;5&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;blocks&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>          <span class="hljs-attr">&quot;read_only_allow_delete&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;true&quot;</span><br>        <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;provided_name&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sample_index&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;creation_date&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1718608529424&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;number_of_replicas&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;uuid&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;v6koutd3Sz2A0YxX985YLA&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;version&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>          <span class="hljs-attr">&quot;created&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;6082499&quot;</span><br>        <span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure><ul><li><p>调试rest请求入口：<code>org.elasticsearch.rest.action.admin.indices.RestUpdateSettingsAction#prepareRequest</code><br><img src="/image/15.png" alt="RestUpdateSettingsAction调试栈信息"></p></li><li><p>这里调用 <code>org.elasticsearch.client.IndicesAdminClient#updateSettings</code> 异步更新索引设置</p></li><li><p>es通过网络通讯，调用master节点，调用网络方法<code>org.elasticsearch.cluster.metadata.MetaDataUpdateSettingsService#updateSettings</code>执行索引配置更新，索引的更新逻辑<code>clusterService.submitStateUpdateTask</code>在方法中调用。<br><img src="/image/16.png" alt="通过异步任务：clusterService.submitStateUpdateTask，更新配置"></p></li><li><p>调用方法<code>org.elasticsearch.common.settings.AbstractScopedSettings#updateDynamicSettings</code>更新对应索引配置</p></li></ul><h4 id="场景2-自动触发为只读索引"><a href="#场景2-自动触发为只读索引" class="headerlink" title="场景2. 自动触发为只读索引"></a>场景2. 自动触发为只读索引</h4><ul><li>根据网络资料提示，在JVM的内存达到压力阈值或者磁盘到达阈值时，会进行自动将索引状态更新为只读索引</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>ElasticSearch</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>ElasticSearch源码学习-LTS</title>
+    <link href="/2025/12/09/elasticsearch/"/>
+    <url>/2025/12/09/elasticsearch/</url>
+    
+    <content type="html"><![CDATA[<ul><li>用于个人学习总结ElasticSearch</li><li>包括基础使用、运行机制、源码解析等</li><li>源码基于 6.1 分支: <a href="https://github.com/elastic/elasticsearch/tree/6.1">ElasticSearch-6.1分支代码</a></li></ul><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul><li><a href="#%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95">如何调试</a></li><li><a href="#%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E4%BB%8B%E7%BB%8D">源码目录介绍</a></li><li><a href="#ES%E9%9B%86%E7%BE%A4%E5%90%AF%E5%8A%A8%E6%AD%A5%E9%AA%A4">ES集群启动步骤</a></li><li><a href="#ES%E9%9B%86%E7%BE%A4%E5%90%AF%E5%8A%A8%E6%AD%A5%E9%AA%A4">ES集群启动步骤</a></li><li><a href="#ES%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B">ES数据模型</a></li><li><a href="#ES%E4%B8%BB%E5%88%86%E7%89%87%E9%80%89%E4%B8%BE%E7%AD%96%E7%95%A5">ES主分片选举策略</a></li><li><a href="#ES%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B">ES写入流程</a></li></ul><h3 id="如何调试"><a href="#如何调试" class="headerlink" title="如何调试"></a>如何调试</h3><ul><li><ol><li>编译构建elasticsearch工程: <code>./gradlew assemble</code></li></ol></li><li><ol start="2"><li>将工程集成到IDEA: <code>./gradlew idea</code>，用IDEA打开elasticsearch工程</li></ol></li><li><ol start="3"><li>执行 <code>./gradlew :run --debug-jvm</code>，启动调试模式.</li></ol></li><li><ol start="4"><li>debug启动之后，观察日志：<code>[elasticsearch] Listening for transport dt_socket at address: 8000</code>发现debug端口为<code>8000</code>.</li></ol></li><li><ol start="5"><li>添加远程JVM调试，主机填<code>localhost</code>,端口配置为<code>8000</code>,JDK选择 <code>5-8</code>，点击确定启动debug</li></ol><ul><li><img src="/image/003-debug.png" alt="debug 配置"></li></ul></li><li><ol start="6"><li>可以观察日志，服务已经正常启动</li></ol></li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs log">[elasticsearch] [2023-07-26T16:19:14,233][INFO ][o.e.t.TransportService   ] [node-0] publish_address &#123;127.0.0.1:9300&#125;, bound_addresses &#123;[::1]:9300&#125;, &#123;127.0.0.1:9300&#125;<br>[elasticsearch] [2023-07-26T16:19:17,300][INFO ][o.e.c.s.MasterService    ] [node-0] zen-disco-elected-as-master ([0] nodes joined), reason: new_master &#123;node-0&#125;&#123;48qziOzRTdOSQo0nQhQ_PQ&#125;&#123;udw-kDLxTNCvBvup2R2Nqw&#125;&#123;127.0.0.1&#125;&#123;127.0.0.1:9300&#125;&#123;testattr=test&#125;<br>[elasticsearch] [2023-07-26T16:19:17,304][INFO ][o.e.c.s.ClusterApplierService] [node-0] new_master &#123;node-0&#125;&#123;48qziOzRTdOSQo0nQhQ_PQ&#125;&#123;udw-kDLxTNCvBvup2R2Nqw&#125;&#123;127.0.0.1&#125;&#123;127.0.0.1:9300&#125;&#123;testattr=test&#125;, reason: apply cluster state (from master [master &#123;node-0&#125;&#123;48qziOzRTdOSQo0nQhQ_PQ&#125;&#123;udw-kDLxTNCvBvup2R2Nqw&#125;&#123;127.0.0.1&#125;&#123;127.0.0.1:9300&#125;&#123;testattr=test&#125; committed version [1] source [zen-disco-elected-as-master ([0] nodes joined)]])<br>[elasticsearch] [2023-07-26T16:19:17,329][INFO ][o.e.g.GatewayService     ] [node-0] recovered [0] indices into cluster_state<br>[elasticsearch] [2023-07-26T16:19:17,331][INFO ][o.e.h.n.Netty4HttpServerTransport] [node-0] publish_address &#123;127.0.0.1:9200&#125;, bound_addresses &#123;[::1]:9200&#125;, &#123;127.0.0.1:9200&#125;<br>[elasticsearch] [2023-07-26T16:19:17,333][INFO ][o.e.n.Node               ] [node-0] started<br>&lt;============-&gt; 96% EXECUTING [11m 35s]<br>&gt; :distribution:run#start<br>&gt; IDLE<br></code></pre></td></tr></table></figure><ul><li><ol start="7"><li>修改默认密码，执行命令：<code>./elasticsearch-setup-passwords interactive</code></li></ol></li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs bash">➜  bin git:(6.8) ./elasticsearch-setup-passwords interactive<br>Initiating the setup of passwords <span class="hljs-keyword">for</span> reserved <span class="hljs-built_in">users</span> elastic,apm_system,kibana,logstash_system,beats_system,remote_monitoring_user.<br>You will be prompted to enter passwords as the process progresses.<br>Please confirm that you would like to <span class="hljs-built_in">continue</span> [y/N]y<br><br>Enter password <span class="hljs-keyword">for</span> [elastic]:<br>Reenter password <span class="hljs-keyword">for</span> [elastic]:<br>Enter password <span class="hljs-keyword">for</span> [apm_system]:<br>Reenter password <span class="hljs-keyword">for</span> [apm_system]:<br>Enter password <span class="hljs-keyword">for</span> [kibana]:<br>Reenter password <span class="hljs-keyword">for</span> [kibana]:<br>Enter password <span class="hljs-keyword">for</span> [logstash_system]:<br>Reenter password <span class="hljs-keyword">for</span> [logstash_system]:<br>Enter password <span class="hljs-keyword">for</span> [beats_system]:<br>Reenter password <span class="hljs-keyword">for</span> [beats_system]:<br>Enter password <span class="hljs-keyword">for</span> [remote_monitoring_user]:<br>Reenter password <span class="hljs-keyword">for</span> [remote_monitoring_user]:<br>Changed password <span class="hljs-keyword">for</span> user [apm_system]<br>Changed password <span class="hljs-keyword">for</span> user [kibana]<br>Changed password <span class="hljs-keyword">for</span> user [logstash_system]<br>Changed password <span class="hljs-keyword">for</span> user [beats_system]<br>Changed password <span class="hljs-keyword">for</span> user [remote_monitoring_user]<br>Changed password <span class="hljs-keyword">for</span> user [elastic]<br></code></pre></td></tr></table></figure><ul><li><ol start="8"><li>在浏览器访问: <code>http://127.0.0.1:9200/</code></li></ol></li></ul><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;name&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;node-0&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;cluster_name&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;distribution_run&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;cluster_uuid&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;otLdQ8YGRDuaRDHHW2ly9w&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;version&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;number&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;6.1.5&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;build_hash&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;c975590&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;build_date&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2023-07-13T06:34:36.143Z&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;build_snapshot&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;lucene_version&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;7.1.0&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;minimum_wire_compatibility_version&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;5.6.0&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;minimum_index_compatibility_version&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;5.0.0&quot;</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;tagline&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;You Know, for Search&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure><h3 id="源码目录介绍"><a href="#源码目录介绍" class="headerlink" title="源码目录介绍"></a>源码目录介绍</h3><ul><li><p>1.buildSrc</p><ul><li>包含 Gradle 构建脚本的定制逻辑。Elasticsearch 使用 Gradle 进行构建和管理依赖，这个目录存放了构建过程中所需的自定义插件和配置。</li></ul></li><li><p>2.client</p><ul><li>包含与 Elasticsearch 交互的客户端代码。</li><li>client&#x2F;java-rest: Java REST 客户端，提供与 Elasticsearch REST API 的交互。</li><li>client&#x2F;transport: 旧的 Java Transport 客户端（已被废弃），通过自定义的二进制协议与集群通信。</li></ul></li><li><p>3.distribution</p><ul><li>包含用于打包 Elasticsearch 发行版的代码。</li><li>distribution&#x2F;docker: 用于构建 Elasticsearch Docker 镜像的相关文件。</li><li>distribution&#x2F;archives: 用于创建 zip 和 tar.gz 发行包的配置。</li></ul></li><li><p>4.libs</p><ul><li>包含独立于 Elasticsearch 其他部分的通用库和实用工具。</li><li>libs&#x2F;core: 核心库，包含了一些通用的工具类和基础设施代码。</li><li>libs&#x2F;geo: 处理地理空间数据的库。</li></ul></li><li><p>5.modules</p><ul><li>包含 Elasticsearch 的核心模块，这些模块是内置的功能插件。</li><li>modules&#x2F;analysis-common: 常见的文本分析器模块。</li><li>modules&#x2F;lang-painless: Painless 脚本语言模块。</li><li>modules&#x2F;reindex: 支持重新索引操作的模块。</li></ul></li><li><p>6.plugins</p><ul><li>包含官方提供的 Elasticsearch 插件。</li><li>plugins&#x2F;analysis-phonetic: 语音分析插件。</li><li>plugins&#x2F;mapper-annotated-text: 注释文本映射插件。</li><li>plugins&#x2F;repository-s3: S3 存储库插件，用于将快照存储在 AWS S3 上。</li></ul></li><li><p>7.server</p><ul><li>核心服务器代码，包含了 Elasticsearch 的大部分功能逻辑。</li><li>server&#x2F;src&#x2F;main: 主源码目录，包含核心功能实现。</li><li>java&#x2F;org&#x2F;elasticsearch&#x2F;action: 包含所有的操作（actions），如索引、搜索等操作的实现。</li><li>java&#x2F;org&#x2F;elasticsearch&#x2F;cluster: 集群管理相关的代码。</li><li>java&#x2F;org&#x2F;elasticsearch&#x2F;index: 索引管理和操作相关的代码。</li><li>java&#x2F;org&#x2F;elasticsearch&#x2F;node: 节点相关的代码，定义了 Elasticsearch 节点的行为。</li></ul></li><li><p>8.test</p><ul><li>包含测试代码和测试框架。</li><li>test&#x2F;framework: 测试框架代码，提供了一些基础的测试工具和配置。</li><li>test&#x2F;fixtures: 一些测试夹具，用于集成测试。</li></ul></li><li><p>9.x-pack</p><ul><li>包含 X-Pack 组件，提供了额外的功能，如安全、监控、机器学习等。</li><li>x-pack&#x2F;plugin: X-Pack 插件的具体实现。</li><li>x-pack&#x2F;qa: X-Pack 的质量保证（QA）测试代码。</li><li>x-pack&#x2F;spec: 规范和文档。</li></ul></li></ul><h3 id="ES集群启动步骤"><a href="#ES集群启动步骤" class="headerlink" title="ES集群启动步骤"></a>ES集群启动步骤</h3><ul><li><ol><li>选举主节点（过半数为master节点）</li></ol></li><li><ol start="2"><li>选举集群元信息</li></ol></li><li><ol start="3"><li>allocation分配数据分片</li></ol></li><li><ol start="4"><li>index recovery 索引重启恢复</li></ol></li><li><ol start="5"><li>集群启动</li></ol></li></ul><h3 id="ES数据模型"><a href="#ES数据模型" class="headerlink" title="ES数据模型"></a>ES数据模型</h3><ul><li>1 数据副本模型基于主从模式（或称主备模式，HDFS和 Cassandra为对等模式），在实现过程中参考了微软的PacificA算法</li><li>2 数据副本模型：<ul><li>ES的数据副本模型基于主备模式</li><li>每个索引都会被拆分为多个分片，并且每个分片都有多个副本(这些副本称为replication group)</li></ul></li><li>3 写入过程：<ul><li>请求到达协调节点：（request-&gt;coordinator）</li><li>协调节点先验证操作：（coordinator-&gt;validation）</li><li>协调节点转发到主分片（coordinator—&gt;routing to-&gt; master node)</li><li>主节点本地更新操作（ master node update）</li><li>主节点下发数据同步给副本节点组（master node-&gt;slave nodes）</li><li>一旦所有的副分片成功执行操作并回复主分片，主分片会把 请求执行成功的信息返回给协调节点，协调节点返回给客户端</li></ul></li><li>4 故障处理<ul><li>出现主分片错误：如离线、磁盘损坏等，会超时（1分钟）之后主动降级，提升一个副分片为主分片</li><li>出错的主分片操作会被副分片拒绝：来自陈旧的主分片的操作将会被副分片拒绝。当它接收来自副分片的拒绝其请求的响应时，它将会访问一下（新）主节点，然后就会知道自己已被替换。最后将操作路由到新的主分片。</li></ul></li><li>5 读取模型<ul><li>把读请求转发到相关分片</li><li>从副本组中选择一个相关分片的活跃副本</li><li>发送分片级的读请求到被选中的副本</li><li>合并结果并给客户端返回响应</li></ul></li></ul><h3 id="ES主分片选举策略"><a href="#ES主分片选举策略" class="headerlink" title="ES主分片选举策略"></a>ES主分片选举策略</h3><ul><li>安全地分配主分片<ul><li>分片决策过程在主节点完成，并记录在集群状态中</li><li>为了确保安全，主节点必须确保被选为主分片的副本含有最新数据。为 此，ES 使用 Allocation IDs 的概念，这是区分不同分片的唯一标识</li></ul></li><li>分片时序id(Sequence IDs)<ul><li>本地及全局检查点（global checkpoint） ：全局检查点是所有活跃分片历史都已对齐的序列号，换句话说，所 有低于全局检查点的操作都保证已被所有活跃的分片处理完毕。这意味 着，当主分片失效时，我们只需要比较新主分片与其他副分片之间的最 后一个全局检查点之后的操作即可。当旧主分片恢复时，我们使用它知 道的全局检查点，与新主分片进行比较。这样，我们只有小部分操作需 要比较，不用比较全部</li></ul></li><li>_version<ul><li>1.是实现乐观锁，如同其他数据库的乐观锁一 样。我们在写请求中指定文档的版本号，如果文档的当前版本与请求中 指定的版本号不同，则请求会失败。</li><li>2.当文档被修改时版本号递 增。ES 使用这个_version来确保变更以正确顺序执行</li></ul></li></ul><h3 id="ES写入流程"><a href="#ES写入流程" class="headerlink" title="ES写入流程"></a>ES写入流程</h3><ul><li><p>基本流程：</p><ul><li><ol><li>客户端发出请求到es服务端协调节点</li></ol></li><li><ol start="2"><li>协调节点确定数据所属分片主节点，将请求路由转发到主分片节点</li></ol></li><li><ol start="3"><li>主分片节点执行写操作，并将请求写入到副本节点，等待所有副本节点写入成功</li></ol></li><li><ol start="4"><li>主分片节点向协调节点报告，协调节点向客户端报告成功</li></ol></li><li>写一致性的默认策略是quorum，即多数的分片（其中分片副本可以 是主分片或副分片）在写入操作时处于可用状态。</li><li>quorum &#x3D; int（（primary + number_of_replicas） &#x2F; 2 ） + 1</li></ul></li><li><p>详细流程</p></li></ul><h3 id="ES-GET流程"><a href="#ES-GET流程" class="headerlink" title="ES-GET流程"></a>ES-GET流程</h3><ul><li>基本流程：<ul><li><ol><li>客户端请求node节点（coordinator 协调节点）</li></ol></li><li><ol start="2"><li>node节点使用文档id确定数据分片，将请求转发给任意一个分片副本节点</li></ol></li><li><ol start="3"><li>副本节点返回对应文档数据，node返回数据给客户端</li></ol></li></ul></li><li>详细流程<br><img src="/image/010.png" alt="GET详细流程"></li></ul><h3 id="Search流程"><a href="#Search流程" class="headerlink" title="Search流程"></a>Search流程</h3><ul><li><p>索引和搜索<br><img src="/image/011.png" alt="索引流程"></p></li><li><p>分布式搜索过程</p><ul><li>实现类：<code>org.elasticsearch.rest.action.search.RestSearchAction</code></li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>ElasticSearch</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>图数据库相关</title>
+    <link href="/2025/12/09/graph-db/"/>
+    <url>/2025/12/09/graph-db/</url>
+    
+    <content type="html"><![CDATA[<ul><li>记录图数据库相关的疑难杂症</li></ul><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul><li><a href="neo4j">Neo4j</a></li></ul><h3 id="neo4j"><a href="#neo4j" class="headerlink" title="neo4j"></a>neo4j</h3><ul><li><p>1.通讯协议：</p><ul><li>Q:  为什么图库使用 neo4j 的 bolt 链接协议，出现了无法找到主节点导致无法写入或者读取的问题？</li><li>A：neo4j支持3种通讯协议：<ul><li>bolt+routing（适用于集群）</li><li>bolt（适用于单机）</li><li>neo4j（适用于集群）</li><li>bolt 适用于单节点的图数据库。集群模式下的图库需要支持路由的neo4j协议进行通信，从而将请求转发到对应的数据节点上。</li><li>参考：<a href="https://neo4j.com/docs/driver-manual/1.7/client-applications/#driver-connection-uris">https://neo4j.com/docs/driver-manual/1.7/client-applications/#driver-connection-uris</a></li></ul></li></ul></li><li><p>2.数据库命名规范：</p><ul><li>Q:  为什么出现了图数据库创建失败的问题？</li><li>A：neo4j 有自己的数据库规范，这里需要按照neo4j的规范进行创建，所以对应的图实例也要按照规范进行校验</li></ul></li><li><p>3.边关系查询缓慢：</p><ul><li>Q: 为什么图析界面，点击查询边关系出现超时？</li><li>A： neo4j 4.1.x版本的图库，不支持关系边表索引建立。如图所示通过主键查询的检索模式是 AllNodesScan 全表扫描（性能调优参考：<a href="https://blog.csdn.net/qq_37503890/article/details/102073193%EF%BC%89%EF%BC%8C2%E4%BA%BF%E7%9A%84%E6%95%B0%E6%8D%AE%E9%87%8F%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E9%97%B4%E8%80%97%E6%97%B6%E7%BA%A6%E4%B8%BA10s%E5%B7%A6%E5%8F%B3%E3%80%82">https://blog.csdn.net/qq_37503890/article/details/102073193），2亿的数据量查询的时间耗时约为10s左右。</a><ul><li>解决方案：将关系边数据导入到es，通过es查询，不通过图库查询。</li></ul></li></ul></li><li><p>4.neo4j 的数据库链接泄露，句柄数量增长非常快</p><ul><li>A：数据库链接没有及时释放导致的数据库链接泄露，及时释放neo4j的连接即可<ul><li>微服务句柄数量超过限制问题汇总</li></ul></li></ul></li><li><p>5.neo4j 在使用ETL导入时，出现死锁现象：</p><ul><li><p>Q: 在使用spark 集群对neo4j批量导入关系边数据的时候，总是会出现报错：ForsetiClient can’t acquire ExclusiveLock（参考：<a href="https://github.com/neo4j/neo4j/issues/6248%EF%BC%89">https://github.com/neo4j/neo4j/issues/6248）</a></p></li><li><p>A:</p><ul><li>在使用集群导数，一般是多个作业实例执行导入任务，这里就会出现并发写入的场景。neo4j的边关系写入的操作时，数据库本身会给每一个写入操作的事务分配一把排它锁（exclusiveLock），多并发写入就会出现事务之间锁的争夺情况。在实际的生产环境中观察到，最多有130个事务卡在获取锁，最后导致事务超时，整体数据导入任务失败。</li><li>解决方法是：需要降低单次事务写入数据库的数据量。单次写入大量数据非常耗时，从而降低每次事务的耗时，及时将锁资源释放出来，避免发生事务超时的死锁</li></ul></li></ul></li></ul><p>提高单次事务的超时时间。避免出现多个不同事务之间的锁资源竞争时，没有足够的等待时间，导致的任务失败。<br>调整taurus-app配置，降低etl任务的spark executor的数量。从源头降低并发，减少锁资源竞争<br>调整spark配置：[ spark.dynamicAllocation.enabled    false ] ，关闭 动态资源分配功能<br>调整 etl的spark 任务参数，限制最大：1个instances，1个cores，避免多进程并发写入导致的死锁问题</p><ul><li><p>6.出现报错：Could not perform discovery. No routing servers available</p><ul><li>A：neo4j 的服务宕机，需要管理员维护</li></ul></li><li><p>7.使用文件导入大数据量到neo4j宕机</p><ul><li>A: graph系统在使用文件导入120w条数据，具体表现为会出现jvm内存耗尽，机器不再接受写入请求</li><li>Q: DBA解释为cypher语句太长，堆积在内存中无法释放导致的内存耗尽，需要优化语句，建议使用unwind优化cypher语句</li><li>neo4j批量入数优化分析及实现</li></ul></li><li><ol start="8"><li>数据导入neo4j 出现 heap 堆内存溢出，表现为老年代（old gen）持续增长，不会下降</li></ol></li></ul><p>现象如下图:</p><ul><li>A:<ul><li><p>neo4j批量入数优化分析及实现</p><ul><li>使用csv文件导数到es和图库。由于csv文件非常巨大，发现2个主要问题：</li><li>导数速率很慢，单次只能写入100条数据，如果数据量在50w的实体表，一般就需要耗时1-2小时才能完成导数任务。</li><li>在实现导数的方式上有问题，批量导数实现上本质是拼接一个巨长的cypher语句，在小数据量的情况下不会有什么问题。但是如果在大数据量下，会提交很多的长语句，从而会出现neo4j图库无法及时处理这些超长的cypher语句，堆积在JVM的老年代内存中无法释放，最后neo4j出现内存OOM宕机。</li></ul></li><li><p>优化分析：</p><ul><li>在搞清原因之后，咨询DBA了解到，neo4j不建议使用长语句，最好是使用短语句来插入数据，长语句会产生堆积，进而导致内存不足。但是短语句的矛盾就在于性能低下，我们这里需要使用批量插入的模式提高性能。</li><li>于是在参考了neo4j-spark的源码实现，得到了启发。neo4j官方sprak的导数实现是使用批量插入的模式，不是通过拼接语句的模式。通过使用参数传递模式进行批量插入，以实体插入为例：</li><li>scala源码实现（org.neo4j.spark.service.Neo4jQueryWriteStrategy#createStatementForNodes）：</li><li>编译后的语句：</li><li>with query: UNWIND $events AS event MERGE (node:Human {object_key: event.keys.object_key}) SET node +&#x3D; event.properties</li><li>这里官方实现使用了unwind关键字，这里引用 博文 解释为什么unwind可以加速插入：</li><li>高效的做法是利用Neo4j提供的参数（Parameter）机制和UNWIND子句：在一次数据更新中，进行一次连接，打开一次事务，批量更新数据；参数用于提供列表格式的数据，UNWIND子句是把列表数据展开成一行一行的数据，每行数据都会执行结构相同的Cypher语句。再批量更新图形数据之前，用户必须构造结构固定的、参数化的Cypher语句。当Cypher语句的结构相同时，Neo4j数据库直接从缓存中复用已生成的执行计划，而不需要重新生成，这也能够提高查询性能。</li><li>UNWIND子句把列表式的数据展开成一行一行的数据，每一个行都包含更新所需要的全部信息，列表式的数据，可以通过参数来传递。</li><li>例如，定义参数events，该参数是一个JSON字符串，键events是参数名，其值是一个数组，包含两个数组元素。</li></ul><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br><span class="hljs-attr">&quot;events&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span> <span class="hljs-punctuation">&#123;</span>  <span class="hljs-attr">&quot;year&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-number">2014</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;id&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;year&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-number">2014</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;id&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-number">2</span> <span class="hljs-punctuation">&#125;</span> <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure><ul><li>通过$events引用参数，UNWIND子句把events数组中的两个元素展开，每个元素执行一次Cypher语句，由于Cypher的语句结构固定，因此，执行计划被缓存起来，在执行数据更新任务时，参数被UNWIND子句展开，复用执行计划，提高数据更新的速度。</li><li>实施方法：实体数据批量插入cypher，采用overwrite模式进行数据创建和合并，依据object_key作为唯一键进行对象合并：</li><li>关系边数据批量插入cypher，采用overwrite模式进行数据的创建和合并，依据object_key作为唯一键进行对象合并：</li></ul></li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>neo4j</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>关系型数据库相关</title>
+    <link href="/2025/12/09/RDBMS/"/>
+    <url>/2025/12/09/RDBMS/</url>
+    
+    <content type="html"><![CDATA[<ul><li>记录关系型数据库相关的疑难杂症</li></ul><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul><li><a href="MySQL">MySQL</a></li></ul><h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><ul><li>1.MGR集群查询读取问题:<ul><li>现象: 在业务代码中，有一个插入后立即查询的操作，但是出现了插入数据之后无法立刻查询到该数据的情况。</li><li>分析排查: 这里很容易会联想到2种情况：<ul><li>一：事务等级，合适的事务等级决定了是否能查看到对应的数据，在插入数据后，该事务还没有结束，应该是读未提交的事务隔离等级</li><li>二：数据库是MySQL的多主模式的MGR集群，在对同一个集群的读写操作，可能会出现读写不一致的情况，节点之间可能会存在同步延时，导致数据无法查询到。</li></ul></li><li>测试验证<ul><li>一、检查事务等级：这里如果是事务等级导致的，那么应该所有的数据都不可见，不会出现一部分数据出现，一部分数据可见的随机性错误，这个场景可以排除。</li><li>二、测试MGR集群的一致性：模拟写了一段业务插入后立即查询的操作，10线程并发的压测，每个线程请求10次，总共请求100次，发现有13次的未读取到插入的数据，确定了是MGR的同步问题。</li></ul></li><li>解决:<ul><li>查阅资料之后，了解MGR可以调整数据一致性的等级，默认等级为<code>EVENTUAL</code>，尝试调整为<code>AFTER</code>，用来保证集群各个节点的数据强一致性。</li><li>在MGR集群，group_replication_consistency共 5 个值可选：</li><li><ol><li><code>EVENTUAL</code>：确保最终一致性，并不能保证数据实时同步。(MySQL 8.0.14 之前只有这一个选项)</li></ol></li><li><ol start="2"><li><code>BEFORE</code>：确保本地强一致性，并不保证其他节点数据实时同步。</li></ol></li><li><ol start="3"><li><code>AFTER</code>：确保全局强一致性，可以保证所有节点数据实时同步。</li></ol></li><li><ol start="4"><li><code>BEFORE_AND_AFTER</code>：最高级别，确保本地强一致性，全局强一致性。结合 BEOFRE 和 AFTER 的特- 性。</li></ol></li><li><ol start="5"><li><code>BEFORE_ON_PRIMARY_FAILOVER</code>：确保从节点晋升为主节点后的本地一致性。</li></ol></li></ul></li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MySQL</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>技术点总结</title>
+    <link href="/2025/12/09/20250001/"/>
+    <url>/2025/12/09/20250001/</url>
+    
+    <content type="html"><![CDATA[<ul><li>ThreadLocal 就是对ThreadLocalMap的封装，数据本质还是在线程threadLocalMap中</li><li>线程池是队列满了之后，才会扩容：从coreSize 大小扩容到 maxSize</li><li>场景：如果线程池满了又不能丢任务，那么可以考虑将任务持久化到数据库中，这样就不会丢失任务</li><li>有界队列和无节队列区别：有界队列：像固定大小的水桶，水满后会溢出或停止接水。无界队列：像无底洞的水桶，可能装下整个海洋，但最终会淹没你的房间（OOM）</li><li>AQS 就是抽象队列同步器，用在JUC的同步器实现，用于状态变更、线程排队等操作</li><li>CompletableFuture 感觉功能很强大，很适合做任务编排， asyncTool后续可以深入了解一下</li><li>DelayQueue 通常用于实现定时任务调度和缓存过期删除等场景</li><li>区分度最高的列放在联合索引的最左侧：这是最重要的原则。区分度越高，通过索引筛选出的数据就越少，I&#x2F;O 操作也就越少。计算区分度的方法是 count(distinct column) &#x2F; count(*)。最频繁使用的列放在联合索引的左侧：这符合最左前缀匹配原则。将最常用的查询条件列放在最左侧，可以最大程度地利用索引。</li><li>隐式转换会导致索引失效，如数字id &#x3D; ‘111’;id的类型为数字的时候，会使用隐式转换</li><li>子查询性能差的原因：子查询的结果集无法使用索引，通常子查询的结果集会被存储到临时表中，不论是内存临时表还是磁盘临时表都不会存在索引，所以查询性能会受到一定的影响</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>大胆向这个世界求助</title>
+    <link href="/2025/12/09/20250003/"/>
+    <url>/2025/12/09/20250003/</url>
+    
+    <content type="html"><![CDATA[<ul><li>2025年开年后，每一周都过得非常魔幻又现实，之前在网络上看到的各种桥段竟然也真真切切的发生在我的身上，公司全员降薪，通过各种手段打压、威逼员工离职，查历史账恶心员工，也算是真实感受到了来自公司的恶意和来自生活的重拳出击。</li><li>在这过程中，虽然自己感到抑郁、生气、无奈、甚至有些绝望，甚至身体也出现了点问题，但我居然在这过程中感受到了另外一种生机勃勃的感觉，像是有一种生命力，一股力量，一份勇气从我心里默默生根发芽，在这个与公司不公的反抗过程中才好像活出了真正的自我，有了真正的生命力。我的扛压能力、应对意外事情的能力在快速生长。</li><li>如标题所说，我希望我以后都可以做到大胆向这个世界求助，不管对方是谁，去勇敢大胆的向对方求助。求助的这个过程中，重要的是将自己的目的变成他人的欲望，使我达到了目的，他也实现了欲望，这不是一种算计的做法，而是真切的站在对方的利益考虑问题，使双方都达到一个双赢的结局，那么你求助被帮助的概率则大大的提升。</li><li>一点点小小的感悟，谢谢你看到这里。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>生活感悟</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>独立思考</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>独立开发探索</title>
+    <link href="/2025/12/09/20250002/"/>
+    <url>/2025/12/09/20250002/</url>
+    
+    <content type="html"><![CDATA[<ul><li>本页记录独立开发探索的相关内容，用于自己的复盘笔记、思维整理、经验分享</li></ul><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul><li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%81%9A%E7%8B%AC%E7%AB%8B%E5%BC%80%E5%8F%91">为什么要做独立开发</a></li><li><a href="#seo">SEO</a></li><li><a href="#%E5%B9%BF%E5%91%8A%E6%B5%81%E9%87%8F%E5%8F%98%E7%8E%B0">广告流量变现</a></li><li><a href="#%E4%BA%A7%E5%93%81%E5%AE%A3%E5%8F%91">产品宣发</a></li></ul><h3 id="为什么要做独立开发"><a href="#为什么要做独立开发" class="headerlink" title="为什么要做独立开发"></a>为什么要做独立开发</h3><p>受限于国内的职业寿命极其短暂，判断后续的唯一出路是独立开发。能够不依赖公司实现经济独立。独立开发越早开始就越好，因为这个过程需要漫长的成长路程，而且需要极大的努力，面对的可能是巨大的无形的困顿，唯有坚持，积极寻找未来方向，方可破局</p><h3 id="SEO"><a href="#SEO" class="headerlink" title="SEO"></a>SEO</h3><ul><li>运营一份对外的个人产品（这里包括：个人网站、公众号、视频平台）等，SEO是非常关键的，在我自己看来SEO是链接用户与产品的桥梁，通过关键字引导用户来到自己构建的内容平台上面来。</li><li>各个平台有自己的关键字指数平台<ul><li><a href="https://trends.google.com/trends/">谷歌关键字指数</a></li><li><a href="https://index.baidu.com/v2/index.html#/">百度关键字指数</a></li></ul></li></ul><h3 id="广告流量变现"><a href="#广告流量变现" class="headerlink" title="广告流量变现"></a>广告流量变现</h3><ul><li>产品的广告流量变现</li></ul><h3 id="产品宣发"><a href="#产品宣发" class="headerlink" title="产品宣发"></a>产品宣发</h3><ul><li>产品宣发</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>独立开发</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【ES源码探索-0003】- Distributed Area Internals 文档翻译</title>
+    <link href="/2025/12/09/0003-es/"/>
+    <url>/2025/12/09/0003-es/</url>
+    
+    <content type="html"><![CDATA[<ul><li><a href="https://github.com/elastic/elasticsearch/blob/e7bbcb98834156f2dbfa1dd9a86c22a33cfbab23/docs/internal/DistributedArchitectureGuide.md">原文链接 - Distributed Area Internals</a></li></ul><h2 id="译文-分布式架构指南"><a href="#译文-分布式架构指南" class="headerlink" title="译文 - 分布式架构指南"></a>译文 - 分布式架构指南</h2><h2 id="分布式区域内部"><a href="#分布式区域内部" class="headerlink" title="分布式区域内部"></a>分布式区域内部</h2><p>分布式区域包含索引和协调系统。</p><p>索引路径从用户<code>REST</code>命令通过分片路由延伸到每个独立分片 <code>translog</code> 和 存储引擎. 重建索引实际上是从源索引读取并写入到目标索引（可能在不同的节点上）. 协调方面包含集群协调，分片分配，集群弹性伸缩统计，任务管理和跨集群复制，明显协调系统包含网络，服务发现插件系统，快照&#x2F;恢复逻辑和分片恢复。</p><p>一份通用的Elasticsearch组件指南可以查阅<a href="https://github.com/elastic/elasticsearch/blob/main/docs/internal/GeneralArchitectureGuide.md">这里</a></p><h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><p>(我们有很多线程池，是什么以及为什么)</p><h3 id="动作监听器"><a href="#动作监听器" class="headerlink" title="动作监听器"></a>动作监听器</h3><p>查阅<a href="https://github.com/elastic/elasticsearch/blob/main/server/src/main/java/org/elasticsearch/action/ActionListener.java">Java文档<code>ActionListener</code></a></p><p>(待办事项：为一系列 Listener 类添加有用的入门参考和解释。参考 Netty 部分。)</p><h3 id="REST-层"><a href="#REST-层" class="headerlink" title="REST 层"></a>REST 层</h3><p>REST和传输层通过<code>ActionModule</code>绑定在一起.在 <code>ActionModule#initRestHandlers</code> 使用 <code>RestController</code> 注册所有 REST 操作，并将传入请求与特定 REST 操作进行匹配.<code>RestController#registerHandler</code> 使用 <code>Rest*Action</code> 的 <code>#routes()</code> 实现将 HTTP 请求与特定的 <code>Rest*Action</code> 进行匹配。通常，REST操作遵循类命名约定<code>Rest*Action</code>，这使得它们更容易被找到，但并不总是可以找到。<code>#routes()</code>的定义也有助于查找 REST 操作。<code>RestController#dispatchRequest</code> 最终会在<code>RestHandler</code>的实现上调用<code>#handleRequest</code>.<code>RestHandler</code> 是 <code>BaseRestHandler</code>的基类，大多数 <code>Rest*Action</code> 实例都对<code>BaseRestHandler</code>其进行了扩展以实现特定的 REST 操作。</p><p><code>BaseRestHandler#handleRequest</code> 调用 <code>BaseRestHandler#prepareRequest</code>, 其<code>Rest*Action</code>继承的子类实现特定的操作。 <code>RestController#dispatchRequest</code> 通过 <code>RestHandler#handleRequest</code> 将 <code>RestChannel</code> 传递给 <code>Rest*Action</code>：<code>Rest*Action#prepareRequest</code> 实现返回一个 <code>RestChannelConsumer</code>，定义如何在通道上执行操作和回复（通常以完成 ActionListener 包装器的形式）。<code>Rest*Action#prepareRequest</code> 实现负责解析传入的请求，并验证请求的结构是否有效。<code>BaseRestHandler#handleRequest</code> 随后将检查所有请求参数是否已被使用：意外的请求参数会导致错误。</p><h3 id="REST操作是如何与Transport操作连接"><a href="#REST操作是如何与Transport操作连接" class="headerlink" title="REST操作是如何与Transport操作连接"></a>REST操作是如何与Transport操作连接</h3><p>Rest层使用<code>AbstractClient</code>的实现.<code>BaseRestHandler#prepareRequest</code> 使用 <code>NodeClient</code> 客户端：此客户端知道如何连接到指定的 TransportAction。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>elasticsearch</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【ES源码探索-0002】- 源码的模块</title>
+    <link href="/2025/12/09/0002-es/"/>
+    <url>/2025/12/09/0002-es/</url>
+    
+    <content type="html"><![CDATA[<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul><li><a href="#benchmarks">benchmarks</a></li><li><a href="#build-conventions">build-conventions</a></li><li><a href="#build-tools">build-tools</a></li><li><a href="#build-tools-internal">build-tools-internal</a></li><li><a href="#client-benchmark-noop-api-plugin">client-benchmark-noop-api-plugin</a></li><li><a href="dev-tools">dev-tools</a></li><li><a href="distribution">distribution</a></li><li><a href="docs">docs</a></li></ul><h2 id="benchmarks"><a href="#benchmarks" class="headerlink" title="benchmarks"></a>benchmarks</h2><ul><li>是 Elasticsearch 生态系统中的一个工具，用于衡量和优化 Elasticsearch 集群的性能。它通常与 Elastic 官方提供的性能测试框架 Rally 搭配使用，帮助用户在不同的集群配置、硬件环境、数据规模和查询模式下进行基准测试，了解性能表现。</li></ul><h2 id="build-conventions"><a href="#build-conventions" class="headerlink" title="build-conventions"></a>build-conventions</h2><ul><li>build-conventions 是一组标准的构建约定，通常用于确保项目在构建过程中遵循一致的规范和流程。这些约定可以简化和统一构建任务，确保所有模块和项目遵循相同的规则，从而减少构建过程中的差异。</li></ul><h2 id="build-tools"><a href="#build-tools" class="headerlink" title="build-tools"></a>build-tools</h2><p>-build-tools 是一组用于辅助构建过程的工具和脚本。这些工具主要用于处理构建中的常见任务，例如依赖管理、代码生成、测试执行等。</p><h2 id="build-tools-internal"><a href="#build-tools-internal" class="headerlink" title="build-tools-internal"></a>build-tools-internal</h2><ul><li>build-tools-internal 是与 build-tools 相关的内部工具集，专门用于 Elasticsearch 开发团队的内部构建流程和管理。这些工具可能是与外部构建工具不同步更新的，主要用于满足内部开发需求。</li></ul><h2 id="client-benchmark-noop-api-plugin"><a href="#client-benchmark-noop-api-plugin" class="headerlink" title="client-benchmark-noop-api-plugin"></a>client-benchmark-noop-api-plugin</h2><ul><li>elasticsearch-client-benchmark-noop-api-plugin 是 Elasticsearch 客户端 API 的一个插件，主要用于性能基准测试（benchmarking）。以下是该插件的核心功能和特点：</li><li>No-op 操作：</li><li>“No-op” 代表 “no operation”，即该插件不会执行实际的 Elasticsearch 查询或数据操作，而是模拟 API 请求的过程。其目的主要是为了测试客户端的性能而不对集群施加负载。<br>性能测试：</li><li>该插件允许你测试客户端执行请求的性能（例如，延迟、吞吐量等），而不需要实际与 Elasticsearch 集群进行交互。你可以测量客户端代码的性能瓶颈。<br>轻量级模拟：</li><li>通过模拟 API 的方式，用户可以在开发环境或测试环境下进行大量的 API 请求测试，而无需考虑实际的硬件资源限制或集群负载问题。<br>基于 Java 客户端：</li><li>该插件通常用于与 Java 客户端一起工作，因为 Elasticsearch 官方客户端有广泛的 Java 支持。</li><li>用途场景：</li><li>在需要验证客户端代码的性能或优化代码时使用，尤其是在客户端与服务器交互中需要最小化对集群的影响时。</li><li>开发人员可以使用该插件进行无副作用的测试，以确保 API 调用的响应速度和可靠性。</li></ul><h2 id="dev-tools"><a href="#dev-tools" class="headerlink" title="dev-tools"></a>dev-tools</h2><ul><li>开发工具脚本，包含有代码提交，分支删除、文档发布等脚本</li></ul><h2 id="distribution"><a href="#distribution" class="headerlink" title="distribution"></a>distribution</h2><ul><li>部署发布</li></ul><h2 id="docs"><a href="#docs" class="headerlink" title="docs"></a>docs</h2><ul><li>es文档相关<ul><li>changelog：修改日志</li><li>community-clients</li><li>internal ：包含2份文档，分布式架构的基本概念和设计原则、Elasticsearch的整体架构</li><li>java-rest</li><li>painless</li><li>plugins</li><li>reference</li><li>resiliency</li><li>src</li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>elasticsearch</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【ES源码探索-0001】- 如何编译和远程调试elasticsearch源码</title>
+    <link href="/2025/12/09/0001-es/"/>
+    <url>/2025/12/09/0001-es/</url>
+    
+    <content type="html"><![CDATA[<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul><li><a href="#%E5%A6%82%E4%BD%95%E7%BC%96%E8%AF%91">如何编译</a></li><li><a href="#%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95">如何调试</a></li><li><a href="#%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98">遇到问题</a></li></ul><h3 id="如何编译"><a href="#如何编译" class="headerlink" title="如何编译"></a>如何编译</h3><ul><li><ol><li>下载最新elasticsearch源码，准备相关运行环境，将<code>jdk8</code>、<code>jdk11</code>、<code>jdk17</code>、<code>jdk21</code>配置到环境变量，</li></ol></li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">.bash_profile</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Get the aliases and <span class="hljs-built_in">functions</span></span><br>if [ -f ~/.bashrc ]; then<br>        . ~/.bashrc<br>fi<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">User specific environment and startup programs</span><br><br>PATH=$PATH:$HOME/.local/bin:$HOME/bin<br><br>export JAVA8_HOME=/home/es/openlogic-openjdk-8u422-b05-linux-x64<br>export JAVA11_HOME=/home/es/openlogic-openjdk-11.0.24+8-linux-x64<br>export JAVA17_HOME=/home/es/openlogic-openjdk-17.0.12+7-linux-x64<br>export JAVA21_HOME=/home/es/openlogic-openjdk-21.0.4+7-linux-x64<br>export JAVA_HOME=$JAVA21_HOME<br>export java=&quot;$JAVA_HOME/bin/java&quot;<br>export ES_JAVA_OPTS=&quot;-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5007&quot;<br><br>PATH=$PATH:$JAVA_HOME/bin<br>export PATH<br></code></pre></td></tr></table></figure><ul><li><ol start="2"><li>编译打包，执行 <code>./gradlew localDistro</code> 编译打包，es打包产物在 <code>/elasticsearch/build/distribution/local/</code> 路径下</li></ol></li><li><ol start="3"><li>如果这里使用国内的机器，可能会打包失败或者打包时间非常久，建议大家购买香港的服务器，这样不会因为网络的问题导致打包失败。</li></ol></li></ul><h3 id="如何调试"><a href="#如何调试" class="headerlink" title="如何调试"></a>如何调试</h3><ul><li><ol><li>添加ES_JAVA_OPTS环境变量，elasticsearch 在运行时候会读取这个变量，这里就是jvm的参数，添加了调试的参数。</li></ol></li><li><ol start="2"><li>编辑 config&#x2F;elasticsearch.yml，修改配置</li></ol></li></ul><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># 设置主机</span><br><span class="hljs-attr">network.host:</span> <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><br><span class="hljs-comment"># 设置主机</span><br><span class="hljs-attr">discovery.seed_hosts:</span> [<span class="hljs-string">&quot;0.0.0.0&quot;</span>, <span class="hljs-string">&quot;[::1]&quot;</span>]<br><span class="hljs-comment"># 设置安全检查</span><br><span class="hljs-attr">xpack.security.enabled:</span> <span class="hljs-literal">false</span><br><span class="hljs-attr">xpack.security.enrollment.enabled:</span> <span class="hljs-literal">false</span><br><span class="hljs-comment"># 设置是否开启https</span><br><span class="hljs-attr">xpack.security.http.ssl:</span><br>  <span class="hljs-attr">enabled:</span> <span class="hljs-literal">false</span><br>  <span class="hljs-attr">keystore.path:</span> <span class="hljs-string">certs/http.p12</span><br><br><span class="hljs-comment"># 设置是否开启ssl</span><br><span class="hljs-attr">xpack.security.transport.ssl:</span><br>  <span class="hljs-attr">enabled:</span> <span class="hljs-literal">false</span><br>  <span class="hljs-attr">verification_mode:</span> <span class="hljs-string">certificate</span><br>  <span class="hljs-attr">keystore.path:</span> <span class="hljs-string">certs/transport.p12</span><br>  <span class="hljs-attr">truststore.path:</span> <span class="hljs-string">certs/transport.p12</span><br><span class="hljs-comment"># 设置主机</span><br><span class="hljs-attr">http.host:</span> <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><br></code></pre></td></tr></table></figure><h2 id="遇到问题"><a href="#遇到问题" class="headerlink" title="遇到问题"></a>遇到问题</h2><ul><li><ol><li>启动报错：max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144];</li></ol><ul><li>这里是由于vm.max_map_count默认值太小导致的，使用root用户，编辑<code>vi /etc/sysctl.conf</code>，添加配置<code>vm.max_map_count=655300</code> 即可。</li></ul></li><li><ol start="2"><li>无法通过公网ip连接到主机</li></ol><ul><li>2.1 防火墙端口未开启导致，在云厂商的安全组设置打开端口</li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>elasticsearch</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>需求挖掘</title>
+    <link href="/2025/11/12/20251114/"/>
+    <url>/2025/11/12/20251114/</url>
+    
+    <content type="html"><![CDATA[<ol><li>Reddit 痛点挖掘法（最推荐）</li></ol><p>在 Reddit 搜索：</p><p>“I wish there was a tool that …”</p><p>“What’s the best tool for …”</p><p>“How do you manage …”</p><p>“alternatives to XXX”</p><p>“is there an app for …”</p><p>你可以看到大量用户直接说出未被满足的需求。</p><ol start="2"><li>Product Hunt 评论区挖痛点</li></ol><p>方法：</p><p>找新产品（尤其是没做成功的）</p><p>看用户批评的点、吐槽的功能缺失</p><p>从失败产品里找机会点</p><p>成功产品容易过饱和，而失败产品的评论区能告诉你真实需求。</p><ol start="3"><li>Hacker News “Show HN &#x2F; Ask HN”</li></ol><p>重点看 3 类帖子：</p><p>“Show HN: 我做了一个 XXX”</p><p>“Ask HN: 有没有类似 XXX 的工具？”</p><p>“Ask HN: 你们都用什么工具来处理 XXX？”</p><p>这些帖子里会有大量真实需求、并且是对技术产品付费能力强的精准用户。</p><ol start="4"><li>Twitter（X）“专业圈子需求”</li></ol><p>搜索：</p><p>“need a tool”</p><p>“is there a tool to”</p><p>“I pay for”</p><p>“automation tool for”</p><p>尤其是开发者、设计师、营销人员，他们愿意付费效率工具。</p><ol start="5"><li>Discord 社群挖需求</li></ol><p>加入垂直社区（写作、远程工作、游戏、健身、AI Prompt、开发者工具等）</p><p>看大家抱怨什么</p><p>看用什么工具替代</p><p>看哪些需求没人响应</p><p>📝 二、来自“数据趋势”的挖掘（看市场潜在需求）<br>6. Google Trends</p><p>查看：</p><p>关键词上升趋势</p><p>某种工具突然被大量搜索（但竞品少）</p><p>不同国家的需求关注度差异</p><p>比如：AI résumé、AI writing、habit tracker 在某些国家爆发。</p><ol start="7"><li>关键词工具（Ahrefs &#x2F; SEMrush &#x2F; Ubersuggest）</li></ol><p>找：</p><p>搜索量大</p><p>竞争度低</p><p>付费意愿高（商业关键词）</p><p>这个方法特别适合做 SaaS、小工具、Chrome 插件。</p><ol start="8"><li>App Store &amp; Google Play 榜单分析</li></ol><p>重点看：</p><p>小品类 Top 50</p><p>高评分但下载中等（市场有需求、但不卷）</p><p>低评分但下载很高（有大面积痛点 → 空间巨大）</p><ol start="9"><li>Substack &#x2F; Medium 趋势文章</li></ol><p>搜索：</p><p>“Top tools for …”</p><p>“Best apps for …”</p><p>“tools I pay for as a freelancer”</p><p>作者经常总结他们自己找不到但需要的工具。</p><p>🧱 三、来自“竞品生态”的需求挖掘（结构化且高效）<br>10. 外链分析挖竞品（你刚问的）</p><p>通过外链来源网站找到：</p><p>同类产品全集</p><p>头部产品模式</p><p>市场空白点</p><p>用户普遍吐槽点</p><p>是最系统化的“市场扫描方法”。</p><ol start="11"><li>“替代品搜索法”</li></ol><p>在 Google 搜：</p><p>“Notion alternatives”</p><p>“Calendly alternatives”</p><p>“Miro alternatives”</p><p>“Zapier alternatives”</p><p>每一个 alternatives 页面，都罗列大量竞品 + 痛点描述。</p><p>这是独立开发者最容易找到“机会市场”的地方。</p><ol start="12"><li>比较网站挖需求（超好用）</li></ol><p>以下网站专门整理工具：</p><p>alternativeto.net</p><p>G2</p><p>Capterra</p><p>SaaSHub</p><p>Stackshare</p><p>你能看到：</p><p>同类工具数量</p><p>用户评论</p><p>替代品列表</p><p>功能缺失</p><p>🧪 四、来自“快速验证”的实战挖掘<br>13. Landing Page 测试（低成本验证需求）</p><p>步骤：</p><p>做一个一页式产品介绍页面（Carrd &#x2F; Webflow）</p><p>投放：</p><p>Reddit</p><p>Hacker News</p><p>Facebook Ads（少量预算）</p><p>看有多少人留下邮箱</p><p>若 100 次访问有 5~10 个注册 → 需求成立。</p><ol start="14"><li>No-Code 原型 MVP 验证</li></ol><p>用：</p><p>Bubble</p><p>Glide</p><p>Notion + Pory</p><p>Figma 原型</p><p>简单实现核心功能，看用户是否使用并愿意付费。</p><p>🔍 五、来自“真实行业”的需求挖掘（不卷、但需求大）<br>15. 垂直行业论坛挖需求</p><p>例如：</p><p>教育</p><p>医疗</p><p>健身</p><p>建筑</p><p>营销</p><p>自由职业者</p><p>咨询行业</p><p>每个行业都有大量没有好用工具的遗留痛点。</p><ol start="16"><li>Upwork &#x2F; Fiverr 任务挖需求</li></ol><p>看别人付钱请 freelancer 做的事情：</p><p>如果很多人重复付费做同样东西，就是产品机会。</p><p>例如：</p><p>导出 Excel 自动化</p><p>数据分类处理</p><p>网站 SEO</p><p>数据采集工具</p><p>视频压缩 &#x2F; 转码</p><p>文档转换工具</p><p>这些都可以做独立工具。</p><ol start="17"><li>Shopify 插件市场挖需求</li></ol><p>Shopify 商家有大量痛点，一个插件就能解决问题。<br>比如：</p><p>自动填写物流信息</p><p>自动生成产品视频</p><p>图像批量优化</p><p>这类需求非常稳定、而且付费能力强。</p><ol start="18"><li>Github Issues &#x2F; Discussions 挖开发者需求</li></ol><p>如果你做开发工具或插件：</p><p>看某个库的 issue 页</p><p>找大家求助但库本身不会支持的功能</p><p>你可以做一个可独立使用的小工具</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>需求挖掘</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>marc转bibframe的困境和挑战</title>
+    <link href="/2025/08/27/20250013/"/>
+    <url>/2025/08/27/20250013/</url>
+    
+    <content type="html"><![CDATA[<h2 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h2><ol><li>Work-作品需要做到归一化：多个不同的书目数据需要归一为同一个作品：例如不同的西游记，需要指向同一个作品</li><li>Instance-实例需要归一化：在数据库中，存在多个相同的书目MARC数据，这些数据需要统一起来，指向同一个实例</li><li>作者需要归一化：多个不同实例下面的作者，需要去重复，统一起来，指向同一个作者</li><li></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>随笔</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>编程</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【每周总结】- 探索</title>
+    <link href="/2025/04/03/20250011/"/>
+    <url>/2025/04/03/20250011/</url>
+    
+    <content type="html"><![CDATA[<p><strong>日期范围</strong>:2025-03-31 - 2025-04-03<br><strong>本周关键词</strong>: 探索</p><hr><h2 id="一、本周目标回顾"><a href="#一、本周目标回顾" class="headerlink" title="一、本周目标回顾"></a>一、本周目标回顾</h2><h3 id="1-计划完成事项"><a href="#1-计划完成事项" class="headerlink" title="1. 计划完成事项"></a>1. 计划完成事项</h3><ul><li><input disabled="" type="checkbox"> 目标1:独立开发探索（进度:0.00001%）</li><li><input disabled="" type="checkbox"> 目标2:面试复习（进度: 62%）</li></ul><hr><h2 id="二、任务执行情况"><a href="#二、任务执行情况" class="headerlink" title="二、任务执行情况"></a>二、任务执行情况</h2><h3 id="1-工作-学习成果"><a href="#1-工作-学习成果" class="headerlink" title="1. 工作&#x2F;学习成果"></a>1. 工作&#x2F;学习成果</h3><ul><li><strong>已完成</strong>:  <ul><li>任务: 每日复习</li><li>任务: 面试投递</li></ul></li><li><strong>未完成</strong>:  <ul><li>任务: 本周拿到外包offer一个，还有一个外包进入到2轮面试，自研公司基本不理.</li></ul></li></ul><hr><h2 id="三、亮点与不足"><a href="#三、亮点与不足" class="headerlink" title="三、亮点与不足"></a>三、亮点与不足</h2><h3 id="🎯-本周亮点"><a href="#🎯-本周亮点" class="headerlink" title="🎯 本周亮点"></a>🎯 本周亮点</h3><ol><li>突破性进展:通过youtube博主，了解到很多关于独立站的开发思路、技术栈、分析工具，打开新世界的大门。</li></ol><ul><li><a href="https://www.youtube.com/watch?v=yukg-eABYvM">独立开发前6个月，打造月入1700刀产品-二两说</a></li><li><a href="https://www.youtube.com/watch?v=mF7RplrloRw">快速挖掘赚钱产品的具体操作-二两说</a></li><li><a href="https://www.semrush.com/projects/">SEO优化分析工具-semrush</a></li><li><a href="https://ahrefs.com/">SEO优化分析工具-ahrefs</a></li><li><a href="https://www.indiehackers.com/">国外的站长收入分享网站-indiehackers</a></li><li><a href="https://zh.uniapp.dcloud.io/">移动端应用统一开发框架-uniapp</a></li><li><a href="https://www.wappalyzer.com/">chrome网站技术栈分析工具插件-wappalyzer</a></li><li><a href="https://acquire.com/">独立开发者产品售卖平台-acquire</a></li></ul><ol start="2"><li>新技能学习</li></ol><ul><li>本周主要是了解独立开发者的开发、分析、运营的整体思路，变现思路等等</li></ul><h3 id="待改进"><a href="#待改进" class="headerlink" title="待改进"></a>待改进</h3><ol><li>拖延问题: 有一些想法但是迟迟不执行落地，拖延严重</li><li>简历优化: 通过本周的投递反馈，目前看是简历本身有问题，由于工作交付的产品单一，所以需要优化简历，丰富一下项目经历。</li></ol><hr><h2 id="四、下周计划"><a href="#四、下周计划" class="headerlink" title="四、下周计划"></a>四、下周计划</h2><h3 id="1-核心目标"><a href="#1-核心目标" class="headerlink" title="1. 核心目标"></a>1. 核心目标</h3><ul><li><strong>高优先级</strong>:  <ul><li><input disabled="" type="checkbox"> 优化简历</li></ul></li><li><strong>中优先级</strong>:  <ul><li><input disabled="" type="checkbox"> 持续探索独立开发，尽快上线一个app熟悉整个开发上线流程</li></ul></li></ul><h3 id="2-优化策略"><a href="#2-优化策略" class="headerlink" title="2. 优化策略"></a>2. 优化策略</h3><ul><li>时间管理: 安排好每天的时间段，这样不会出现任务不执行的情况，现在工作清闲，所以有大把的时间学习和探索。</li></ul><hr><h2 id="五、其他记录"><a href="#五、其他记录" class="headerlink" title="五、其他记录"></a>五、其他记录</h2><h3 id="✨-灵感池"><a href="#✨-灵感池" class="headerlink" title="✨ 灵感池"></a>✨ 灵感池</h3><ul><li>想法1: 想做一个流程编排的框架，通过cursor开发，录制成视频发布到b站，逐渐打造个人品牌。</li><li>想法2: 快速探索，可以尝试快速复制一个有流量的app上线</li></ul><hr><ul><li><strong>总结人</strong>: @lewis</li><li><strong>时间</strong>: 2025&#x2F;04&#x2F;03</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>每周总结</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>每周总结</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>低风险投资套利总结</title>
+    <link href="/2025/04/01/20250010/"/>
+    <url>/2025/04/01/20250010/</url>
+    
+    <content type="html"><![CDATA[<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul><li><a href="#%E5%8F%AF%E8%BD%AC%E5%80%BA%E7%94%B3%E8%B4%AD">可转债申购</a></li><li><a href="#ETF%E6%BA%A2%E4%BB%B7%E5%A5%97%E5%88%A9">ETF溢价套利</a></li><li><a href="#%E5%A4%A7%E9%A2%9D%E5%AD%98%E5%8D%95%E6%81%AF%E5%B7%AE%E5%A5%97%E5%88%A9">大额存单息差套利</a></li></ul><h3 id="可转债申购"><a href="#可转债申购" class="headerlink" title="可转债申购"></a>可转债申购</h3><ul><li>原理:可转债打新，基本无风险</li><li>执行步骤:券商软件进入新债申购页面即可申购，平均收益在20%左右。</li><li>缺点：由于申购的人很多，目前很难中新债</li></ul><h3 id="ETF溢价套利"><a href="#ETF溢价套利" class="headerlink" title="ETF溢价套利"></a>ETF溢价套利</h3><ul><li>原理:<ul><li>所谓溢价套利，是指交易价格&gt;基金净值，称之为溢价。当溢价足够大时可以按照比较低的净值申购基金，按照比较高的交易价格卖出基金，这样就可以实现低买高卖的溢价套利。</li><li>反之，交易价格&lt;基金净值，称之为折价。当折价足够大时可以按照比较低的交易价格买入基金，按照比较高的净值赎回基金，这样就可以实现低买高卖的折价套利。</li><li>基金赎回手续费比较高，7天以内赎回费1.5%，所以折价套利做的就比较少，我们常说的基金套利都是溢价套利较多。</li><li>基金的折溢价一般越接近收盘的点相应的数据就越准确，所以套利行为经常在收盘点附近完成，这对时间有一定要求，并不适合特别忙碌的人。</li><li>这里大家容易混淆的地方是买入和卖出、申购与赎回， 一定要记住申购赎回对应的是基金净值，场内买卖对应的是交易价格。</li></ul></li><li>执行步骤: <a href="https://mp.weixin.qq.com/s/g4WZwzjYtRTR2bpaCzKc_Q">详细步骤</a></li><li>缺点：<ul><li>价格波动：在买入股票或资产后，市场价格可能下跌，导致预期的套利利润减少甚至亏损。</li><li>溢价消失：市场价格可能在套利操作过程中回落到净值附近，溢价消失，从而无法实现预期的套利收益。</li></ul></li><li>套利品种：<ul><li>(1)原油类LOF：162411华宝油气，501018南方原油，160216国泰商品，160416石油基金，161129原油基金，160723嘉实原油，163208诺安油气，162719广发石油。</li><li>(2)境外股票类LOF：161128标普科技，164906中国互联，501021香港中小，161130纳指LOF，161125标普500，161831恒生中企，160125南方香港，501301香港大盘，161127标普生物，161126标普医药，164824印度基金，162415美国消费。</li><li>(3)贵金属类LOF：161226白银基金，161116易基黄金，160719嘉实黄金</li></ul></li></ul><h3 id="大额存单息差套利"><a href="#大额存单息差套利" class="headerlink" title="大额存单息差套利"></a>大额存单息差套利</h3><ul><li>原理:央行降息，利率单边下行的情况下，提前买入高利率的存单，可以吃到 存单利率-当前利率转出利率的利息差。如果是VIP客户，可以买入银行面向VIP客户的高利率存单，客户转手出让存单即可完成息差的套利。</li><li>执行步骤:在银行APP即可购入大额存单，等待利率下行或者购入面向VIP客户的高利率存单，进行息差的套利。</li><li>缺点：VIP客户资产要求较高，高利率的存单产品不面向普通银行客户。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>投资套利</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>投资套利</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>记一次天池比赛 - 性能挑战赛道</title>
+    <link href="/2020/01/01/20250004/"/>
+    <url>/2020/01/01/20250004/</url>
+    
+    <content type="html"><![CDATA[<h2 id="叨叨"><a href="#叨叨" class="headerlink" title="叨叨"></a>叨叨</h2><ul><li>吐槽一下csdn，现在做的越来越拉胯，查个资料都需要登录之后才能复制代码，这吃相越来越难看，那我为啥还写呢？我实在懒得换平台了</li><li>闲的无聊的记录，就是分享一下自己的一点点心得，有什么建议欢迎提出</li><li><a href="https://tianchi.aliyun.com/competition/entrance/531907/introduction">比赛链接：天池-云上开发，高效智能–阿里云ECS Cloudbuild开发者大赛性能挑战赛道</a></li><li><a href="https://github.com/lewisbyte/tianchi-im">我参赛的源码github链接</a></li></ul><h2 id="赛题"><a href="#赛题" class="headerlink" title="赛题"></a>赛题</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><code class="hljs bash">赛题背景<br>基于公共云构建产品、系统和应用已经是当前最热门的技术趋势了，公共云不仅提供了非常丰富的基础设施资源类型，如服务器、网络、存储和数据库等资源，还为这些资源提供了极高的可靠性保证，综合性价比非常有竞争力，尤其是阿里云发布的第七代云服务器ECS，搭载最新一代英特尔®至强®可扩展处理器（代号Ice Lake）以及阿里云自研的第三代神龙架构，可以更好地满足各种类型的计算任务。本赛道将基于这款云服务器进行，希望通过此次比赛可以更具体更全面地展示其性能。<br><br>Web Services是各行业中最为常见的软件系统之一，本赛题探讨Web Service在云上部署的性能优化，希望参赛者通过代码撰写、操作系统与数据库选型、各种参数调优等手段，优化云端Web服务的性能和保障服务的高可用。<br><br>赛题描述<br>构建一个高性能、高稳定的Web Service，具体形式是实现一个在线实时聊天室Web Service。<br><br>该服务需要完成以下功能，下文将以部分API方式进行说明：<br><br>用户注册、用户登录等。<br>创建房间、查看房间等。<br>用户进入、退出实时聊天房间，每个用户只能进入一个聊天室，进入某个聊天室时，会自动退出上一个聊天室等。<br>用户发言和实时收取其他人的消息。<br>注：聊天室、消息和用户，三个数据必须持久化；在线人数无须持久化。<br><br>完整API Spec请参考这里。<br><br>复赛要求如下：<br>1.所有的数据持久化都必须是集群化(3台机器)的，任何一台机器宕机，其他的两台机器应该能继续对外提供完整的数据查询和插入服务。<br><br>2.在任何一台机器上登录和进入聊天室，其他的机器都应该有相同判断，即该用户登录以及进入聊天室。<br><br>3.程序在机器启动后，会收到请求/updateCluster的post请求，body是三台机器的ip的list,比如 [“192.0.0.1”,”192.0.0.2”,”192.0.0.3”]。<br><br>4.经过上面的步骤等待一分钟后，会收到/checkCluster的GET请求，需要返回http status 200，然后开始集群测试。<br><br>环境要求<br>操作系统：任意阿里云的官方镜像，任意Windows或Linux、OS。<br><br>编程语言：任意语言，Java/Go/Python/JS等。<br><br>数据库：任意数据库，MySQL/Redis等。但所有数据必须落盘，即使实例重启，也不允许丢任何数据。<br><br>提交说明<br>最终的产出以zip包形式(不得超过100M)提供，zip包里面需要包括以下内容：<br><br>可部署的二进制文件，或代码，如python。代码必须有一个良好的规范，建议参考所选编程语言的通用规范。<br>部署脚本。<br>环境配置，以资源编排ROS模板展示。<br>参考示例zip包结构。<br>评测系统收到提交的任务后，将会：<br><br>安全扫码，如发现病毒或可疑代码将直接取消比赛资格，作废任何已有成绩。<br>解压zip示例中的deploy_application.zip 。<br>使用ros json 模板进行ECS环境部署，参考注释，可能需要调整镜像ID。<br>系统自动将deploy_application.zip包下载并解压到目标目录。<br>调用deploy_application.zip里面的start.sh来启动service。<br>部署完成以后将会开始评测，请使用端口8080。<br><br>请参考示例git repo 2021-contest/demo/build下的zip包。<br><br>评判标准<br>评测分为两个阶段：分别为完成性验证阶段和性能测试阶段。<br><br>完成性验证阶段，需要满足综合任务描述与环境要求中提到的数据落盘、数据持久化等要求（复赛环节注意新增要求），否则最终得分为0。<br><br>性能测试阶段，通过接口完整性、API的QPS、API的延时情况，在选手提交zip包之后，计算性能测试的综合得分，其中：<br><br>1、接口功能越完整正确，得分越高。<br>2、综合API的QPS，QPS越高，得分越高。<br>3、综合API的延时，延时越低，得分越高。<br><br>计算性能测试的综合得分=n*10+50*(qps/10000)*k+50*n∗10+50∗(qps/10000)∗k+50∗(1/time_deplay)*m。∗m。<br>其中，n为评测的接口个数，k是需要进行评测qps的接口个数，m是需要评测的延时接口个数。<br><br>评测流程<br>参赛者提交的服务，最终将部署在搭载最新一代英特尔®至强®可扩展处理器（代号Ice Lake）阿里云第七代ECS实例，4核8G （规格）上。<br><br>评测系统将对该服务进行压测，压测时会使用多个场景进行压测，且场景可能会发生变化，但是都会是多个API的组合。<br><br>大赛更多细节，包括API Spec、Demo和zip包示例，请参考以下链接，将持续更新：<br><br>https://code.aliyun.com/ecs-contest-support/2021-contest/tree/master 。<br></code></pre></td></tr></table></figure><h2 id="解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）"><a href="#解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）" class="headerlink" title="解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）"></a>解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）</h2><ol><li>先使用<code>spring-boot</code> 快速写了一个baseline 的东东，把题目的样例都跑过了，结果：<code>api是满分190，性能分数只有0分</code>。然后拿wrk 压测发现<code>tps=1K</code>左右，然后就尝试写了一个返回字符串的方法去压测，最后拿到报告只有<code>tps=5K</code> 这样子。spring-boot 原来这就是你的极限了🐴，垃圾（小声BB，于是接下来就开始专注性能这块了。</li><li>我调研了一下，所有人都在吹 <code>vert.x</code>的性能有多好多好。fine！那就搞起吧，社畜狗一边加班一遍肝<code>vert.x</code>,终于在看了2天文档，写了个demo 出来。然后故技重施又：写了一个返回字符串的空方法去压测，发现效果喜人，直接将tps的值拉到一个新高度 <code>tps=100000+</code>，是的，xdm你没有听错，性能提高了接近20倍，这个还是在我辣鸡的macbook上面压测的结果，我尝试在<code>阿里esc</code>上面进行<code>jvm预热</code>后再压测，tps达到了恐怖的<code>130000</code>，就是这么强！！那妥了，天命人就是你了-<code>vert.x</code>！</li><li>啪啪啪，一顿拍完，效果还不错，<code>tps=100多分了，总分300+还可以了</code>，换框架的收益可以说是十分明显。然后一看排行榜发现居然有大佬居然有700+分，看来还是有很大的提升空间，</li><li>于是我开始尝试：<code>对查询的接口加上缓存</code>，对查询的各个点进行优化，如果查询命中就放到缓存中，如果没命中就放入一个无效值，避免下次还去查询数据库，缓存使用<code>guava 的 Chche实现，使用LRU策略淘汰</code>。发现效果果然不错，总分冲击到了<code>400+</code>，查询的tps 查询也达到了100000+</li><li>接下来，查询的优化完毕，就开始优化插入的接口。借鉴批量处理的思维：<code>将数据库的插入操作，从单条插入修改成了多条异步插入</code>，主要的设计思想呢：<code>就是将需要插入的任务扔到队列里面，然后搞一个定时任务定时处理任务队列里的数据，进行批量插入。我设置的定时任务间隔是30ms，相当于实现了一个简单的生产消费模型</code>，具体代码可以查看<a href="https://github.com/lewisbyte/tianchi-im/blob/vert.x/src/main/java/tianchi/im/starter/dao/AsyncBatchInsertDao.java">异步插入</a>和<a href="https://github.com/lewisbyte/tianchi-im/blob/vert.x/src/main/java/tianchi/im/starter/schedule/ScheduleTaskConf.java">定时任务消费</a>，这边将tps 提升了几倍，最后测试数据库写入的接口<code>tps达到了47000+</code></li><li>接下来就是对数据库参数进行调优，我这边数据库用的是<code>postgre-sql</code>，然后发现对数据库参数调优其实没啥作用（还做了各种数据表分区，表sharding的处理，一顿操作猛如虎，2333）然于是到此分数就定格到了<code>519.94</code>，初赛14名，说实话不是什么出彩的好成绩，只是分享给大家看一乐呵</li><li>当然成功进入复赛，但是那段时间社畜需要996没时间搞比赛，所以复赛就没打了</li><li>就介样儿吧，拜拜</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【How-to】性能与扩展性的一点思考</title>
+    <link href="/2020/01/01/20250005/"/>
+    <url>/2020/01/01/20250005/</url>
+    
+    <content type="html"><![CDATA[<ul><li>最近在做性能测试，发现的一些问题和《Java 并发编程》里：”性能与可伸缩性“一章，所描述的场景相似，所以记录、分享出来。</li></ul><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><ul><li>QA 发起一笔5并发请求，请求完之后显示超时，测试的第一天立刻检查了日志，发现日志并没有打完，并没有太在意，于是就放到那里了。之后第二天又再次检查了一遍，发现这5笔交易的日志并不是没有打印完毕，而是约在15分钟之后(<code>开始：22:46 -- 结束：23:02</code>)打印出来了，全部都是显示事务超时。</li></ul><h4 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h4><ul><li>我检查了这个接口的超时耗时配置为（250s）。所以如果这里5笔并发请求会串行执行总耗时约为：20.8 分钟。猜测这里可能是这些接口耗时配置的太长，导致（数据库表锁）资源没有释放，请求全部阻塞等待，导致全部超时失败。</li></ul><h4 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h4><ol><li><p>猜想分析：统计了这5笔的请求总共的执行时间，果然是我和之前的猜想一致，5笔的交易按照串行的模式总共执行了20分钟。基本也验证了前面的猜想。</p></li><li><p>继续看打印完整的日志，发现所有的日志卡住在一个<code>交易流水表</code>的<code>insert</code> 的操作。先说一点前提：目前的应用中，每次接口的请求响应前，会将所有的请求信息登记到<code>交易流水表</code>中，也就是说：表锁导致了应用的串行化执行。于此同时就意味着，数据库表的性能决定了应用的性能上限了。</p></li><li><p>解决方案：调低每笔交易的超时时长，避免每笔请求长时间的占用公共表锁资源，目前表锁定的原因暂时不明，还在排查中。</p></li><li><p>系统提供了<code>交易流水表</code>的多个分片处理，可以路由到不同分片中。从原本都要获取同一张表资源，现在可以实现多张表的资源，降低了系统资源竞争。</p></li></ol><h4 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h4><ol><li>从前面的问题我们很容易发现，系统这种<code>热点域</code>的设计，在并发请求的场景下，由于某些原因很容易导致系统变成串行、效率低下、甚至是不可用的情况。</li></ol><h4 id="HashTable-与-ConcurrentHashMap-优化"><a href="#HashTable-与-ConcurrentHashMap-优化" class="headerlink" title="HashTable 与 ConcurrentHashMap 优化"></a>HashTable 与 ConcurrentHashMap 优化</h4><ul><li>其实这样的问题很容易从前人的系统设计中找到类似的问题，对比经典的 <code>HashTable</code>到<code>ConcurrentHashMap</code>改进，<code>JDK</code> 做了从<code>单一的synchronize-排它锁</code>改进为 <code>多个segment的分段锁</code>，这里将锁的粒度细粒度化，可以提供更高的并发，提供了更强大的横向扩展能力。</li></ul><h4 id="水平扩展"><a href="#水平扩展" class="headerlink" title="水平扩展"></a>水平扩展</h4><p>那么究竟怎样可以提供一个良好的水平扩展能力呢？《Java并发编程实战》给出以下的优化点</p><h5 id="软件设计层面"><a href="#软件设计层面" class="headerlink" title="软件设计层面"></a>软件设计层面</h5><ol><li>发现在框架中隐藏的串行部分：串行的部分往往是性能瓶颈部分，它阻碍了系统的扩展性、并发度</li></ol><h5 id="代码层面"><a href="#代码层面" class="headerlink" title="代码层面"></a>代码层面</h5><ol><li>避免热点域（本文）</li><li>减少线程上下文的切换</li><li>减小锁的范围：同步代码块里的代码越少越好</li><li>减小锁的粒度：锁分段</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【How to】浅谈 Java web应用的优化</title>
+    <link href="/2020/01/01/20250006/"/>
+    <url>/2020/01/01/20250006/</url>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul><li>最近项目快要上线了，趁着现在有点想法、有时间就写点文字记录一下</li></ul><h2 id="web应用优化之数据库"><a href="#web应用优化之数据库" class="headerlink" title="web应用优化之数据库"></a>web应用优化之数据库</h2><ul><li>web应用最最最明显、最最最重要的优化点就是SQL语句了。大家经常自嘲后端不就是个 CRUD boy嘛，增删改查就完事了。其实说的完全没错，能把CRUD 弄好，那web 应用其实就解决了80%的问题。那CRUD 的可优化点在哪里呢？</li></ul><h3 id="SQL-查询优化"><a href="#SQL-查询优化" class="headerlink" title="SQL 查询优化"></a>SQL 查询优化</h3><ol><li>表的查询自然是第一位，良好的查询语句是高性能的第一步。建立合适、良好的索引可以使查询效率成倍的增长。但是错误的，不良的索引会使数据库性能下降，应用变慢。比如像一些字段的值基本可以用枚举来描述（例如state字段有2个合法值：0、1），说明这个值变化非常少，不适合建立索引。</li><li>注意索引失效的问题：按照索引的最左匹配原则，如果最左的值一旦没有被包含在查询条件，那么这个复合索引将直接失效，查询类型则从 <code>type=ref</code> 降级为 <code>type=all</code>的全表扫描。例如：表的复合索引为<code>index(A+B)</code>，此时查询语句为<code>query_condition(B)</code>，那么这个索引会直接失效，降级为全表扫描。这对于大表来说就是噩梦，如果表的数据量非常大，查询的时间会非常漫长。</li><li>索引失效2：使用聚合函数会使索引失效，如：A字段为索引，使用的聚合函数<code>SUBSTRING(A,...)</code>处理之后的指作为查询条件，那么索引就会失效。</li><li>案例1：项目中我曾经2次遇到了索引的问题导致查询时间非常的长。一次是测试环境中QA反馈整个交易耗时非常长，经常超时，感觉很卡。我便去看了日志，摸索了一下，发现有张业务流水表的索引没有建立，导致查询是全表扫描，耗时大概在10几秒，其实表的数据量才200W，并不算太多，添加索引之后就没有超时的情况了。</li><li>案例2：在项目的性能测试阶段，QA 反馈登录、注册接口的性能压测不能达到指标，很多接口的耗时达到了2s，但是性能测试环境的数据量其实才模拟了50w，并不是太多，于是我还是照例查看日志，发现有一条SQL语句的耗时非常久。我看了代码发现这个查询的字段是包含在一个复合索引里面的，但是还是超时了，很是奇怪。于是在测试环境使用 <code>explain</code> 语句分析语句的查询类型是 <code>type=ALL</code>，这时我意识到这个复合索引失效了，按照最左匹配原则，由于少了第一个字段，于是整个索引就失效。所以我及时将索引调整，保证查询的条件能匹配到索引，整个查询的耗时从<code>1700ms</code> 降低到<code>2-4ms</code>。</li></ol><h3 id="大表优化-分区"><a href="#大表优化-分区" class="headerlink" title="大表优化 - 分区"></a>大表优化 - 分区</h3><ol><li>面对一些流水表，记录不断的增加，可能单张表就能达到了千万的级别。这里可以采用mysql 的数据分区（paratition）来优化查询和数据管理。</li></ol><h3 id="大表优化-分表"><a href="#大表优化-分表" class="headerlink" title="大表优化 - 分表"></a>大表优化 - 分表</h3><ol><li>这个也是一个项目上的问题，我这里简单描述一下：系统有张业务表每天有20W的增量数据，一段时间之后，数据量已经达到了1700W的数据量。由于每天的日终，有数据清理策略，基本稳定在2000W左右，系统只会批量处理表里每天新增的那部分新数据，每条数据都有不同的业务属性。</li><li>优化分析：其实可以见到，这个表里面虽然数据量很大，但是大部分的数据其实是没有什么用的，类似于那种用户的订单流水，过了1年可能就再也没啥用了。而且，每个数据都有业务属性，可以按照业务属性来区分。</li><li>优化方案1.1：优化索引，发现所有的数据都查询SQL都是带有索引的，这部分已经不能再优化了。</li><li>优化方案1.2：按照上文描述的业务属性拆表。按照不同的业务，存储到不同的表中。最后是拆成了4张表，单表的数据规模降低下来了。</li><li>优化方案1.3：陈旧的数据要及时清理，如果只增不减，那会随着时间的推进，系统会慢慢走向死亡。</li></ol><h2 id="web应用优化之日志"><a href="#web应用优化之日志" class="headerlink" title="web应用优化之日志"></a>web应用优化之日志</h2><h3 id="日志优化"><a href="#日志优化" class="headerlink" title="日志优化"></a>日志优化</h3><ol><li>其实日志这边我在压测之前没有怎么关注，直到压测一晚之后产生了大概几G的日志，于是我这边调高了日志等级，将 <code>DEBUG</code> 调整为 <code>INFO</code>，保证在压测环境下磁盘不会拖<code>TPS</code> 的后腿，又能有全面的分析日志可以看。</li><li>日志的写入不要开启同步的写入，配置一个缓冲区来一次性写入一个缓冲区大小的日志，避免多次磁盘的IO操作。</li></ol><h2 id="web应用优化之JVM"><a href="#web应用优化之JVM" class="headerlink" title="web应用优化之JVM"></a>web应用优化之JVM</h2><h3 id="JVM-参数"><a href="#JVM-参数" class="headerlink" title="JVM 参数"></a>JVM 参数</h3><ol><li>其实在JVM 层面能优化的东西不太多，最多就是按照机器来调调参数，最常见的就是调整堆的大小 <code>Xmx Xms</code>这些参数，堆的大小也不能太大，推荐一个<code>JVM</code>的配置为<code>4C 8G</code>，采用集群式的部署，外部请求访问使用负载均衡轮训的模式，避免<code>GC</code>在 <code>FULL GC</code>的时候<code>STW</code>的时间太长，应用的响应时间太长会有种假死的感觉。用户体验也不好</li><li>对于不同的业务可以选择不同的<code>GC</code>回收器，Java web 主要面临的业务就是及时响应的接口类任务和批量数据处理的定时类任务。接口类的任务对响应时间敏感（<code>CMS 回收器组合</code>），批量数据处理类的任务对吞吐量敏感（<code>parallel 回收器组合</code>），这里可以选用不同类型的<code>GC</code>回收器来应对不同的业务场景需求。</li></ol><h2 id="web-应用优化之工具"><a href="#web-应用优化之工具" class="headerlink" title="web 应用优化之工具"></a>web 应用优化之工具</h2><h3 id="arthas"><a href="#arthas" class="headerlink" title="arthas"></a>arthas</h3><ol><li>性能优化不得不提一下阿里的 <a href="https://github.com/alibaba/arthas">GitHub-Arthas</a> 这个工具啦，文档<a href="https://arthas.aliyun.com/doc/">Arthas 在线文档</a>写的非常清晰明了，还有在线教程，手把手来教你，真的太良心了好嘛。追踪单个方法的性能问题，用 <code>trace</code>定位每个方法的耗时，一秒定位问题。还能在测试环境直接看函数的变量值，class 热部署等等黑魔法，简直不要太香。</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Java元数据和元编程的胡诌诌</title>
+    <link href="/2020/01/01/20250008/"/>
+    <url>/2020/01/01/20250008/</url>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天来简单说说java的元编程与元数据。 为什么想要说这样一个话题，目前其实在java的框架中就会大量应用到元编程、而在我的工作之中会大量使用到元数据进行应用开发。下面先所说的内容只包含我在工作实践、应用的方面理解，而不是整个名词的完整介绍，需要看详细的介绍可以点击 <a href="https://zh.wikipedia.org/wiki/%E5%85%83%E7%BC%96%E7%A8%8B">wiki：元编程</a> 和 <a href="https://zh.wikipedia.org/wiki/%E5%85%83%E6%95%B0%E6%8D%AE">wiki：元数据</a>查看详细的介绍。</p><h2 id="元数据"><a href="#元数据" class="headerlink" title="元数据"></a>元数据</h2><p>在我的开发工作中，元数据主要是做数据类型约束、接口定义，方法签名定义的作用。 大概的开发流程就是：</p><ol><li>定义元数据，比如定义一个实体，描述这个实体的属性字段名称，类型，长度等信息。根据这些信息构造成一个规范的xml文件。</li><li>根据上一步构造的xml文件，也就是这里所指的元数据。（使用一些魔法，雾）使用公司定制化开发的eclipse插件，用这些xml文件生成标准的Java pojo 和 Java interface。然后标准和实体已经定义完成就可以进行具体的方法和接口的实现。</li></ol><p>所以说在这里，元数据在应用中的开发中的作用就是做数据约束和标准定义。这样的开发模式可以说是非常好的一个思路。</p><ol><li>标准化了开发流程，对数据本身有了一个明确的约束。有利于后期的开发维护。</li><li>减少了重复，意义不大的工作，不需要手动对 Java pojo 和 Java interface 的定义。直接使用元数据来生成对应的Java class 即可。</li><li>由于元数据的规范化，其实在此基础上的扩展能力有了很大的想象力。比如实体的合法校验 支持 jsr 303 (bean validation)规范等等。</li></ol><h2 id="元编程"><a href="#元编程" class="headerlink" title="元编程"></a>元编程</h2><p>在Java世界的元编程，其实很简单的说就是注解（annotation）的应用。</p><p>这里的就有很多样例了，比如大名鼎鼎的lombok和spring里面的各种注解。为什么这里还将lombok和spring的注解做区分呢？因为这里的元编程应用时期不同：</p><ol><li>lombok 应用于编译期，在java编译生成class文件时，会”偷偷改掉”我们的代码模样，生成对应的模板代码（JSR 269: Pluggable Annotation Processing API），想详细了解的同学可以看这篇文章哦 <a href="http://blog.didispace.com/java-lombok-how-to-use/">Java开发神器Lombok的使用与原理</a></li><li>spring等其他注解主要是在运行期（不敢保证所有的都是在运行时的）。在运行时会调用对应的注解处理器处理对应的逻辑。这里的目的主要是减少模板代码，显得代码过于啰嗦、臃肿。</li></ol><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>元编程和元数据的理念都有一个共同的特点，就是减少模板代码，使用代码生成代码的思路去降低工作中繁杂、无用或者意义不大的工作任务。这是极其值得推广的思路，尤其在大型工程面前，可以省下的工作量就非常可观，而且代码量会更少，质量还会更好，也是印证了 less is more 的设计哲学。<br>元编程和元数据里还有很多概念和触及其他系统知识的东西（比如编译原理什么的，emmm），这篇文章就这样简单聊下啦，发现有错也请及时指出。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【How-to】java并发编程--线程池</title>
+    <link href="/2020/01/01/20250009/"/>
+    <url>/2020/01/01/20250009/</url>
+    
+    <content type="html"><![CDATA[<h2 id="为什么使用线程池？"><a href="#为什么使用线程池？" class="headerlink" title="为什么使用线程池？"></a>为什么使用线程池？</h2><h3 id="线程生命周期的开销非常高"><a href="#线程生命周期的开销非常高" class="headerlink" title="线程生命周期的开销非常高"></a>线程生命周期的开销非常高</h3><ul><li>1.频繁的创建，销毁线程需要使用额外的时间，资源。</li></ul><h3 id="资源消耗"><a href="#资源消耗" class="headerlink" title="资源消耗"></a>资源消耗</h3><ul><li>1.若线程过多，会对系统造成巨大负担。</li><li>2.空闲的线程过多，会占用大量的内存，给垃圾回收器带来压力。</li><li>3.大量的线程竞争CPU会导致过多的CPU上下文切换的开销和性能开销，创建过多的线程会导致性能降低。</li></ul><h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><ul><li>1.在可创建的线程的数量上存在一个限制。过多的线程可能会导致OutOfMemoryError（每个线程维护2个执行栈，一个用于java代码，另一个用于原生代码。通常，JVM在默认情况下会生成一个复合的栈，大小约为0.5MB(可以通过JVM标志-Xss或者通过Thread 的构造函数来修改这个值)如果将2^32除以每个线程的栈大小，那么线程将被限制为几千到几万）</li></ul><h2 id="创建线程池的方式"><a href="#创建线程池的方式" class="headerlink" title="创建线程池的方式"></a>创建线程池的方式</h2><h3 id="通过Executors的静态工厂方法创建"><a href="#通过Executors的静态工厂方法创建" class="headerlink" title="通过Executors的静态工厂方法创建"></a>通过Executors的静态工厂方法创建</h3><ul><li><p>newFixedThreadPool：创建一个固定的大小的线程池,每提交一个任务时就创建一个线程，直到达到线程的最大数量</p></li><li><p>newCacheThreadPool：创建可缓存的线程，可回收空闲的线程，或创建线程。线程池的数量规模不受限制。</p></li><li><p>newSingleThreadPool：一个单线程的线程池。若线程异常结束，则使用另一个线程替代。</p></li><li><p>newScheduledThreadPool：创建固定长度的线程池。以延时或定时的方式来执行任务。</p></li></ul><h2 id="线程池的生命周期"><a href="#线程池的生命周期" class="headerlink" title="线程池的生命周期"></a>线程池的生命周期</h2><ul><li>Executor 的实现通常会创建线程来执行任务。但JVM只有在所有（非守护）线程全部终止后才会退出。</li></ul><h2 id="线程池的接口"><a href="#线程池的接口" class="headerlink" title="线程池的接口"></a>线程池的接口</h2><ul><li>Executor ：只含有任务提交的方法： execute（Runnable task）；</li><li>ExecutorService：为了解决执行服务的生命周期问题，ExecutorService添加了一些用于生命周期管理的方法。</li></ul><h2 id="以上内容摘自-《java并发编程实战》"><a href="#以上内容摘自-《java并发编程实战》" class="headerlink" title="以上内容摘自 《java并发编程实战》"></a>以上内容摘自 《java并发编程实战》</h2><h2 id="为什么不同的业务使用不同的线程池？（以下为个人总结，不能保证正确性）"><a href="#为什么不同的业务使用不同的线程池？（以下为个人总结，不能保证正确性）" class="headerlink" title="为什么不同的业务使用不同的线程池？（以下为个人总结，不能保证正确性）"></a>为什么不同的业务使用不同的线程池？（以下为个人总结，不能保证正确性）</h2><ul><li>1.一些耗时的长业务和一些响应快的短业务在一起执行，会阻塞影响短业务，业务之间相互影响。</li><li>2.IO密集 和 CPU密集 的服务应该采用不同的线程池。</li></ul><h2 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs">有时候我们会发现新上线的部分业务出现了问题，并且影响了其他功能。<br>我有时候想到从架构上如何避免这个问题，然后有了这样的一个思路。<br> <br>开发的时候我们基本上不会考虑到这种问题，整个服务就共用一个线程池，甚至有些系统是单线程的。<br>一旦出现问题整个服务就一起挂掉了<br>这个肯定是我们不想看到的。<br>解决这个问题方法就是把不同模块放在不同的线程里面，如果之前使用的是线程池那么 <br>不同业务也要用不同的线程池分开。因为如果这个业务有问题，这个业务所在的线程池也会很快的阻塞掉。<br>如果不同的业务分开到不同的线程池里面去，至少不会因为这个业务导致其他业务不可用。<br> <br>再配合上一篇干掉耗时任务的方法，可以保证线上服务不会全完蛋<br></code></pre></td></tr></table></figure><p><a href="http://freyja.iteye.com/blog/2394895">构建更健壮的系统：不同的业务放在不同的线程&#x2F;线程池里面</a></p><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs x86asm">合理的配置线程池<br><br>要想合理的配置线程池，就必须首先分析任务特性，可以从以下几个角度来进行分析：<br><br>任务的性质：<span class="hljs-meta">CPU</span>密集型任务，IO密集型任务和混合型任务。<br>任务的优先级：高，中和低。<br>任务的执行时间：长，中和短。<br>任务的依赖性：是否依赖其他系统资源，如数据库连接。<br>任务性质不同的任务可以用不同规模的线程池分开处理。<span class="hljs-meta">CPU</span>密集型任务配置尽可能小的线程，<br>如配置Ncpu+<span class="hljs-number">1</span>个线程的线程池。IO密集型任务则由于线程并不是一直在执行任务，则配置尽可能多<br>的线程，如<span class="hljs-number">2</span>*Ncpu。混合型的任务，如果可以拆分，则将其拆分成一个<span class="hljs-meta">CPU</span>密集型任务和一个IO密集型<br>任务，只要这两个任务执行的时间相差不是太大，那么分解后执行的吞吐率要高于串行执行的吞吐率，<br>如果这两个任务执行时间相差太大，则没必要进行分解。我们可以通过<br>Runtime<span class="hljs-number">.</span>getRuntime().availableProcessors()方法获得当前设备的<span class="hljs-meta">CPU</span>个数。<br></code></pre></td></tr></table></figure><p><a href="http://www.infoq.com/cn/articles/java-threadPool">聊聊并发（三）——JAVA线程池的分析和使用</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【How to】Java后端开发技能树</title>
+    <link href="/2020/01/01/20250007/"/>
+    <url>/2020/01/01/20250007/</url>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>关于本博客是有关后端开发的技能树总结，目标是涵盖后端开发相关的相关语言知识及相关的中间件，性能测试、性能调优等各个方面的总结。同时也是自我总结、记录的过程。文章会长期进行维护。</p><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h2 id="测试（性能）相关"><a href="#测试（性能）相关" class="headerlink" title="测试（性能）相关"></a>测试（性能）相关</h2><h4 id="Jmeter"><a href="#Jmeter" class="headerlink" title="Jmeter"></a>Jmeter</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">著名的性能测试工具，基于Java的压力测试工具，（以及很好的批量数据造数数据工具）<br></code></pre></td></tr></table></figure><h4 id="火焰图"><a href="#火焰图" class="headerlink" title="火焰图"></a>火焰图</h4><p>Java方法性能分析，通过对JVM方法栈定时采样，生成全局方法的“火焰”图，相关的热点方法就像火焰一样直观的展示出来</p><p>Github地址：<code>https://github.com/jvm-profiling-tools/async-profiler</code></p><h2 id="容器及运维相关"><a href="#容器及运维相关" class="headerlink" title="容器及运维相关"></a>容器及运维相关</h2><h2 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">Docker</span> 是一个开源的应用容器引擎，可以快速的搭建依赖环境，抹除不同操作系统之间的差异，类似沙盒的形式，做到在不同系统下跨平台运行，真正的帮助程序员、运维环境搭建的麻烦<br></code></pre></td></tr></table></figure><h2 id="语言相关"><a href="#语言相关" class="headerlink" title="语言相关"></a>语言相关</h2><h4 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h4><h4 id="Groovy"><a href="#Groovy" class="headerlink" title="Groovy"></a>Groovy</h4><h4 id="Java-stream编程及函数式"><a href="#Java-stream编程及函数式" class="headerlink" title="Java-stream编程及函数式"></a>Java-stream编程及函数式</h4><h4 id="Java-collection-包体系"><a href="#Java-collection-包体系" class="headerlink" title="Java-collection 包体系"></a>Java-collection 包体系</h4><h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="flyway"><a href="#flyway" class="headerlink" title="flyway"></a>flyway</h3><h3 id="索引及性能调优"><a href="#索引及性能调优" class="headerlink" title="索引及性能调优"></a>索引及性能调优</h3>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>

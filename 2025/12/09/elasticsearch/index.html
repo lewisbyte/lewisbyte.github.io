@@ -1,0 +1,941 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/image/icon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="lewis">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="用于个人学习总结ElasticSearch 包括基础使用、运行机制、源码解析等 源码基于 6.1 分支: ElasticSearch-6.1分支代码  目录 如何调试 源码目录介绍 ES集群启动步骤 ES集群启动步骤 ES数据模型 ES主分片选举策略 ES写入流程  如何调试  编译构建elasticsearch工程: .&#x2F;gradlew assemble    将工程集成到IDEA: .&#x2F;gr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ElasticSearch源码学习-LTS">
+<meta property="og:url" content="https://www.lewismind.site/2025/12/09/elasticsearch/index.html">
+<meta property="og:site_name" content="保持好奇心">
+<meta property="og:description" content="用于个人学习总结ElasticSearch 包括基础使用、运行机制、源码解析等 源码基于 6.1 分支: ElasticSearch-6.1分支代码  目录 如何调试 源码目录介绍 ES集群启动步骤 ES集群启动步骤 ES数据模型 ES主分片选举策略 ES写入流程  如何调试  编译构建elasticsearch工程: .&#x2F;gradlew assemble    将工程集成到IDEA: .&#x2F;gr">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.lewismind.site/image/003-debug.png">
+<meta property="og:image" content="https://www.lewismind.site/image/010.png">
+<meta property="og:image" content="https://www.lewismind.site/image/011.png">
+<meta property="article:published_time" content="2025-12-09T01:52:20.951Z">
+<meta property="article:modified_time" content="2025-12-09T01:52:20.951Z">
+<meta property="article:author" content="lewis">
+<meta property="article:tag" content="ElasticSearch">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.lewismind.site/image/003-debug.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>ElasticSearch源码学习-LTS - 保持好奇心</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.lewismind.site","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3420592895669054" crossorigin="anonymous"></script>
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="保持好奇心" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>思维碎片</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ElasticSearch源码学习-LTS"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-12-09 09:52" pubdate>
+          2025年12月9日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">ElasticSearch源码学习-LTS</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <ul>
+<li>用于个人学习总结ElasticSearch</li>
+<li>包括基础使用、运行机制、源码解析等</li>
+<li>源码基于 6.1 分支: <a target="_blank" rel="noopener" href="https://github.com/elastic/elasticsearch/tree/6.1">ElasticSearch-6.1分支代码</a></li>
+</ul>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><a href="#%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95">如何调试</a></li>
+<li><a href="#%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E4%BB%8B%E7%BB%8D">源码目录介绍</a></li>
+<li><a href="#ES%E9%9B%86%E7%BE%A4%E5%90%AF%E5%8A%A8%E6%AD%A5%E9%AA%A4">ES集群启动步骤</a></li>
+<li><a href="#ES%E9%9B%86%E7%BE%A4%E5%90%AF%E5%8A%A8%E6%AD%A5%E9%AA%A4">ES集群启动步骤</a></li>
+<li><a href="#ES%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B">ES数据模型</a></li>
+<li><a href="#ES%E4%B8%BB%E5%88%86%E7%89%87%E9%80%89%E4%B8%BE%E7%AD%96%E7%95%A5">ES主分片选举策略</a></li>
+<li><a href="#ES%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B">ES写入流程</a></li>
+</ul>
+<h3 id="如何调试"><a href="#如何调试" class="headerlink" title="如何调试"></a>如何调试</h3><ul>
+<li><ol>
+<li>编译构建elasticsearch工程: <code>./gradlew assemble</code></li>
+</ol>
+</li>
+<li><ol start="2">
+<li>将工程集成到IDEA: <code>./gradlew idea</code>，用IDEA打开elasticsearch工程</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>执行 <code>./gradlew :run --debug-jvm</code>，启动调试模式.</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>debug启动之后，观察日志：<code>[elasticsearch] Listening for transport dt_socket at address: 8000</code>发现debug端口为<code>8000</code>.</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>添加远程JVM调试，主机填<code>localhost</code>,端口配置为<code>8000</code>,JDK选择 <code>5-8</code>，点击确定启动debug</li>
+</ol>
+<ul>
+<li><img src="/image/003-debug.png" srcset="/img/loading.gif" lazyload alt="debug 配置"></li>
+</ul>
+</li>
+<li><ol start="6">
+<li>可以观察日志，服务已经正常启动</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs log">[elasticsearch] [2023-07-26T16:19:14,233][INFO ][o.e.t.TransportService   ] [node-0] publish_address &#123;127.0.0.1:9300&#125;, bound_addresses &#123;[::1]:9300&#125;, &#123;127.0.0.1:9300&#125;<br>[elasticsearch] [2023-07-26T16:19:17,300][INFO ][o.e.c.s.MasterService    ] [node-0] zen-disco-elected-as-master ([0] nodes joined), reason: new_master &#123;node-0&#125;&#123;48qziOzRTdOSQo0nQhQ_PQ&#125;&#123;udw-kDLxTNCvBvup2R2Nqw&#125;&#123;127.0.0.1&#125;&#123;127.0.0.1:9300&#125;&#123;testattr=test&#125;<br>[elasticsearch] [2023-07-26T16:19:17,304][INFO ][o.e.c.s.ClusterApplierService] [node-0] new_master &#123;node-0&#125;&#123;48qziOzRTdOSQo0nQhQ_PQ&#125;&#123;udw-kDLxTNCvBvup2R2Nqw&#125;&#123;127.0.0.1&#125;&#123;127.0.0.1:9300&#125;&#123;testattr=test&#125;, reason: apply cluster state (from master [master &#123;node-0&#125;&#123;48qziOzRTdOSQo0nQhQ_PQ&#125;&#123;udw-kDLxTNCvBvup2R2Nqw&#125;&#123;127.0.0.1&#125;&#123;127.0.0.1:9300&#125;&#123;testattr=test&#125; committed version [1] source [zen-disco-elected-as-master ([0] nodes joined)]])<br>[elasticsearch] [2023-07-26T16:19:17,329][INFO ][o.e.g.GatewayService     ] [node-0] recovered [0] indices into cluster_state<br>[elasticsearch] [2023-07-26T16:19:17,331][INFO ][o.e.h.n.Netty4HttpServerTransport] [node-0] publish_address &#123;127.0.0.1:9200&#125;, bound_addresses &#123;[::1]:9200&#125;, &#123;127.0.0.1:9200&#125;<br>[elasticsearch] [2023-07-26T16:19:17,333][INFO ][o.e.n.Node               ] [node-0] started<br>&lt;============-&gt; 96% EXECUTING [11m 35s]<br>&gt; :distribution:run#start<br>&gt; IDLE<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><ol start="7">
+<li>修改默认密码，执行命令：<code>./elasticsearch-setup-passwords interactive</code></li>
+</ol>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs bash">➜  bin git:(6.8) ./elasticsearch-setup-passwords interactive<br>Initiating the setup of passwords <span class="hljs-keyword">for</span> reserved <span class="hljs-built_in">users</span> elastic,apm_system,kibana,logstash_system,beats_system,remote_monitoring_user.<br>You will be prompted to enter passwords as the process progresses.<br>Please confirm that you would like to <span class="hljs-built_in">continue</span> [y/N]y<br><br>Enter password <span class="hljs-keyword">for</span> [elastic]:<br>Reenter password <span class="hljs-keyword">for</span> [elastic]:<br>Enter password <span class="hljs-keyword">for</span> [apm_system]:<br>Reenter password <span class="hljs-keyword">for</span> [apm_system]:<br>Enter password <span class="hljs-keyword">for</span> [kibana]:<br>Reenter password <span class="hljs-keyword">for</span> [kibana]:<br>Enter password <span class="hljs-keyword">for</span> [logstash_system]:<br>Reenter password <span class="hljs-keyword">for</span> [logstash_system]:<br>Enter password <span class="hljs-keyword">for</span> [beats_system]:<br>Reenter password <span class="hljs-keyword">for</span> [beats_system]:<br>Enter password <span class="hljs-keyword">for</span> [remote_monitoring_user]:<br>Reenter password <span class="hljs-keyword">for</span> [remote_monitoring_user]:<br>Changed password <span class="hljs-keyword">for</span> user [apm_system]<br>Changed password <span class="hljs-keyword">for</span> user [kibana]<br>Changed password <span class="hljs-keyword">for</span> user [logstash_system]<br>Changed password <span class="hljs-keyword">for</span> user [beats_system]<br>Changed password <span class="hljs-keyword">for</span> user [remote_monitoring_user]<br>Changed password <span class="hljs-keyword">for</span> user [elastic]<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><ol start="8">
+<li>在浏览器访问: <code>http://127.0.0.1:9200/</code></li>
+</ol>
+</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;name&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;node-0&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;cluster_name&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;distribution_run&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;cluster_uuid&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;otLdQ8YGRDuaRDHHW2ly9w&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;version&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;number&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;6.1.5&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;build_hash&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;c975590&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;build_date&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2023-07-13T06:34:36.143Z&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;build_snapshot&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;lucene_version&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;7.1.0&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;minimum_wire_compatibility_version&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;5.6.0&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;minimum_index_compatibility_version&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;5.0.0&quot;</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;tagline&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;You Know, for Search&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="源码目录介绍"><a href="#源码目录介绍" class="headerlink" title="源码目录介绍"></a>源码目录介绍</h3><ul>
+<li><p>1.buildSrc</p>
+<ul>
+<li>包含 Gradle 构建脚本的定制逻辑。Elasticsearch 使用 Gradle 进行构建和管理依赖，这个目录存放了构建过程中所需的自定义插件和配置。</li>
+</ul>
+</li>
+<li><p>2.client</p>
+<ul>
+<li>包含与 Elasticsearch 交互的客户端代码。</li>
+<li>client&#x2F;java-rest: Java REST 客户端，提供与 Elasticsearch REST API 的交互。</li>
+<li>client&#x2F;transport: 旧的 Java Transport 客户端（已被废弃），通过自定义的二进制协议与集群通信。</li>
+</ul>
+</li>
+<li><p>3.distribution</p>
+<ul>
+<li>包含用于打包 Elasticsearch 发行版的代码。</li>
+<li>distribution&#x2F;docker: 用于构建 Elasticsearch Docker 镜像的相关文件。</li>
+<li>distribution&#x2F;archives: 用于创建 zip 和 tar.gz 发行包的配置。</li>
+</ul>
+</li>
+<li><p>4.libs</p>
+<ul>
+<li>包含独立于 Elasticsearch 其他部分的通用库和实用工具。</li>
+<li>libs&#x2F;core: 核心库，包含了一些通用的工具类和基础设施代码。</li>
+<li>libs&#x2F;geo: 处理地理空间数据的库。</li>
+</ul>
+</li>
+<li><p>5.modules</p>
+<ul>
+<li>包含 Elasticsearch 的核心模块，这些模块是内置的功能插件。</li>
+<li>modules&#x2F;analysis-common: 常见的文本分析器模块。</li>
+<li>modules&#x2F;lang-painless: Painless 脚本语言模块。</li>
+<li>modules&#x2F;reindex: 支持重新索引操作的模块。</li>
+</ul>
+</li>
+<li><p>6.plugins</p>
+<ul>
+<li>包含官方提供的 Elasticsearch 插件。</li>
+<li>plugins&#x2F;analysis-phonetic: 语音分析插件。</li>
+<li>plugins&#x2F;mapper-annotated-text: 注释文本映射插件。</li>
+<li>plugins&#x2F;repository-s3: S3 存储库插件，用于将快照存储在 AWS S3 上。</li>
+</ul>
+</li>
+<li><p>7.server</p>
+<ul>
+<li>核心服务器代码，包含了 Elasticsearch 的大部分功能逻辑。</li>
+<li>server&#x2F;src&#x2F;main: 主源码目录，包含核心功能实现。</li>
+<li>java&#x2F;org&#x2F;elasticsearch&#x2F;action: 包含所有的操作（actions），如索引、搜索等操作的实现。</li>
+<li>java&#x2F;org&#x2F;elasticsearch&#x2F;cluster: 集群管理相关的代码。</li>
+<li>java&#x2F;org&#x2F;elasticsearch&#x2F;index: 索引管理和操作相关的代码。</li>
+<li>java&#x2F;org&#x2F;elasticsearch&#x2F;node: 节点相关的代码，定义了 Elasticsearch 节点的行为。</li>
+</ul>
+</li>
+<li><p>8.test</p>
+<ul>
+<li>包含测试代码和测试框架。</li>
+<li>test&#x2F;framework: 测试框架代码，提供了一些基础的测试工具和配置。</li>
+<li>test&#x2F;fixtures: 一些测试夹具，用于集成测试。</li>
+</ul>
+</li>
+<li><p>9.x-pack</p>
+<ul>
+<li>包含 X-Pack 组件，提供了额外的功能，如安全、监控、机器学习等。</li>
+<li>x-pack&#x2F;plugin: X-Pack 插件的具体实现。</li>
+<li>x-pack&#x2F;qa: X-Pack 的质量保证（QA）测试代码。</li>
+<li>x-pack&#x2F;spec: 规范和文档。</li>
+</ul>
+</li>
+</ul>
+<h3 id="ES集群启动步骤"><a href="#ES集群启动步骤" class="headerlink" title="ES集群启动步骤"></a>ES集群启动步骤</h3><ul>
+<li><ol>
+<li>选举主节点（过半数为master节点）</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>选举集群元信息</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>allocation分配数据分片</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>index recovery 索引重启恢复</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>集群启动</li>
+</ol>
+</li>
+</ul>
+<h3 id="ES数据模型"><a href="#ES数据模型" class="headerlink" title="ES数据模型"></a>ES数据模型</h3><ul>
+<li>1 数据副本模型基于主从模式（或称主备模式，HDFS和 Cassandra为对等模式），在实现过程中参考了微软的PacificA算法</li>
+<li>2 数据副本模型：<ul>
+<li>ES的数据副本模型基于主备模式</li>
+<li>每个索引都会被拆分为多个分片，并且每个分片都有多个副本(这些副本称为replication group)</li>
+</ul>
+</li>
+<li>3 写入过程：<ul>
+<li>请求到达协调节点：（request-&gt;coordinator）</li>
+<li>协调节点先验证操作：（coordinator-&gt;validation）</li>
+<li>协调节点转发到主分片（coordinator—&gt;routing to-&gt; master node)</li>
+<li>主节点本地更新操作（ master node update）</li>
+<li>主节点下发数据同步给副本节点组（master node-&gt;slave nodes）</li>
+<li>一旦所有的副分片成功执行操作并回复主分片，主分片会把 请求执行成功的信息返回给协调节点，协调节点返回给客户端</li>
+</ul>
+</li>
+<li>4 故障处理<ul>
+<li>出现主分片错误：如离线、磁盘损坏等，会超时（1分钟）之后主动降级，提升一个副分片为主分片</li>
+<li>出错的主分片操作会被副分片拒绝：来自陈旧的主分片的操作将会被副分片拒绝。当它接收来自副分片的拒绝其请求的响应时，它将会访问一下（新）主节点，然后就会知道自己已被替换。最后将操作路由到新的主分片。</li>
+</ul>
+</li>
+<li>5 读取模型<ul>
+<li>把读请求转发到相关分片</li>
+<li>从副本组中选择一个相关分片的活跃副本</li>
+<li>发送分片级的读请求到被选中的副本</li>
+<li>合并结果并给客户端返回响应</li>
+</ul>
+</li>
+</ul>
+<h3 id="ES主分片选举策略"><a href="#ES主分片选举策略" class="headerlink" title="ES主分片选举策略"></a>ES主分片选举策略</h3><ul>
+<li>安全地分配主分片<ul>
+<li>分片决策过程在主节点完成，并记录在集群状态中</li>
+<li>为了确保安全，主节点必须确保被选为主分片的副本含有最新数据。为 此，ES 使用 Allocation IDs 的概念，这是区分不同分片的唯一标识</li>
+</ul>
+</li>
+<li>分片时序id(Sequence IDs)<ul>
+<li>本地及全局检查点（global checkpoint） ：全局检查点是所有活跃分片历史都已对齐的序列号，换句话说，所 有低于全局检查点的操作都保证已被所有活跃的分片处理完毕。这意味 着，当主分片失效时，我们只需要比较新主分片与其他副分片之间的最 后一个全局检查点之后的操作即可。当旧主分片恢复时，我们使用它知 道的全局检查点，与新主分片进行比较。这样，我们只有小部分操作需 要比较，不用比较全部</li>
+</ul>
+</li>
+<li>_version<ul>
+<li>1.是实现乐观锁，如同其他数据库的乐观锁一 样。我们在写请求中指定文档的版本号，如果文档的当前版本与请求中 指定的版本号不同，则请求会失败。</li>
+<li>2.当文档被修改时版本号递 增。ES 使用这个_version来确保变更以正确顺序执行</li>
+</ul>
+</li>
+</ul>
+<h3 id="ES写入流程"><a href="#ES写入流程" class="headerlink" title="ES写入流程"></a>ES写入流程</h3><ul>
+<li><p>基本流程：</p>
+<ul>
+<li><ol>
+<li>客户端发出请求到es服务端协调节点</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>协调节点确定数据所属分片主节点，将请求路由转发到主分片节点</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>主分片节点执行写操作，并将请求写入到副本节点，等待所有副本节点写入成功</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>主分片节点向协调节点报告，协调节点向客户端报告成功</li>
+</ol>
+</li>
+<li>写一致性的默认策略是quorum，即多数的分片（其中分片副本可以 是主分片或副分片）在写入操作时处于可用状态。</li>
+<li>quorum &#x3D; int（（primary + number_of_replicas） &#x2F; 2 ） + 1</li>
+</ul>
+</li>
+<li><p>详细流程</p>
+</li>
+</ul>
+<h3 id="ES-GET流程"><a href="#ES-GET流程" class="headerlink" title="ES-GET流程"></a>ES-GET流程</h3><ul>
+<li>基本流程：<ul>
+<li><ol>
+<li>客户端请求node节点（coordinator 协调节点）</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>node节点使用文档id确定数据分片，将请求转发给任意一个分片副本节点</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>副本节点返回对应文档数据，node返回数据给客户端</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>详细流程<br><img src="/image/010.png" srcset="/img/loading.gif" lazyload alt="GET详细流程"></li>
+</ul>
+<h3 id="Search流程"><a href="#Search流程" class="headerlink" title="Search流程"></a>Search流程</h3><ul>
+<li><p>索引和搜索<br><img src="/image/011.png" srcset="/img/loading.gif" lazyload alt="索引流程"></p>
+</li>
+<li><p>分布式搜索过程</p>
+<ul>
+<li>实现类：<code>org.elasticsearch.rest.action.search.RestSearchAction</code></li>
+</ul>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" class="category-chain-item">技术开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ElasticSearch/" class="print-no-link">#ElasticSearch</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ElasticSearch源码学习-LTS</div>
+      <div>https://www.lewismind.site/2025/12/09/elasticsearch/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>lewis</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年12月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/12/09/es_read_only_allow_delete/" title="es索引数据写入异常问题排查">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">es索引数据写入异常问题排查</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/12/09/graph-db/" title="图数据库相关">
+                        <span class="hidden-mobile">图数据库相关</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <script src="https://utteranc.es/client.js" repo="lewisbyte/lewisbyte.github.io" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script>
+        </div>
+      </div>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
