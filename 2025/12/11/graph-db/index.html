@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lewisbyte.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="记录图数据库相关的疑难杂症  目录 Neo4j  neo4j 1.通讯协议：  Q:  为什么图库使用 neo4j 的 bolt 链接协议，出现了无法找到主节点导致无法写入或者读取的问题？ A：neo4j支持3种通讯协议： bolt+routing（适用于集群） bolt（适用于单机） neo4j（适用于集群） bolt 适用于单节点的图数据库。集群模式下的图库需要支持路由的neo4j协议进行通">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图数据库相关">
+<meta property="og:url" content="https://lewisbyte.github.io/2025/12/11/graph-db/index.html">
+<meta property="og:site_name" content="保持好奇心">
+<meta property="og:description" content="记录图数据库相关的疑难杂症  目录 Neo4j  neo4j 1.通讯协议：  Q:  为什么图库使用 neo4j 的 bolt 链接协议，出现了无法找到主节点导致无法写入或者读取的问题？ A：neo4j支持3种通讯协议： bolt+routing（适用于集群） bolt（适用于单机） neo4j（适用于集群） bolt 适用于单节点的图数据库。集群模式下的图库需要支持路由的neo4j协议进行通">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-12-11T08:27:05.766Z">
+<meta property="article:modified_time" content="2025-12-11T08:27:05.766Z">
+<meta property="article:author" content="lewis">
+<meta property="article:tag" content="neo4j">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://lewisbyte.github.io/2025/12/11/graph-db/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3420592895669054" crossorigin="anonymous"></script>
+  <title>图数据库相关 | 保持好奇心</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="保持好奇心" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">保持好奇心</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">lewis的随笔记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lewisbyte.github.io/2025/12/11/graph-db/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lewis">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="保持好奇心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          图数据库相关
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-12-11 16:27:05" itemprop="dateCreated datePublished" datetime="2025-12-11T16:27:05+08:00">2025-12-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">技术开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li>记录图数据库相关的疑难杂症</li>
+</ul>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><a href="neo4j">Neo4j</a></li>
+</ul>
+<h3 id="neo4j"><a href="#neo4j" class="headerlink" title="neo4j"></a>neo4j</h3><ul>
+<li><p>1.通讯协议：</p>
+<ul>
+<li>Q:  为什么图库使用 neo4j 的 bolt 链接协议，出现了无法找到主节点导致无法写入或者读取的问题？</li>
+<li>A：neo4j支持3种通讯协议：<ul>
+<li>bolt+routing（适用于集群）</li>
+<li>bolt（适用于单机）</li>
+<li>neo4j（适用于集群）</li>
+<li>bolt 适用于单节点的图数据库。集群模式下的图库需要支持路由的neo4j协议进行通信，从而将请求转发到对应的数据节点上。</li>
+<li>参考：<a target="_blank" rel="noopener" href="https://neo4j.com/docs/driver-manual/1.7/client-applications/#driver-connection-uris">https://neo4j.com/docs/driver-manual/1.7/client-applications/#driver-connection-uris</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>2.数据库命名规范：</p>
+<ul>
+<li>Q:  为什么出现了图数据库创建失败的问题？</li>
+<li>A：neo4j 有自己的数据库规范，这里需要按照neo4j的规范进行创建，所以对应的图实例也要按照规范进行校验</li>
+</ul>
+</li>
+<li><p>3.边关系查询缓慢：</p>
+<ul>
+<li>Q: 为什么图析界面，点击查询边关系出现超时？</li>
+<li>A： neo4j 4.1.x版本的图库，不支持关系边表索引建立。如图所示通过主键查询的检索模式是 AllNodesScan 全表扫描（性能调优参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37503890/article/details/102073193%EF%BC%89%EF%BC%8C2%E4%BA%BF%E7%9A%84%E6%95%B0%E6%8D%AE%E9%87%8F%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E9%97%B4%E8%80%97%E6%97%B6%E7%BA%A6%E4%B8%BA10s%E5%B7%A6%E5%8F%B3%E3%80%82">https://blog.csdn.net/qq_37503890/article/details/102073193），2亿的数据量查询的时间耗时约为10s左右。</a><ul>
+<li>解决方案：将关系边数据导入到es，通过es查询，不通过图库查询。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>4.neo4j 的数据库链接泄露，句柄数量增长非常快</p>
+<ul>
+<li>A：数据库链接没有及时释放导致的数据库链接泄露，及时释放neo4j的连接即可<ul>
+<li>微服务句柄数量超过限制问题汇总</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>5.neo4j 在使用ETL导入时，出现死锁现象：</p>
+<ul>
+<li><p>Q: 在使用spark 集群对neo4j批量导入关系边数据的时候，总是会出现报错：ForsetiClient can’t acquire ExclusiveLock（参考：<a target="_blank" rel="noopener" href="https://github.com/neo4j/neo4j/issues/6248%EF%BC%89">https://github.com/neo4j/neo4j/issues/6248）</a></p>
+</li>
+<li><p>A:</p>
+<ul>
+<li>在使用集群导数，一般是多个作业实例执行导入任务，这里就会出现并发写入的场景。neo4j的边关系写入的操作时，数据库本身会给每一个写入操作的事务分配一把排它锁（exclusiveLock），多并发写入就会出现事务之间锁的争夺情况。在实际的生产环境中观察到，最多有130个事务卡在获取锁，最后导致事务超时，整体数据导入任务失败。</li>
+<li>解决方法是：需要降低单次事务写入数据库的数据量。单次写入大量数据非常耗时，从而降低每次事务的耗时，及时将锁资源释放出来，避免发生事务超时的死锁</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>提高单次事务的超时时间。避免出现多个不同事务之间的锁资源竞争时，没有足够的等待时间，导致的任务失败。<br>调整taurus-app配置，降低etl任务的spark executor的数量。从源头降低并发，减少锁资源竞争<br>调整spark配置：[ spark.dynamicAllocation.enabled    false ] ，关闭 动态资源分配功能<br>调整 etl的spark 任务参数，限制最大：1个instances，1个cores，避免多进程并发写入导致的死锁问题</p>
+<ul>
+<li><p>6.出现报错：Could not perform discovery. No routing servers available</p>
+<ul>
+<li>A：neo4j 的服务宕机，需要管理员维护</li>
+</ul>
+</li>
+<li><p>7.使用文件导入大数据量到neo4j宕机</p>
+<ul>
+<li>A: graph系统在使用文件导入120w条数据，具体表现为会出现jvm内存耗尽，机器不再接受写入请求</li>
+<li>Q: DBA解释为cypher语句太长，堆积在内存中无法释放导致的内存耗尽，需要优化语句，建议使用unwind优化cypher语句</li>
+<li>neo4j批量入数优化分析及实现</li>
+</ul>
+</li>
+<li><ol start="8">
+<li>数据导入neo4j 出现 heap 堆内存溢出，表现为老年代（old gen）持续增长，不会下降</li>
+</ol>
+</li>
+</ul>
+<p>现象如下图:</p>
+<ul>
+<li>A:<ul>
+<li><p>neo4j批量入数优化分析及实现</p>
+<ul>
+<li>使用csv文件导数到es和图库。由于csv文件非常巨大，发现2个主要问题：</li>
+<li>导数速率很慢，单次只能写入100条数据，如果数据量在50w的实体表，一般就需要耗时1-2小时才能完成导数任务。</li>
+<li>在实现导数的方式上有问题，批量导数实现上本质是拼接一个巨长的cypher语句，在小数据量的情况下不会有什么问题。但是如果在大数据量下，会提交很多的长语句，从而会出现neo4j图库无法及时处理这些超长的cypher语句，堆积在JVM的老年代内存中无法释放，最后neo4j出现内存OOM宕机。</li>
+</ul>
+</li>
+<li><p>优化分析：</p>
+<ul>
+<li>在搞清原因之后，咨询DBA了解到，neo4j不建议使用长语句，最好是使用短语句来插入数据，长语句会产生堆积，进而导致内存不足。但是短语句的矛盾就在于性能低下，我们这里需要使用批量插入的模式提高性能。</li>
+<li>于是在参考了neo4j-spark的源码实现，得到了启发。neo4j官方sprak的导数实现是使用批量插入的模式，不是通过拼接语句的模式。通过使用参数传递模式进行批量插入，以实体插入为例：</li>
+<li>scala源码实现（org.neo4j.spark.service.Neo4jQueryWriteStrategy#createStatementForNodes）：</li>
+<li>编译后的语句：</li>
+<li>with query: UNWIND $events AS event MERGE (node:Human {object_key: event.keys.object_key}) SET node +&#x3D; event.properties</li>
+<li>这里官方实现使用了unwind关键字，这里引用 博文 解释为什么unwind可以加速插入：</li>
+<li>高效的做法是利用Neo4j提供的参数（Parameter）机制和UNWIND子句：在一次数据更新中，进行一次连接，打开一次事务，批量更新数据；参数用于提供列表格式的数据，UNWIND子句是把列表数据展开成一行一行的数据，每行数据都会执行结构相同的Cypher语句。再批量更新图形数据之前，用户必须构造结构固定的、参数化的Cypher语句。当Cypher语句的结构相同时，Neo4j数据库直接从缓存中复用已生成的执行计划，而不需要重新生成，这也能够提高查询性能。</li>
+<li>UNWIND子句把列表式的数据展开成一行一行的数据，每一个行都包含更新所需要的全部信息，列表式的数据，可以通过参数来传递。</li>
+<li>例如，定义参数events，该参数是一个JSON字符串，键events是参数名，其值是一个数组，包含两个数组元素。</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line"><span class="attr">&quot;events&quot;</span> <span class="punctuation">:</span> <span class="punctuation">[</span> <span class="punctuation">&#123;</span>  <span class="attr">&quot;year&quot;</span> <span class="punctuation">:</span> <span class="number">2014</span><span class="punctuation">,</span> <span class="attr">&quot;id&quot;</span> <span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">&#125;</span><span class="punctuation">,</span> <span class="punctuation">&#123;</span><span class="attr">&quot;year&quot;</span> <span class="punctuation">:</span> <span class="number">2014</span><span class="punctuation">,</span> <span class="attr">&quot;id&quot;</span> <span class="punctuation">:</span> <span class="number">2</span> <span class="punctuation">&#125;</span> <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过$events引用参数，UNWIND子句把events数组中的两个元素展开，每个元素执行一次Cypher语句，由于Cypher的语句结构固定，因此，执行计划被缓存起来，在执行数据更新任务时，参数被UNWIND子句展开，复用执行计划，提高数据更新的速度。</li>
+<li>实施方法：实体数据批量插入cypher，采用overwrite模式进行数据创建和合并，依据object_key作为唯一键进行对象合并：</li>
+<li>关系边数据批量插入cypher，采用overwrite模式进行数据的创建和合并，依据object_key作为唯一键进行对象合并：</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/neo4j/" rel="tag"># neo4j</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/12/11/linux/" rel="prev" title="Linux应用性能调优-LTS">
+      <i class="fa fa-chevron-left"></i> Linux应用性能调优-LTS
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/12/11/es_read_only_allow_delete/" rel="next" title="es索引数据写入异常问题排查">
+      es索引数据写入异常问题排查 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#neo4j"><span class="nav-number">1.1.</span> <span class="nav-text">neo4j</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lewis</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lewis</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

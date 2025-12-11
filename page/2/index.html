@@ -1,977 +1,1412 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/image/icon.png">
-  
+<link rel="stylesheet" href="/css/main.css">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="lewis">
-  <meta name="keywords" content="">
-  
-    <meta property="og:type" content="website">
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lewisbyte.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta property="og:type" content="website">
 <meta property="og:title" content="保持好奇心">
 <meta property="og:url" content="https://lewisbyte.github.io/page/2/index.html">
 <meta property="og:site_name" content="保持好奇心">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="lewis">
-<meta name="twitter:card" content="summary_large_image">
-  
-  
-    <meta name="referrer" content="no-referrer-when-downgrade">
-  
-  
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://lewisbyte.github.io/page/2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3420592895669054" crossorigin="anonymous"></script>
   <title>保持好奇心</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
 
 
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lewisbyte.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
 
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3420592895669054" crossorigin="anonymous"></script>
-<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="保持好奇心" type="application/atom+xml">
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="保持好奇心" type="application/atom+xml">
 </head>
 
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
 
-<body>
-  
-
-  <header>
-    
-
-<div class="header-inner" style="height: 100vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>思维碎片</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">保持好奇心</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">lewis的随笔记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
 </nav>
 
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
   
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lewisbyte.github.io/2025/12/11/20250003/">
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lewis">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="保持好奇心">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
           
-            <span id="subtitle" data-typed-text="保持好奇心"></span>
+            <a href="/2025/12/11/20250003/" class="post-title-link" itemprop="url">大胆向这个世界求助</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-12-11 16:27:05" itemprop="dateCreated datePublished" datetime="2025-12-11T16:27:05+08:00">2025-12-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%94%9F%E6%B4%BB%E6%84%9F%E6%82%9F/" itemprop="url" rel="index"><span itemprop="name">生活感悟</span></a>
+                </span>
+            </span>
+
           
+
         </div>
+      </header>
 
-        
-      </div>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
+          <ul>
+<li>2025年开年后，每一周都过得非常魔幻又现实，之前在网络上看到的各种桥段竟然也真真切切的发生在我的身上，公司全员降薪，通过各种手段打压、威逼员工离职，查历史账恶心员工，也算是真实感受到了来自公司的恶意和来自生活的重拳出击。</li>
+<li>在这过程中，虽然自己感到抑郁、生气、无奈、甚至有些绝望，甚至身体也出现了点问题，但我居然在这过程中感受到了另外一种生机勃勃的感觉，像是有一种生命力，一股力量，一份勇气从我心里默默生根发芽，在这个与公司不公的反抗过程中才好像活出了真正的自我，有了真正的生命力。我的扛压能力、应对意外事情的能力在快速生长。</li>
+<li>如标题所说，我希望我以后都可以做到大胆向这个世界求助，不管对方是谁，去勇敢大胆的向对方求助。求助的这个过程中，重要的是将自己的目的变成他人的欲望，使我达到了目的，他也实现了欲望，这不是一种算计的做法，而是真切的站在对方的利益考虑问题，使双方都达到一个双赢的结局，那么你求助被帮助的概率则大大的提升。</li>
+<li>一点点小小的感悟，谢谢你看到这里。</li>
+</ul>
+
       
     </div>
-  </div>
-</div>
 
-</div>
-
-  </header>
-
-  <main>
-    
-      <div class="container nopadding-x-md">
-        <div id="board"
-          style="margin-top: 0">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-
-  <div class="row mx-auto index-card">
     
     
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/12/09/0001-es/" target="_self">
-          【ES源码探索-0001】- 如何编译和远程调试elasticsearch源码
-        </a>
-      </h2>
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/12/09/0001-es/" target="_self">
-        <div>
-          目录 如何编译 如何调试 遇到问题  如何编译  下载最新elasticsearch源码，准备相关运行环境，将jdk8、jdk11、jdk17、jdk21配置到环境变量，    123456789101112131415161718192021# .bash_profile# Get the aliases and functionsif [ -f ~/.bashrc ]; then
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-12-09 09:52" pubdate>
-              2025-12-09
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
   
   
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" class="category-chain-item">技术开发</a>
-  
-  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lewisbyte.github.io/2025/11/12/20251114/">
 
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/elasticsearch/">#elasticsearch</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/11/12/20251114/" target="_self">
-          需求挖掘
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/11/12/20251114/" target="_self">
-        <div>
-          Reddit 痛点挖掘法（最推荐）  在 Reddit 搜索： “I wish there was a tool that …” “What’s the best tool for …” “How do you manage …” “alternatives to XXX” “is there an app for …” 你可以看到大量用户直接说出未被满足的需求。  Product Hunt 评
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-11-12 10:25" pubdate>
-              2025-11-12
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%9C%80%E6%B1%82%E6%8C%96%E6%8E%98/">#需求挖掘</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/08/27/20250013/" target="_self">
-          marc转bibframe的困境和挑战
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/27/20250013/" target="_self">
-        <div>
-          要求 Work-作品需要做到归一化：多个不同的书目数据需要归一为同一个作品：例如不同的西游记，需要指向同一个作品 Instance-实例需要归一化：在数据库中，存在多个相同的书目MARC数据，这些数据需要统一起来，指向同一个实例 作者需要归一化：多个不同实例下面的作者，需要去重复，统一起来，指向同一个作者
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-08-27 09:23" pubdate>
-              2025-08-27
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E9%9A%8F%E7%AC%94/" class="category-chain-item">随笔</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E7%BC%96%E7%A8%8B/">#编程</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/03/20250011/" target="_self">
-          【每周总结】- 探索
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/03/20250011/" target="_self">
-        <div>
-          日期范围:2025-03-31 - 2025-04-03本周关键词: 探索  一、本周目标回顾1. 计划完成事项  目标1:独立开发探索（进度:0.00001%）  目标2:面试复习（进度: 62%）   二、任务执行情况1. 工作&#x2F;学习成果 已完成:   任务: 每日复习 任务: 面试投递   未完成:   任务: 本周拿到外包offer一个，还有一个外包进入到2轮面试，自研公司基本不
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-03 14:27" pubdate>
-              2025-04-03
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%AF%8F%E5%91%A8%E6%80%BB%E7%BB%93/" class="category-chain-item">每周总结</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%AF%8F%E5%91%A8%E6%80%BB%E7%BB%93/">#每周总结</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/01/20250010/" target="_self">
-          低风险投资套利总结
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/01/20250010/" target="_self">
-        <div>
-          目录 可转债申购 ETF溢价套利 大额存单息差套利  可转债申购 原理:可转债打新，基本无风险 执行步骤:券商软件进入新债申购页面即可申购，平均收益在20%左右。 缺点：由于申购的人很多，目前很难中新债  ETF溢价套利 原理: 所谓溢价套利，是指交易价格&gt;基金净值，称之为溢价。当溢价足够大时可以按照比较低的净值申购基金，按照比较高的交易价格卖出基金，这样就可以实现低买高卖的溢价套利。 反之
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-01 17:32" pubdate>
-              2025-04-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8A%95%E8%B5%84%E5%A5%97%E5%88%A9/" class="category-chain-item">投资套利</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%8A%95%E8%B5%84%E5%A5%97%E5%88%A9/">#投资套利</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2020/01/01/20250004/" target="_self">
-          记一次天池比赛 - 性能挑战赛道
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250004/" target="_self">
-        <div>
-          叨叨 吐槽一下csdn，现在做的越来越拉胯，查个资料都需要登录之后才能复制代码，这吃相越来越难看，那我为啥还写呢？我实在懒得换平台了 闲的无聊的记录，就是分享一下自己的一点点心得，有什么建议欢迎提出 比赛链接：天池-云上开发，高效智能–阿里云ECS Cloudbuild开发者大赛性能挑战赛道 我参赛的源码github链接  赛题12345678910111213141516171819202122
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-01-01 00:00" pubdate>
-              2020-01-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" class="category-chain-item">技术开发</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Java/">#Java</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2020/01/01/20250006/" target="_self">
-          【How to】浅谈 Java web应用的优化
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250006/" target="_self">
-        <div>
-          前言 最近项目快要上线了，趁着现在有点想法、有时间就写点文字记录一下  web应用优化之数据库 web应用最最最明显、最最最重要的优化点就是SQL语句了。大家经常自嘲后端不就是个 CRUD boy嘛，增删改查就完事了。其实说的完全没错，能把CRUD 弄好，那web 应用其实就解决了80%的问题。那CRUD 的可优化点在哪里呢？  SQL 查询优化 表的查询自然是第一位，良好的查询语句是高性能的第一
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-01-01 00:00" pubdate>
-              2020-01-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" class="category-chain-item">技术开发</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Java/">#Java</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2020/01/01/20250008/" target="_self">
-          Java元数据和元编程的胡诌诌
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250008/" target="_self">
-        <div>
-          前言今天来简单说说java的元编程与元数据。 为什么想要说这样一个话题，目前其实在java的框架中就会大量应用到元编程、而在我的工作之中会大量使用到元数据进行应用开发。下面先所说的内容只包含我在工作实践、应用的方面理解，而不是整个名词的完整介绍，需要看详细的介绍可以点击 wiki：元编程 和 wiki：元数据查看详细的介绍。 元数据在我的开发工作中，元数据主要是做数据类型约束、接口定义，方法签名定
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-01-01 00:00" pubdate>
-              2020-01-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" class="category-chain-item">技术开发</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Java/">#Java</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2020/01/01/20250005/" target="_self">
-          【How-to】性能与扩展性的一点思考
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250005/" target="_self">
-        <div>
-          最近在做性能测试，发现的一些问题和《Java 并发编程》里：”性能与可伸缩性“一章，所描述的场景相似，所以记录、分享出来。  问题描述 QA 发起一笔5并发请求，请求完之后显示超时，测试的第一天立刻检查了日志，发现日志并没有打完，并没有太在意，于是就放到那里了。之后第二天又再次检查了一遍，发现这5笔交易的日志并不是没有打印完毕，而是约在15分钟之后(开始：22:46 -- 结束：23:02)打印
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-01-01 00:00" pubdate>
-              2020-01-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" class="category-chain-item">技术开发</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Java/">#Java</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2020/01/01/20250009/" target="_self">
-          【How-to】java并发编程--线程池
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/01/01/20250009/" target="_self">
-        <div>
-          为什么使用线程池？线程生命周期的开销非常高 1.频繁的创建，销毁线程需要使用额外的时间，资源。  资源消耗 1.若线程过多，会对系统造成巨大负担。 2.空闲的线程过多，会占用大量的内存，给垃圾回收器带来压力。 3.大量的线程竞争CPU会导致过多的CPU上下文切换的开销和性能开销，创建过多的线程会导致性能降低。  稳定性 1.在可创建的线程的数量上存在一个限制。过多的线程可能会导致OutOfMemo
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-01-01 00:00" pubdate>
-              2020-01-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" class="category-chain-item">技术开发</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Java/">#Java</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-
-
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lewis">
+      <meta itemprop="description" content="">
     </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="保持好奇心">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/11/12/20251114/" class="post-title-link" itemprop="url">需求挖掘</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-11-12 10:25:08" itemprop="dateCreated datePublished" datetime="2025-11-12T10:25:08+08:00">2025-11-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-12-11 16:27:05" itemprop="dateModified" datetime="2025-12-11T16:27:05+08:00">2025-12-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ol>
+<li>Reddit 痛点挖掘法（最推荐）</li>
+</ol>
+<p>在 Reddit 搜索：</p>
+<p>“I wish there was a tool that …”</p>
+<p>“What’s the best tool for …”</p>
+<p>“How do you manage …”</p>
+<p>“alternatives to XXX”</p>
+<p>“is there an app for …”</p>
+<p>你可以看到大量用户直接说出未被满足的需求。</p>
+<ol start="2">
+<li>Product Hunt 评论区挖痛点</li>
+</ol>
+<p>方法：</p>
+<p>找新产品（尤其是没做成功的）</p>
+<p>看用户批评的点、吐槽的功能缺失</p>
+<p>从失败产品里找机会点</p>
+<p>成功产品容易过饱和，而失败产品的评论区能告诉你真实需求。</p>
+<ol start="3">
+<li>Hacker News “Show HN &#x2F; Ask HN”</li>
+</ol>
+<p>重点看 3 类帖子：</p>
+<p>“Show HN: 我做了一个 XXX”</p>
+<p>“Ask HN: 有没有类似 XXX 的工具？”</p>
+<p>“Ask HN: 你们都用什么工具来处理 XXX？”</p>
+<p>这些帖子里会有大量真实需求、并且是对技术产品付费能力强的精准用户。</p>
+<ol start="4">
+<li>Twitter（X）“专业圈子需求”</li>
+</ol>
+<p>搜索：</p>
+<p>“need a tool”</p>
+<p>“is there a tool to”</p>
+<p>“I pay for”</p>
+<p>“automation tool for”</p>
+<p>尤其是开发者、设计师、营销人员，他们愿意付费效率工具。</p>
+<ol start="5">
+<li>Discord 社群挖需求</li>
+</ol>
+<p>加入垂直社区（写作、远程工作、游戏、健身、AI Prompt、开发者工具等）</p>
+<p>看大家抱怨什么</p>
+<p>看用什么工具替代</p>
+<p>看哪些需求没人响应</p>
+<p>📝 二、来自“数据趋势”的挖掘（看市场潜在需求）<br>6. Google Trends</p>
+<p>查看：</p>
+<p>关键词上升趋势</p>
+<p>某种工具突然被大量搜索（但竞品少）</p>
+<p>不同国家的需求关注度差异</p>
+<p>比如：AI résumé、AI writing、habit tracker 在某些国家爆发。</p>
+<ol start="7">
+<li>关键词工具（Ahrefs &#x2F; SEMrush &#x2F; Ubersuggest）</li>
+</ol>
+<p>找：</p>
+<p>搜索量大</p>
+<p>竞争度低</p>
+<p>付费意愿高（商业关键词）</p>
+<p>这个方法特别适合做 SaaS、小工具、Chrome 插件。</p>
+<ol start="8">
+<li>App Store &amp; Google Play 榜单分析</li>
+</ol>
+<p>重点看：</p>
+<p>小品类 Top 50</p>
+<p>高评分但下载中等（市场有需求、但不卷）</p>
+<p>低评分但下载很高（有大面积痛点 → 空间巨大）</p>
+<ol start="9">
+<li>Substack &#x2F; Medium 趋势文章</li>
+</ol>
+<p>搜索：</p>
+<p>“Top tools for …”</p>
+<p>“Best apps for …”</p>
+<p>“tools I pay for as a freelancer”</p>
+<p>作者经常总结他们自己找不到但需要的工具。</p>
+<p>🧱 三、来自“竞品生态”的需求挖掘（结构化且高效）<br>10. 外链分析挖竞品（你刚问的）</p>
+<p>通过外链来源网站找到：</p>
+<p>同类产品全集</p>
+<p>头部产品模式</p>
+<p>市场空白点</p>
+<p>用户普遍吐槽点</p>
+<p>是最系统化的“市场扫描方法”。</p>
+<ol start="11">
+<li>“替代品搜索法”</li>
+</ol>
+<p>在 Google 搜：</p>
+<p>“Notion alternatives”</p>
+<p>“Calendly alternatives”</p>
+<p>“Miro alternatives”</p>
+<p>“Zapier alternatives”</p>
+<p>每一个 alternatives 页面，都罗列大量竞品 + 痛点描述。</p>
+<p>这是独立开发者最容易找到“机会市场”的地方。</p>
+<ol start="12">
+<li>比较网站挖需求（超好用）</li>
+</ol>
+<p>以下网站专门整理工具：</p>
+<p>alternativeto.net</p>
+<p>G2</p>
+<p>Capterra</p>
+<p>SaaSHub</p>
+<p>Stackshare</p>
+<p>你能看到：</p>
+<p>同类工具数量</p>
+<p>用户评论</p>
+<p>替代品列表</p>
+<p>功能缺失</p>
+<p>🧪 四、来自“快速验证”的实战挖掘<br>13. Landing Page 测试（低成本验证需求）</p>
+<p>步骤：</p>
+<p>做一个一页式产品介绍页面（Carrd &#x2F; Webflow）</p>
+<p>投放：</p>
+<p>Reddit</p>
+<p>Hacker News</p>
+<p>Facebook Ads（少量预算）</p>
+<p>看有多少人留下邮箱</p>
+<p>若 100 次访问有 5~10 个注册 → 需求成立。</p>
+<ol start="14">
+<li>No-Code 原型 MVP 验证</li>
+</ol>
+<p>用：</p>
+<p>Bubble</p>
+<p>Glide</p>
+<p>Notion + Pory</p>
+<p>Figma 原型</p>
+<p>简单实现核心功能，看用户是否使用并愿意付费。</p>
+<p>🔍 五、来自“真实行业”的需求挖掘（不卷、但需求大）<br>15. 垂直行业论坛挖需求</p>
+<p>例如：</p>
+<p>教育</p>
+<p>医疗</p>
+<p>健身</p>
+<p>建筑</p>
+<p>营销</p>
+<p>自由职业者</p>
+<p>咨询行业</p>
+<p>每个行业都有大量没有好用工具的遗留痛点。</p>
+<ol start="16">
+<li>Upwork &#x2F; Fiverr 任务挖需求</li>
+</ol>
+<p>看别人付钱请 freelancer 做的事情：</p>
+<p>如果很多人重复付费做同样东西，就是产品机会。</p>
+<p>例如：</p>
+<p>导出 Excel 自动化</p>
+<p>数据分类处理</p>
+<p>网站 SEO</p>
+<p>数据采集工具</p>
+<p>视频压缩 &#x2F; 转码</p>
+<p>文档转换工具</p>
+<p>这些都可以做独立工具。</p>
+<ol start="17">
+<li>Shopify 插件市场挖需求</li>
+</ol>
+<p>Shopify 商家有大量痛点，一个插件就能解决问题。<br>比如：</p>
+<p>自动填写物流信息</p>
+<p>自动生成产品视频</p>
+<p>图像批量优化</p>
+<p>这类需求非常稳定、而且付费能力强。</p>
+<ol start="18">
+<li>Github Issues &#x2F; Discussions 挖开发者需求</li>
+</ol>
+<p>如果你做开发工具或插件：</p>
+<p>看某个库的 issue 页</p>
+<p>找大家求助但库本身不会支持的功能</p>
+<p>你可以做一个可独立使用的小工具</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lewisbyte.github.io/2025/08/27/20250013/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lewis">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="保持好奇心">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/08/27/20250013/" class="post-title-link" itemprop="url">marc转bibframe的困境和挑战</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-08-27 09:23:03" itemprop="dateCreated datePublished" datetime="2025-08-27T09:23:03+08:00">2025-08-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-12-11 16:27:05" itemprop="dateModified" datetime="2025-12-11T16:27:05+08:00">2025-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">随笔</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h2><ol>
+<li>Work-作品需要做到归一化：多个不同的书目数据需要归一为同一个作品：例如不同的西游记，需要指向同一个作品</li>
+<li>Instance-实例需要归一化：在数据库中，存在多个相同的书目MARC数据，这些数据需要统一起来，指向同一个实例</li>
+<li>作者需要归一化：多个不同实例下面的作者，需要去重复，统一起来，指向同一个作者</li>
+<li></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lewisbyte.github.io/2025/04/03/20250011/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lewis">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="保持好奇心">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/04/03/20250011/" class="post-title-link" itemprop="url">【每周总结】- 探索</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-04-03 14:27:41" itemprop="dateCreated datePublished" datetime="2025-04-03T14:27:41+08:00">2025-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-12-11 16:27:05" itemprop="dateModified" datetime="2025-12-11T16:27:05+08:00">2025-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%AF%8F%E5%91%A8%E6%80%BB%E7%BB%93/" itemprop="url" rel="index"><span itemprop="name">每周总结</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>日期范围</strong>:2025-03-31 - 2025-04-03<br><strong>本周关键词</strong>: 探索</p>
+<hr>
+<h2 id="一、本周目标回顾"><a href="#一、本周目标回顾" class="headerlink" title="一、本周目标回顾"></a>一、本周目标回顾</h2><h3 id="1-计划完成事项"><a href="#1-计划完成事项" class="headerlink" title="1. 计划完成事项"></a>1. 计划完成事项</h3><ul>
+<li><input disabled="" type="checkbox"> 目标1:独立开发探索（进度:0.00001%）</li>
+<li><input disabled="" type="checkbox"> 目标2:面试复习（进度: 62%）</li>
+</ul>
+<hr>
+<h2 id="二、任务执行情况"><a href="#二、任务执行情况" class="headerlink" title="二、任务执行情况"></a>二、任务执行情况</h2><h3 id="1-工作-学习成果"><a href="#1-工作-学习成果" class="headerlink" title="1. 工作&#x2F;学习成果"></a>1. 工作&#x2F;学习成果</h3><ul>
+<li><strong>已完成</strong>:  <ul>
+<li>任务: 每日复习</li>
+<li>任务: 面试投递</li>
+</ul>
+</li>
+<li><strong>未完成</strong>:  <ul>
+<li>任务: 本周拿到外包offer一个，还有一个外包进入到2轮面试，自研公司基本不理.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="三、亮点与不足"><a href="#三、亮点与不足" class="headerlink" title="三、亮点与不足"></a>三、亮点与不足</h2><h3 id="🎯-本周亮点"><a href="#🎯-本周亮点" class="headerlink" title="🎯 本周亮点"></a>🎯 本周亮点</h3><ol>
+<li>突破性进展:通过youtube博主，了解到很多关于独立站的开发思路、技术栈、分析工具，打开新世界的大门。</li>
+</ol>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=yukg-eABYvM">独立开发前6个月，打造月入1700刀产品-二两说</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=mF7RplrloRw">快速挖掘赚钱产品的具体操作-二两说</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.semrush.com/projects/">SEO优化分析工具-semrush</a></li>
+<li><a target="_blank" rel="noopener" href="https://ahrefs.com/">SEO优化分析工具-ahrefs</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.indiehackers.com/">国外的站长收入分享网站-indiehackers</a></li>
+<li><a target="_blank" rel="noopener" href="https://zh.uniapp.dcloud.io/">移动端应用统一开发框架-uniapp</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.wappalyzer.com/">chrome网站技术栈分析工具插件-wappalyzer</a></li>
+<li><a target="_blank" rel="noopener" href="https://acquire.com/">独立开发者产品售卖平台-acquire</a></li>
+</ul>
+<ol start="2">
+<li>新技能学习</li>
+</ol>
+<ul>
+<li>本周主要是了解独立开发者的开发、分析、运营的整体思路，变现思路等等</li>
+</ul>
+<h3 id="待改进"><a href="#待改进" class="headerlink" title="待改进"></a>待改进</h3><ol>
+<li>拖延问题: 有一些想法但是迟迟不执行落地，拖延严重</li>
+<li>简历优化: 通过本周的投递反馈，目前看是简历本身有问题，由于工作交付的产品单一，所以需要优化简历，丰富一下项目经历。</li>
+</ol>
+<hr>
+<h2 id="四、下周计划"><a href="#四、下周计划" class="headerlink" title="四、下周计划"></a>四、下周计划</h2><h3 id="1-核心目标"><a href="#1-核心目标" class="headerlink" title="1. 核心目标"></a>1. 核心目标</h3><ul>
+<li><strong>高优先级</strong>:  <ul>
+<li><input disabled="" type="checkbox"> 优化简历</li>
+</ul>
+</li>
+<li><strong>中优先级</strong>:  <ul>
+<li><input disabled="" type="checkbox"> 持续探索独立开发，尽快上线一个app熟悉整个开发上线流程</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-优化策略"><a href="#2-优化策略" class="headerlink" title="2. 优化策略"></a>2. 优化策略</h3><ul>
+<li>时间管理: 安排好每天的时间段，这样不会出现任务不执行的情况，现在工作清闲，所以有大把的时间学习和探索。</li>
+</ul>
+<hr>
+<h2 id="五、其他记录"><a href="#五、其他记录" class="headerlink" title="五、其他记录"></a>五、其他记录</h2><h3 id="✨-灵感池"><a href="#✨-灵感池" class="headerlink" title="✨ 灵感池"></a>✨ 灵感池</h3><ul>
+<li>想法1: 想做一个流程编排的框架，通过cursor开发，录制成视频发布到b站，逐渐打造个人品牌。</li>
+<li>想法2: 快速探索，可以尝试快速复制一个有流量的app上线</li>
+</ul>
+<hr>
+<ul>
+<li><strong>总结人</strong>: @lewis</li>
+<li><strong>时间</strong>: 2025&#x2F;04&#x2F;03</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lewisbyte.github.io/2025/04/01/20250010/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lewis">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="保持好奇心">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/04/01/20250010/" class="post-title-link" itemprop="url">低风险投资套利总结</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-04-01 17:32:22" itemprop="dateCreated datePublished" datetime="2025-04-01T17:32:22+08:00">2025-04-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-12-11 16:27:05" itemprop="dateModified" datetime="2025-12-11T16:27:05+08:00">2025-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%95%E8%B5%84%E5%A5%97%E5%88%A9/" itemprop="url" rel="index"><span itemprop="name">投资套利</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><a href="#%E5%8F%AF%E8%BD%AC%E5%80%BA%E7%94%B3%E8%B4%AD">可转债申购</a></li>
+<li><a href="#ETF%E6%BA%A2%E4%BB%B7%E5%A5%97%E5%88%A9">ETF溢价套利</a></li>
+<li><a href="#%E5%A4%A7%E9%A2%9D%E5%AD%98%E5%8D%95%E6%81%AF%E5%B7%AE%E5%A5%97%E5%88%A9">大额存单息差套利</a></li>
+</ul>
+<h3 id="可转债申购"><a href="#可转债申购" class="headerlink" title="可转债申购"></a>可转债申购</h3><ul>
+<li>原理:可转债打新，基本无风险</li>
+<li>执行步骤:券商软件进入新债申购页面即可申购，平均收益在20%左右。</li>
+<li>缺点：由于申购的人很多，目前很难中新债</li>
+</ul>
+<h3 id="ETF溢价套利"><a href="#ETF溢价套利" class="headerlink" title="ETF溢价套利"></a>ETF溢价套利</h3><ul>
+<li>原理:<ul>
+<li>所谓溢价套利，是指交易价格&gt;基金净值，称之为溢价。当溢价足够大时可以按照比较低的净值申购基金，按照比较高的交易价格卖出基金，这样就可以实现低买高卖的溢价套利。</li>
+<li>反之，交易价格&lt;基金净值，称之为折价。当折价足够大时可以按照比较低的交易价格买入基金，按照比较高的净值赎回基金，这样就可以实现低买高卖的折价套利。</li>
+<li>基金赎回手续费比较高，7天以内赎回费1.5%，所以折价套利做的就比较少，我们常说的基金套利都是溢价套利较多。</li>
+<li>基金的折溢价一般越接近收盘的点相应的数据就越准确，所以套利行为经常在收盘点附近完成，这对时间有一定要求，并不适合特别忙碌的人。</li>
+<li>这里大家容易混淆的地方是买入和卖出、申购与赎回， 一定要记住申购赎回对应的是基金净值，场内买卖对应的是交易价格。</li>
+</ul>
+</li>
+<li>执行步骤: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/g4WZwzjYtRTR2bpaCzKc_Q">详细步骤</a></li>
+<li>缺点：<ul>
+<li>价格波动：在买入股票或资产后，市场价格可能下跌，导致预期的套利利润减少甚至亏损。</li>
+<li>溢价消失：市场价格可能在套利操作过程中回落到净值附近，溢价消失，从而无法实现预期的套利收益。</li>
+</ul>
+</li>
+<li>套利品种：<ul>
+<li>(1)原油类LOF：162411华宝油气，501018南方原油，160216国泰商品，160416石油基金，161129原油基金，160723嘉实原油，163208诺安油气，162719广发石油。</li>
+<li>(2)境外股票类LOF：161128标普科技，164906中国互联，501021香港中小，161130纳指LOF，161125标普500，161831恒生中企，160125南方香港，501301香港大盘，161127标普生物，161126标普医药，164824印度基金，162415美国消费。</li>
+<li>(3)贵金属类LOF：161226白银基金，161116易基黄金，160719嘉实黄金</li>
+</ul>
+</li>
+</ul>
+<h3 id="大额存单息差套利"><a href="#大额存单息差套利" class="headerlink" title="大额存单息差套利"></a>大额存单息差套利</h3><ul>
+<li>原理:央行降息，利率单边下行的情况下，提前买入高利率的存单，可以吃到 存单利率-当前利率转出利率的利息差。如果是VIP客户，可以买入银行面向VIP客户的高利率存单，客户转手出让存单即可完成息差的套利。</li>
+<li>执行步骤:在银行APP即可购入大额存单，等待利率下行或者购入面向VIP客户的高利率存单，进行息差的套利。</li>
+<li>缺点：VIP客户资产要求较高，高利率的存单产品不面向普通银行客户。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lewisbyte.github.io/2020/01/01/20250004/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lewis">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="保持好奇心">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/01/20250004/" class="post-title-link" itemprop="url">记一次天池比赛 - 性能挑战赛道</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2020-01-01T00:00:00+08:00">2020-01-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-12-11 16:27:05" itemprop="dateModified" datetime="2025-12-11T16:27:05+08:00">2025-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">技术开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="叨叨"><a href="#叨叨" class="headerlink" title="叨叨"></a>叨叨</h2><ul>
+<li>吐槽一下csdn，现在做的越来越拉胯，查个资料都需要登录之后才能复制代码，这吃相越来越难看，那我为啥还写呢？我实在懒得换平台了</li>
+<li>闲的无聊的记录，就是分享一下自己的一点点心得，有什么建议欢迎提出</li>
+<li><a target="_blank" rel="noopener" href="https://tianchi.aliyun.com/competition/entrance/531907/introduction">比赛链接：天池-云上开发，高效智能–阿里云ECS Cloudbuild开发者大赛性能挑战赛道</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lewisbyte/tianchi-im">我参赛的源码github链接</a></li>
+</ul>
+<h2 id="赛题"><a href="#赛题" class="headerlink" title="赛题"></a>赛题</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">赛题背景</span><br><span class="line">基于公共云构建产品、系统和应用已经是当前最热门的技术趋势了，公共云不仅提供了非常丰富的基础设施资源类型，如服务器、网络、存储和数据库等资源，还为这些资源提供了极高的可靠性保证，综合性价比非常有竞争力，尤其是阿里云发布的第七代云服务器ECS，搭载最新一代英特尔®至强®可扩展处理器（代号Ice Lake）以及阿里云自研的第三代神龙架构，可以更好地满足各种类型的计算任务。本赛道将基于这款云服务器进行，希望通过此次比赛可以更具体更全面地展示其性能。</span><br><span class="line"></span><br><span class="line">Web Services是各行业中最为常见的软件系统之一，本赛题探讨Web Service在云上部署的性能优化，希望参赛者通过代码撰写、操作系统与数据库选型、各种参数调优等手段，优化云端Web服务的性能和保障服务的高可用。</span><br><span class="line"></span><br><span class="line">赛题描述</span><br><span class="line">构建一个高性能、高稳定的Web Service，具体形式是实现一个在线实时聊天室Web Service。</span><br><span class="line"></span><br><span class="line">该服务需要完成以下功能，下文将以部分API方式进行说明：</span><br><span class="line"></span><br><span class="line">用户注册、用户登录等。</span><br><span class="line">创建房间、查看房间等。</span><br><span class="line">用户进入、退出实时聊天房间，每个用户只能进入一个聊天室，进入某个聊天室时，会自动退出上一个聊天室等。</span><br><span class="line">用户发言和实时收取其他人的消息。</span><br><span class="line">注：聊天室、消息和用户，三个数据必须持久化；在线人数无须持久化。</span><br><span class="line"></span><br><span class="line">完整API Spec请参考这里。</span><br><span class="line"></span><br><span class="line">复赛要求如下：</span><br><span class="line">1.所有的数据持久化都必须是集群化(3台机器)的，任何一台机器宕机，其他的两台机器应该能继续对外提供完整的数据查询和插入服务。</span><br><span class="line"></span><br><span class="line">2.在任何一台机器上登录和进入聊天室，其他的机器都应该有相同判断，即该用户登录以及进入聊天室。</span><br><span class="line"></span><br><span class="line">3.程序在机器启动后，会收到请求/updateCluster的post请求，body是三台机器的ip的list,比如 [“192.0.0.1”,”192.0.0.2”,”192.0.0.3”]。</span><br><span class="line"></span><br><span class="line">4.经过上面的步骤等待一分钟后，会收到/checkCluster的GET请求，需要返回http status 200，然后开始集群测试。</span><br><span class="line"></span><br><span class="line">环境要求</span><br><span class="line">操作系统：任意阿里云的官方镜像，任意Windows或Linux、OS。</span><br><span class="line"></span><br><span class="line">编程语言：任意语言，Java/Go/Python/JS等。</span><br><span class="line"></span><br><span class="line">数据库：任意数据库，MySQL/Redis等。但所有数据必须落盘，即使实例重启，也不允许丢任何数据。</span><br><span class="line"></span><br><span class="line">提交说明</span><br><span class="line">最终的产出以zip包形式(不得超过100M)提供，zip包里面需要包括以下内容：</span><br><span class="line"></span><br><span class="line">可部署的二进制文件，或代码，如python。代码必须有一个良好的规范，建议参考所选编程语言的通用规范。</span><br><span class="line">部署脚本。</span><br><span class="line">环境配置，以资源编排ROS模板展示。</span><br><span class="line">参考示例zip包结构。</span><br><span class="line">评测系统收到提交的任务后，将会：</span><br><span class="line"></span><br><span class="line">安全扫码，如发现病毒或可疑代码将直接取消比赛资格，作废任何已有成绩。</span><br><span class="line">解压zip示例中的deploy_application.zip 。</span><br><span class="line">使用ros json 模板进行ECS环境部署，参考注释，可能需要调整镜像ID。</span><br><span class="line">系统自动将deploy_application.zip包下载并解压到目标目录。</span><br><span class="line">调用deploy_application.zip里面的start.sh来启动service。</span><br><span class="line">部署完成以后将会开始评测，请使用端口8080。</span><br><span class="line"></span><br><span class="line">请参考示例git repo 2021-contest/demo/build下的zip包。</span><br><span class="line"></span><br><span class="line">评判标准</span><br><span class="line">评测分为两个阶段：分别为完成性验证阶段和性能测试阶段。</span><br><span class="line"></span><br><span class="line">完成性验证阶段，需要满足综合任务描述与环境要求中提到的数据落盘、数据持久化等要求（复赛环节注意新增要求），否则最终得分为0。</span><br><span class="line"></span><br><span class="line">性能测试阶段，通过接口完整性、API的QPS、API的延时情况，在选手提交zip包之后，计算性能测试的综合得分，其中：</span><br><span class="line"></span><br><span class="line">1、接口功能越完整正确，得分越高。</span><br><span class="line">2、综合API的QPS，QPS越高，得分越高。</span><br><span class="line">3、综合API的延时，延时越低，得分越高。</span><br><span class="line"></span><br><span class="line">计算性能测试的综合得分=n*10+50*(qps/10000)*k+50*n∗10+50∗(qps/10000)∗k+50∗(1/time_deplay)*m。∗m。</span><br><span class="line">其中，n为评测的接口个数，k是需要进行评测qps的接口个数，m是需要评测的延时接口个数。</span><br><span class="line"></span><br><span class="line">评测流程</span><br><span class="line">参赛者提交的服务，最终将部署在搭载最新一代英特尔®至强®可扩展处理器（代号Ice Lake）阿里云第七代ECS实例，4核8G （规格）上。</span><br><span class="line"></span><br><span class="line">评测系统将对该服务进行压测，压测时会使用多个场景进行压测，且场景可能会发生变化，但是都会是多个API的组合。</span><br><span class="line"></span><br><span class="line">大赛更多细节，包括API Spec、Demo和zip包示例，请参考以下链接，将持续更新：</span><br><span class="line"></span><br><span class="line">https://code.aliyun.com/ecs-contest-support/2021-contest/tree/master 。</span><br></pre></td></tr></table></figure>
+
+<h2 id="解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）"><a href="#解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）" class="headerlink" title="解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）"></a>解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）</h2><ol>
+<li>先使用<code>spring-boot</code> 快速写了一个baseline 的东东，把题目的样例都跑过了，结果：<code>api是满分190，性能分数只有0分</code>。然后拿wrk 压测发现<code>tps=1K</code>左右，然后就尝试写了一个返回字符串的方法去压测，最后拿到报告只有<code>tps=5K</code> 这样子。spring-boot 原来这就是你的极限了🐴，垃圾（小声BB，于是接下来就开始专注性能这块了。</li>
+<li>我调研了一下，所有人都在吹 <code>vert.x</code>的性能有多好多好。fine！那就搞起吧，社畜狗一边加班一遍肝<code>vert.x</code>,终于在看了2天文档，写了个demo 出来。然后故技重施又：写了一个返回字符串的空方法去压测，发现效果喜人，直接将tps的值拉到一个新高度 <code>tps=100000+</code>，是的，xdm你没有听错，性能提高了接近20倍，这个还是在我辣鸡的macbook上面压测的结果，我尝试在<code>阿里esc</code>上面进行<code>jvm预热</code>后再压测，tps达到了恐怖的<code>130000</code>，就是这么强！！那妥了，天命人就是你了-<code>vert.x</code>！</li>
+<li>啪啪啪，一顿拍完，效果还不错，<code>tps=100多分了，总分300+还可以了</code>，换框架的收益可以说是十分明显。然后一看排行榜发现居然有大佬居然有700+分，看来还是有很大的提升空间，</li>
+<li>于是我开始尝试：<code>对查询的接口加上缓存</code>，对查询的各个点进行优化，如果查询命中就放到缓存中，如果没命中就放入一个无效值，避免下次还去查询数据库，缓存使用<code>guava 的 Chche实现，使用LRU策略淘汰</code>。发现效果果然不错，总分冲击到了<code>400+</code>，查询的tps 查询也达到了100000+</li>
+<li>接下来，查询的优化完毕，就开始优化插入的接口。借鉴批量处理的思维：<code>将数据库的插入操作，从单条插入修改成了多条异步插入</code>，主要的设计思想呢：<code>就是将需要插入的任务扔到队列里面，然后搞一个定时任务定时处理任务队列里的数据，进行批量插入。我设置的定时任务间隔是30ms，相当于实现了一个简单的生产消费模型</code>，具体代码可以查看<a target="_blank" rel="noopener" href="https://github.com/lewisbyte/tianchi-im/blob/vert.x/src/main/java/tianchi/im/starter/dao/AsyncBatchInsertDao.java">异步插入</a>和<a target="_blank" rel="noopener" href="https://github.com/lewisbyte/tianchi-im/blob/vert.x/src/main/java/tianchi/im/starter/schedule/ScheduleTaskConf.java">定时任务消费</a>，这边将tps 提升了几倍，最后测试数据库写入的接口<code>tps达到了47000+</code></li>
+<li>接下来就是对数据库参数进行调优，我这边数据库用的是<code>postgre-sql</code>，然后发现对数据库参数调优其实没啥作用（还做了各种数据表分区，表sharding的处理，一顿操作猛如虎，2333）然于是到此分数就定格到了<code>519.94</code>，初赛14名，说实话不是什么出彩的好成绩，只是分享给大家看一乐呵</li>
+<li>当然成功进入复赛，但是那段时间社畜需要996没时间搞比赛，所以复赛就没打了</li>
+<li>就介样儿吧，拜拜</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lewisbyte.github.io/2020/01/01/20250005/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lewis">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="保持好奇心">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/01/20250005/" class="post-title-link" itemprop="url">【How-to】性能与扩展性的一点思考</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2020-01-01T00:00:00+08:00">2020-01-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-12-11 16:27:05" itemprop="dateModified" datetime="2025-12-11T16:27:05+08:00">2025-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">技术开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>最近在做性能测试，发现的一些问题和《Java 并发编程》里：”性能与可伸缩性“一章，所描述的场景相似，所以记录、分享出来。</li>
+</ul>
+<h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><ul>
+<li>QA 发起一笔5并发请求，请求完之后显示超时，测试的第一天立刻检查了日志，发现日志并没有打完，并没有太在意，于是就放到那里了。之后第二天又再次检查了一遍，发现这5笔交易的日志并不是没有打印完毕，而是约在15分钟之后(<code>开始：22:46 -- 结束：23:02</code>)打印出来了，全部都是显示事务超时。</li>
+</ul>
+<h4 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h4><ul>
+<li>我检查了这个接口的超时耗时配置为（250s）。所以如果这里5笔并发请求会串行执行总耗时约为：20.8 分钟。猜测这里可能是这些接口耗时配置的太长，导致（数据库表锁）资源没有释放，请求全部阻塞等待，导致全部超时失败。</li>
+</ul>
+<h4 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h4><ol>
+<li><p>猜想分析：统计了这5笔的请求总共的执行时间，果然是我和之前的猜想一致，5笔的交易按照串行的模式总共执行了20分钟。基本也验证了前面的猜想。</p>
+</li>
+<li><p>继续看打印完整的日志，发现所有的日志卡住在一个<code>交易流水表</code>的<code>insert</code> 的操作。先说一点前提：目前的应用中，每次接口的请求响应前，会将所有的请求信息登记到<code>交易流水表</code>中，也就是说：表锁导致了应用的串行化执行。于此同时就意味着，数据库表的性能决定了应用的性能上限了。</p>
+</li>
+<li><p>解决方案：调低每笔交易的超时时长，避免每笔请求长时间的占用公共表锁资源，目前表锁定的原因暂时不明，还在排查中。</p>
+</li>
+<li><p>系统提供了<code>交易流水表</code>的多个分片处理，可以路由到不同分片中。从原本都要获取同一张表资源，现在可以实现多张表的资源，降低了系统资源竞争。</p>
+</li>
+</ol>
+<h4 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h4><ol>
+<li>从前面的问题我们很容易发现，系统这种<code>热点域</code>的设计，在并发请求的场景下，由于某些原因很容易导致系统变成串行、效率低下、甚至是不可用的情况。</li>
+</ol>
+<h4 id="HashTable-与-ConcurrentHashMap-优化"><a href="#HashTable-与-ConcurrentHashMap-优化" class="headerlink" title="HashTable 与 ConcurrentHashMap 优化"></a>HashTable 与 ConcurrentHashMap 优化</h4><ul>
+<li>其实这样的问题很容易从前人的系统设计中找到类似的问题，对比经典的 <code>HashTable</code>到<code>ConcurrentHashMap</code>改进，<code>JDK</code> 做了从<code>单一的synchronize-排它锁</code>改进为 <code>多个segment的分段锁</code>，这里将锁的粒度细粒度化，可以提供更高的并发，提供了更强大的横向扩展能力。</li>
+</ul>
+<h4 id="水平扩展"><a href="#水平扩展" class="headerlink" title="水平扩展"></a>水平扩展</h4><p>那么究竟怎样可以提供一个良好的水平扩展能力呢？《Java并发编程实战》给出以下的优化点</p>
+<h5 id="软件设计层面"><a href="#软件设计层面" class="headerlink" title="软件设计层面"></a>软件设计层面</h5><ol>
+<li>发现在框架中隐藏的串行部分：串行的部分往往是性能瓶颈部分，它阻碍了系统的扩展性、并发度</li>
+</ol>
+<h5 id="代码层面"><a href="#代码层面" class="headerlink" title="代码层面"></a>代码层面</h5><ol>
+<li>避免热点域（本文）</li>
+<li>减少线程上下文的切换</li>
+<li>减小锁的范围：同步代码块里的代码越少越好</li>
+<li>减小锁的粒度：锁分段</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lewisbyte.github.io/2020/01/01/20250007/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lewis">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="保持好奇心">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/01/20250007/" class="post-title-link" itemprop="url">【How to】Java后端开发技能树</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2020-01-01T00:00:00+08:00">2020-01-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-12-11 16:27:05" itemprop="dateModified" datetime="2025-12-11T16:27:05+08:00">2025-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">技术开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>关于本博客是有关后端开发的技能树总结，目标是涵盖后端开发相关的相关语言知识及相关的中间件，性能测试、性能调优等各个方面的总结。同时也是自我总结、记录的过程。文章会长期进行维护。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h2 id="测试（性能）相关"><a href="#测试（性能）相关" class="headerlink" title="测试（性能）相关"></a>测试（性能）相关</h2><h4 id="Jmeter"><a href="#Jmeter" class="headerlink" title="Jmeter"></a>Jmeter</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">著名的性能测试工具，基于Java的压力测试工具，（以及很好的批量数据造数数据工具）</span><br></pre></td></tr></table></figure>
+
+<h4 id="火焰图"><a href="#火焰图" class="headerlink" title="火焰图"></a>火焰图</h4><p>Java方法性能分析，通过对JVM方法栈定时采样，生成全局方法的“火焰”图，相关的热点方法就像火焰一样直观的展示出来</p>
+<p>Github地址：<code>https://github.com/jvm-profiling-tools/async-profiler</code></p>
+<h2 id="容器及运维相关"><a href="#容器及运维相关" class="headerlink" title="容器及运维相关"></a>容器及运维相关</h2><h2 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Docker 是一个开源的应用容器引擎，可以快速的搭建依赖环境，抹除不同操作系统之间的差异，类似沙盒的形式，做到在不同系统下跨平台运行，真正的帮助程序员、运维环境搭建的麻烦</span><br></pre></td></tr></table></figure>
+
+<h2 id="语言相关"><a href="#语言相关" class="headerlink" title="语言相关"></a>语言相关</h2><h4 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h4><h4 id="Groovy"><a href="#Groovy" class="headerlink" title="Groovy"></a>Groovy</h4><h4 id="Java-stream编程及函数式"><a href="#Java-stream编程及函数式" class="headerlink" title="Java-stream编程及函数式"></a>Java-stream编程及函数式</h4><h4 id="Java-collection-包体系"><a href="#Java-collection-包体系" class="headerlink" title="Java-collection 包体系"></a>Java-collection 包体系</h4><h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="flyway"><a href="#flyway" class="headerlink" title="flyway"></a>flyway</h3><h3 id="索引及性能调优"><a href="#索引及性能调优" class="headerlink" title="索引及性能调优"></a>索引及性能调优</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lewisbyte.github.io/2020/01/01/20250006/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lewis">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="保持好奇心">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/01/20250006/" class="post-title-link" itemprop="url">【How to】浅谈 Java web应用的优化</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2020-01-01T00:00:00+08:00">2020-01-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-12-11 16:27:05" itemprop="dateModified" datetime="2025-12-11T16:27:05+08:00">2025-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">技术开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
+<li>最近项目快要上线了，趁着现在有点想法、有时间就写点文字记录一下</li>
+</ul>
+<h2 id="web应用优化之数据库"><a href="#web应用优化之数据库" class="headerlink" title="web应用优化之数据库"></a>web应用优化之数据库</h2><ul>
+<li>web应用最最最明显、最最最重要的优化点就是SQL语句了。大家经常自嘲后端不就是个 CRUD boy嘛，增删改查就完事了。其实说的完全没错，能把CRUD 弄好，那web 应用其实就解决了80%的问题。那CRUD 的可优化点在哪里呢？</li>
+</ul>
+<h3 id="SQL-查询优化"><a href="#SQL-查询优化" class="headerlink" title="SQL 查询优化"></a>SQL 查询优化</h3><ol>
+<li>表的查询自然是第一位，良好的查询语句是高性能的第一步。建立合适、良好的索引可以使查询效率成倍的增长。但是错误的，不良的索引会使数据库性能下降，应用变慢。比如像一些字段的值基本可以用枚举来描述（例如state字段有2个合法值：0、1），说明这个值变化非常少，不适合建立索引。</li>
+<li>注意索引失效的问题：按照索引的最左匹配原则，如果最左的值一旦没有被包含在查询条件，那么这个复合索引将直接失效，查询类型则从 <code>type=ref</code> 降级为 <code>type=all</code>的全表扫描。例如：表的复合索引为<code>index(A+B)</code>，此时查询语句为<code>query_condition(B)</code>，那么这个索引会直接失效，降级为全表扫描。这对于大表来说就是噩梦，如果表的数据量非常大，查询的时间会非常漫长。</li>
+<li>索引失效2：使用聚合函数会使索引失效，如：A字段为索引，使用的聚合函数<code>SUBSTRING(A,...)</code>处理之后的指作为查询条件，那么索引就会失效。</li>
+<li>案例1：项目中我曾经2次遇到了索引的问题导致查询时间非常的长。一次是测试环境中QA反馈整个交易耗时非常长，经常超时，感觉很卡。我便去看了日志，摸索了一下，发现有张业务流水表的索引没有建立，导致查询是全表扫描，耗时大概在10几秒，其实表的数据量才200W，并不算太多，添加索引之后就没有超时的情况了。</li>
+<li>案例2：在项目的性能测试阶段，QA 反馈登录、注册接口的性能压测不能达到指标，很多接口的耗时达到了2s，但是性能测试环境的数据量其实才模拟了50w，并不是太多，于是我还是照例查看日志，发现有一条SQL语句的耗时非常久。我看了代码发现这个查询的字段是包含在一个复合索引里面的，但是还是超时了，很是奇怪。于是在测试环境使用 <code>explain</code> 语句分析语句的查询类型是 <code>type=ALL</code>，这时我意识到这个复合索引失效了，按照最左匹配原则，由于少了第一个字段，于是整个索引就失效。所以我及时将索引调整，保证查询的条件能匹配到索引，整个查询的耗时从<code>1700ms</code> 降低到<code>2-4ms</code>。</li>
+</ol>
+<h3 id="大表优化-分区"><a href="#大表优化-分区" class="headerlink" title="大表优化 - 分区"></a>大表优化 - 分区</h3><ol>
+<li>面对一些流水表，记录不断的增加，可能单张表就能达到了千万的级别。这里可以采用mysql 的数据分区（paratition）来优化查询和数据管理。</li>
+</ol>
+<h3 id="大表优化-分表"><a href="#大表优化-分表" class="headerlink" title="大表优化 - 分表"></a>大表优化 - 分表</h3><ol>
+<li>这个也是一个项目上的问题，我这里简单描述一下：系统有张业务表每天有20W的增量数据，一段时间之后，数据量已经达到了1700W的数据量。由于每天的日终，有数据清理策略，基本稳定在2000W左右，系统只会批量处理表里每天新增的那部分新数据，每条数据都有不同的业务属性。</li>
+<li>优化分析：其实可以见到，这个表里面虽然数据量很大，但是大部分的数据其实是没有什么用的，类似于那种用户的订单流水，过了1年可能就再也没啥用了。而且，每个数据都有业务属性，可以按照业务属性来区分。</li>
+<li>优化方案1.1：优化索引，发现所有的数据都查询SQL都是带有索引的，这部分已经不能再优化了。</li>
+<li>优化方案1.2：按照上文描述的业务属性拆表。按照不同的业务，存储到不同的表中。最后是拆成了4张表，单表的数据规模降低下来了。</li>
+<li>优化方案1.3：陈旧的数据要及时清理，如果只增不减，那会随着时间的推进，系统会慢慢走向死亡。</li>
+</ol>
+<h2 id="web应用优化之日志"><a href="#web应用优化之日志" class="headerlink" title="web应用优化之日志"></a>web应用优化之日志</h2><h3 id="日志优化"><a href="#日志优化" class="headerlink" title="日志优化"></a>日志优化</h3><ol>
+<li>其实日志这边我在压测之前没有怎么关注，直到压测一晚之后产生了大概几G的日志，于是我这边调高了日志等级，将 <code>DEBUG</code> 调整为 <code>INFO</code>，保证在压测环境下磁盘不会拖<code>TPS</code> 的后腿，又能有全面的分析日志可以看。</li>
+<li>日志的写入不要开启同步的写入，配置一个缓冲区来一次性写入一个缓冲区大小的日志，避免多次磁盘的IO操作。</li>
+</ol>
+<h2 id="web应用优化之JVM"><a href="#web应用优化之JVM" class="headerlink" title="web应用优化之JVM"></a>web应用优化之JVM</h2><h3 id="JVM-参数"><a href="#JVM-参数" class="headerlink" title="JVM 参数"></a>JVM 参数</h3><ol>
+<li>其实在JVM 层面能优化的东西不太多，最多就是按照机器来调调参数，最常见的就是调整堆的大小 <code>Xmx Xms</code>这些参数，堆的大小也不能太大，推荐一个<code>JVM</code>的配置为<code>4C 8G</code>，采用集群式的部署，外部请求访问使用负载均衡轮训的模式，避免<code>GC</code>在 <code>FULL GC</code>的时候<code>STW</code>的时间太长，应用的响应时间太长会有种假死的感觉。用户体验也不好</li>
+<li>对于不同的业务可以选择不同的<code>GC</code>回收器，Java web 主要面临的业务就是及时响应的接口类任务和批量数据处理的定时类任务。接口类的任务对响应时间敏感（<code>CMS 回收器组合</code>），批量数据处理类的任务对吞吐量敏感（<code>parallel 回收器组合</code>），这里可以选用不同类型的<code>GC</code>回收器来应对不同的业务场景需求。</li>
+</ol>
+<h2 id="web-应用优化之工具"><a href="#web-应用优化之工具" class="headerlink" title="web 应用优化之工具"></a>web 应用优化之工具</h2><h3 id="arthas"><a href="#arthas" class="headerlink" title="arthas"></a>arthas</h3><ol>
+<li>性能优化不得不提一下阿里的 <a target="_blank" rel="noopener" href="https://github.com/alibaba/arthas">GitHub-Arthas</a> 这个工具啦，文档<a target="_blank" rel="noopener" href="https://arthas.aliyun.com/doc/">Arthas 在线文档</a>写的非常清晰明了，还有在线教程，手把手来教你，真的太良心了好嘛。追踪单个方法的性能问题，用 <code>trace</code>定位每个方法的耗时，一秒定位问题。还能在测试环境直接看函数的变量值，class 热部署等等黑魔法，简直不要太香。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lewisbyte.github.io/2020/01/01/20250008/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lewis">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="保持好奇心">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/01/20250008/" class="post-title-link" itemprop="url">Java元数据和元编程的胡诌诌</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2020-01-01T00:00:00+08:00">2020-01-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-12-11 16:27:05" itemprop="dateModified" datetime="2025-12-11T16:27:05+08:00">2025-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">技术开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天来简单说说java的元编程与元数据。 为什么想要说这样一个话题，目前其实在java的框架中就会大量应用到元编程、而在我的工作之中会大量使用到元数据进行应用开发。下面先所说的内容只包含我在工作实践、应用的方面理解，而不是整个名词的完整介绍，需要看详细的介绍可以点击 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%85%83%E7%BC%96%E7%A8%8B">wiki：元编程</a> 和 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%85%83%E6%95%B0%E6%8D%AE">wiki：元数据</a>查看详细的介绍。</p>
+<h2 id="元数据"><a href="#元数据" class="headerlink" title="元数据"></a>元数据</h2><p>在我的开发工作中，元数据主要是做数据类型约束、接口定义，方法签名定义的作用。 大概的开发流程就是：</p>
+<ol>
+<li>定义元数据，比如定义一个实体，描述这个实体的属性字段名称，类型，长度等信息。根据这些信息构造成一个规范的xml文件。</li>
+<li>根据上一步构造的xml文件，也就是这里所指的元数据。（使用一些魔法，雾）使用公司定制化开发的eclipse插件，用这些xml文件生成标准的Java pojo 和 Java interface。然后标准和实体已经定义完成就可以进行具体的方法和接口的实现。</li>
+</ol>
+<p>所以说在这里，元数据在应用中的开发中的作用就是做数据约束和标准定义。这样的开发模式可以说是非常好的一个思路。</p>
+<ol>
+<li>标准化了开发流程，对数据本身有了一个明确的约束。有利于后期的开发维护。</li>
+<li>减少了重复，意义不大的工作，不需要手动对 Java pojo 和 Java interface 的定义。直接使用元数据来生成对应的Java class 即可。</li>
+<li>由于元数据的规范化，其实在此基础上的扩展能力有了很大的想象力。比如实体的合法校验 支持 jsr 303 (bean validation)规范等等。</li>
+</ol>
+<h2 id="元编程"><a href="#元编程" class="headerlink" title="元编程"></a>元编程</h2><p>在Java世界的元编程，其实很简单的说就是注解（annotation）的应用。</p>
+<p>这里的就有很多样例了，比如大名鼎鼎的lombok和spring里面的各种注解。为什么这里还将lombok和spring的注解做区分呢？因为这里的元编程应用时期不同：</p>
+<ol>
+<li>lombok 应用于编译期，在java编译生成class文件时，会”偷偷改掉”我们的代码模样，生成对应的模板代码（JSR 269: Pluggable Annotation Processing API），想详细了解的同学可以看这篇文章哦 <a target="_blank" rel="noopener" href="http://blog.didispace.com/java-lombok-how-to-use/">Java开发神器Lombok的使用与原理</a></li>
+<li>spring等其他注解主要是在运行期（不敢保证所有的都是在运行时的）。在运行时会调用对应的注解处理器处理对应的逻辑。这里的目的主要是减少模板代码，显得代码过于啰嗦、臃肿。</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>元编程和元数据的理念都有一个共同的特点，就是减少模板代码，使用代码生成代码的思路去降低工作中繁杂、无用或者意义不大的工作任务。这是极其值得推广的思路，尤其在大型工程面前，可以省下的工作量就非常可观，而且代码量会更少，质量还会更好，也是印证了 less is more 的设计哲学。<br>元编程和元数据里还有很多概念和触及其他系统知识的东西（比如编译原理什么的，emmm），这篇文章就这样简单聊下啦，发现有错也请及时指出。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
 
-              </div>
-            </div>
           </div>
-        </div>
-      </div>
-    
+          
 
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    
-
-    
-      <div class="col-lg-7 mx-auto nopadding-x-md">
-        <div class="container custom mx-auto">
-          <script src="https://utteranc.es/client.js" repo="lewisbyte/lewisbyte.github.io" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script>
-        </div>
-      </div>
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-    <div class="statistics">
-  
-  
-
-  
-    
-      <span id="busuanzi_container_site_pv" style="display: none">
-        总访问量 
-        <span id="busuanzi_value_site_pv"></span>
-         次
-      </span>
-    
-    
-      <span id="busuanzi_container_site_uv" style="display: none">
-        总访客数 
-        <span id="busuanzi_value_site_uv"></span>
-         人
-      </span>
-    
-    
-
-  
-
-</div>
-
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
       }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lewis</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lewis</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
 
 
   
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
 
 
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
+
+
+
+
+
+
+
+
 
 
   
 
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
+  
+
 </body>
 </html>

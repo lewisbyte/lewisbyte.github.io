@@ -1,27 +1,26 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/image/icon.png">
-  
+<link rel="stylesheet" href="/css/main.css">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="lewis">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="叨叨 吐槽一下csdn，现在做的越来越拉胯，查个资料都需要登录之后才能复制代码，这吃相越来越难看，那我为啥还写呢？我实在懒得换平台了 闲的无聊的记录，就是分享一下自己的一点点心得，有什么建议欢迎提出 比赛链接：天池-云上开发，高效智能–阿里云ECS Cloudbuild开发者大赛性能挑战赛道 我参赛的源码github链接  赛题12345678910111213141516171819202122">
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lewisbyte.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="叨叨 吐槽一下csdn，现在做的越来越拉胯，查个资料都需要登录之后才能复制代码，这吃相越来越难看，那我为啥还写呢？我实在懒得换平台了 闲的无聊的记录，就是分享一下自己的一点点心得，有什么建议欢迎提出 比赛链接：天池-云上开发，高效智能–阿里云ECS Cloudbuild开发者大赛性能挑战赛道 我参赛的源码github链接  赛题12345678910111213141516171819202122">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记一次天池比赛 - 性能挑战赛道">
 <meta property="og:url" content="https://lewisbyte.github.io/2020/01/01/20250004/index.html">
@@ -29,265 +28,191 @@
 <meta property="og:description" content="叨叨 吐槽一下csdn，现在做的越来越拉胯，查个资料都需要登录之后才能复制代码，这吃相越来越难看，那我为啥还写呢？我实在懒得换平台了 闲的无聊的记录，就是分享一下自己的一点点心得，有什么建议欢迎提出 比赛链接：天池-云上开发，高效智能–阿里云ECS Cloudbuild开发者大赛性能挑战赛道 我参赛的源码github链接  赛题12345678910111213141516171819202122">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-12-31T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-12-09T01:52:20.948Z">
+<meta property="article:modified_time" content="2025-12-11T08:27:05.766Z">
 <meta property="article:author" content="lewis">
 <meta property="article:tag" content="Java">
-<meta name="twitter:card" content="summary_large_image">
-  
-  
-    <meta name="referrer" content="no-referrer-when-downgrade">
-  
-  
-  <title>记一次天池比赛 - 性能挑战赛道 - 保持好奇心</title>
+<meta name="twitter:card" content="summary">
 
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+<link rel="canonical" href="https://lewisbyte.github.io/2020/01/01/20250004/">
 
 
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3420592895669054" crossorigin="anonymous"></script>
+  <title>记一次天池比赛 - 性能挑战赛道 | 保持好奇心</title>
   
 
 
 
 
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lewisbyte.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
 
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3420592895669054" crossorigin="anonymous"></script>
-<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="保持好奇心" type="application/atom+xml">
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="保持好奇心" type="application/atom+xml">
 </head>
 
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
 
-<body>
-  
-
-  <header>
-    
-
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>思维碎片</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">保持好奇心</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">lewis的随笔记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
 </nav>
 
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
   
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lewisbyte.github.io/2020/01/01/20250004/">
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lewis">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="保持好奇心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          记一次天池比赛 - 性能挑战赛道
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2020-01-01T00:00:00+08:00">2020-01-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-12-11 16:27:05" itemprop="dateModified" datetime="2025-12-11T16:27:05+08:00">2025-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">技术开发</span></a>
+                </span>
+            </span>
+
           
-            <span id="subtitle" data-typed-text="记一次天池比赛 - 性能挑战赛道"></span>
-          
+
         </div>
-
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2020-01-01 00:00" pubdate>
-          2020年1月1日 凌晨
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          2.2k 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          19 分钟
-        
-      </span>
-    
+      </header>
 
     
     
-  </div>
-
-
-        
-      </div>
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">记一次天池比赛 - 性能挑战赛道</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <h2 id="叨叨"><a href="#叨叨" class="headerlink" title="叨叨"></a>叨叨</h2><ul>
+        <h2 id="叨叨"><a href="#叨叨" class="headerlink" title="叨叨"></a>叨叨</h2><ul>
 <li>吐槽一下csdn，现在做的越来越拉胯，查个资料都需要登录之后才能复制代码，这吃相越来越难看，那我为啥还写呢？我实在懒得换平台了</li>
 <li>闲的无聊的记录，就是分享一下自己的一点点心得，有什么建议欢迎提出</li>
 <li><a target="_blank" rel="noopener" href="https://tianchi.aliyun.com/competition/entrance/531907/introduction">比赛链接：天池-云上开发，高效智能–阿里云ECS Cloudbuild开发者大赛性能挑战赛道</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/lewisbyte/tianchi-im">我参赛的源码github链接</a></li>
 </ul>
-<h2 id="赛题"><a href="#赛题" class="headerlink" title="赛题"></a>赛题</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><code class="hljs bash">赛题背景<br>基于公共云构建产品、系统和应用已经是当前最热门的技术趋势了，公共云不仅提供了非常丰富的基础设施资源类型，如服务器、网络、存储和数据库等资源，还为这些资源提供了极高的可靠性保证，综合性价比非常有竞争力，尤其是阿里云发布的第七代云服务器ECS，搭载最新一代英特尔®至强®可扩展处理器（代号Ice Lake）以及阿里云自研的第三代神龙架构，可以更好地满足各种类型的计算任务。本赛道将基于这款云服务器进行，希望通过此次比赛可以更具体更全面地展示其性能。<br><br>Web Services是各行业中最为常见的软件系统之一，本赛题探讨Web Service在云上部署的性能优化，希望参赛者通过代码撰写、操作系统与数据库选型、各种参数调优等手段，优化云端Web服务的性能和保障服务的高可用。<br><br>赛题描述<br>构建一个高性能、高稳定的Web Service，具体形式是实现一个在线实时聊天室Web Service。<br><br>该服务需要完成以下功能，下文将以部分API方式进行说明：<br><br>用户注册、用户登录等。<br>创建房间、查看房间等。<br>用户进入、退出实时聊天房间，每个用户只能进入一个聊天室，进入某个聊天室时，会自动退出上一个聊天室等。<br>用户发言和实时收取其他人的消息。<br>注：聊天室、消息和用户，三个数据必须持久化；在线人数无须持久化。<br><br>完整API Spec请参考这里。<br><br>复赛要求如下：<br>1.所有的数据持久化都必须是集群化(3台机器)的，任何一台机器宕机，其他的两台机器应该能继续对外提供完整的数据查询和插入服务。<br><br>2.在任何一台机器上登录和进入聊天室，其他的机器都应该有相同判断，即该用户登录以及进入聊天室。<br><br>3.程序在机器启动后，会收到请求/updateCluster的post请求，body是三台机器的ip的list,比如 [“192.0.0.1”,”192.0.0.2”,”192.0.0.3”]。<br><br>4.经过上面的步骤等待一分钟后，会收到/checkCluster的GET请求，需要返回http status 200，然后开始集群测试。<br><br>环境要求<br>操作系统：任意阿里云的官方镜像，任意Windows或Linux、OS。<br><br>编程语言：任意语言，Java/Go/Python/JS等。<br><br>数据库：任意数据库，MySQL/Redis等。但所有数据必须落盘，即使实例重启，也不允许丢任何数据。<br><br>提交说明<br>最终的产出以zip包形式(不得超过100M)提供，zip包里面需要包括以下内容：<br><br>可部署的二进制文件，或代码，如python。代码必须有一个良好的规范，建议参考所选编程语言的通用规范。<br>部署脚本。<br>环境配置，以资源编排ROS模板展示。<br>参考示例zip包结构。<br>评测系统收到提交的任务后，将会：<br><br>安全扫码，如发现病毒或可疑代码将直接取消比赛资格，作废任何已有成绩。<br>解压zip示例中的deploy_application.zip 。<br>使用ros json 模板进行ECS环境部署，参考注释，可能需要调整镜像ID。<br>系统自动将deploy_application.zip包下载并解压到目标目录。<br>调用deploy_application.zip里面的start.sh来启动service。<br>部署完成以后将会开始评测，请使用端口8080。<br><br>请参考示例git repo 2021-contest/demo/build下的zip包。<br><br>评判标准<br>评测分为两个阶段：分别为完成性验证阶段和性能测试阶段。<br><br>完成性验证阶段，需要满足综合任务描述与环境要求中提到的数据落盘、数据持久化等要求（复赛环节注意新增要求），否则最终得分为0。<br><br>性能测试阶段，通过接口完整性、API的QPS、API的延时情况，在选手提交zip包之后，计算性能测试的综合得分，其中：<br><br>1、接口功能越完整正确，得分越高。<br>2、综合API的QPS，QPS越高，得分越高。<br>3、综合API的延时，延时越低，得分越高。<br><br>计算性能测试的综合得分=n*10+50*(qps/10000)*k+50*n∗10+50∗(qps/10000)∗k+50∗(1/time_deplay)*m。∗m。<br>其中，n为评测的接口个数，k是需要进行评测qps的接口个数，m是需要评测的延时接口个数。<br><br>评测流程<br>参赛者提交的服务，最终将部署在搭载最新一代英特尔®至强®可扩展处理器（代号Ice Lake）阿里云第七代ECS实例，4核8G （规格）上。<br><br>评测系统将对该服务进行压测，压测时会使用多个场景进行压测，且场景可能会发生变化，但是都会是多个API的组合。<br><br>大赛更多细节，包括API Spec、Demo和zip包示例，请参考以下链接，将持续更新：<br><br>https://code.aliyun.com/ecs-contest-support/2021-contest/tree/master 。<br></code></pre></td></tr></table></figure>
+<h2 id="赛题"><a href="#赛题" class="headerlink" title="赛题"></a>赛题</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">赛题背景</span><br><span class="line">基于公共云构建产品、系统和应用已经是当前最热门的技术趋势了，公共云不仅提供了非常丰富的基础设施资源类型，如服务器、网络、存储和数据库等资源，还为这些资源提供了极高的可靠性保证，综合性价比非常有竞争力，尤其是阿里云发布的第七代云服务器ECS，搭载最新一代英特尔®至强®可扩展处理器（代号Ice Lake）以及阿里云自研的第三代神龙架构，可以更好地满足各种类型的计算任务。本赛道将基于这款云服务器进行，希望通过此次比赛可以更具体更全面地展示其性能。</span><br><span class="line"></span><br><span class="line">Web Services是各行业中最为常见的软件系统之一，本赛题探讨Web Service在云上部署的性能优化，希望参赛者通过代码撰写、操作系统与数据库选型、各种参数调优等手段，优化云端Web服务的性能和保障服务的高可用。</span><br><span class="line"></span><br><span class="line">赛题描述</span><br><span class="line">构建一个高性能、高稳定的Web Service，具体形式是实现一个在线实时聊天室Web Service。</span><br><span class="line"></span><br><span class="line">该服务需要完成以下功能，下文将以部分API方式进行说明：</span><br><span class="line"></span><br><span class="line">用户注册、用户登录等。</span><br><span class="line">创建房间、查看房间等。</span><br><span class="line">用户进入、退出实时聊天房间，每个用户只能进入一个聊天室，进入某个聊天室时，会自动退出上一个聊天室等。</span><br><span class="line">用户发言和实时收取其他人的消息。</span><br><span class="line">注：聊天室、消息和用户，三个数据必须持久化；在线人数无须持久化。</span><br><span class="line"></span><br><span class="line">完整API Spec请参考这里。</span><br><span class="line"></span><br><span class="line">复赛要求如下：</span><br><span class="line">1.所有的数据持久化都必须是集群化(3台机器)的，任何一台机器宕机，其他的两台机器应该能继续对外提供完整的数据查询和插入服务。</span><br><span class="line"></span><br><span class="line">2.在任何一台机器上登录和进入聊天室，其他的机器都应该有相同判断，即该用户登录以及进入聊天室。</span><br><span class="line"></span><br><span class="line">3.程序在机器启动后，会收到请求/updateCluster的post请求，body是三台机器的ip的list,比如 [“192.0.0.1”,”192.0.0.2”,”192.0.0.3”]。</span><br><span class="line"></span><br><span class="line">4.经过上面的步骤等待一分钟后，会收到/checkCluster的GET请求，需要返回http status 200，然后开始集群测试。</span><br><span class="line"></span><br><span class="line">环境要求</span><br><span class="line">操作系统：任意阿里云的官方镜像，任意Windows或Linux、OS。</span><br><span class="line"></span><br><span class="line">编程语言：任意语言，Java/Go/Python/JS等。</span><br><span class="line"></span><br><span class="line">数据库：任意数据库，MySQL/Redis等。但所有数据必须落盘，即使实例重启，也不允许丢任何数据。</span><br><span class="line"></span><br><span class="line">提交说明</span><br><span class="line">最终的产出以zip包形式(不得超过100M)提供，zip包里面需要包括以下内容：</span><br><span class="line"></span><br><span class="line">可部署的二进制文件，或代码，如python。代码必须有一个良好的规范，建议参考所选编程语言的通用规范。</span><br><span class="line">部署脚本。</span><br><span class="line">环境配置，以资源编排ROS模板展示。</span><br><span class="line">参考示例zip包结构。</span><br><span class="line">评测系统收到提交的任务后，将会：</span><br><span class="line"></span><br><span class="line">安全扫码，如发现病毒或可疑代码将直接取消比赛资格，作废任何已有成绩。</span><br><span class="line">解压zip示例中的deploy_application.zip 。</span><br><span class="line">使用ros json 模板进行ECS环境部署，参考注释，可能需要调整镜像ID。</span><br><span class="line">系统自动将deploy_application.zip包下载并解压到目标目录。</span><br><span class="line">调用deploy_application.zip里面的start.sh来启动service。</span><br><span class="line">部署完成以后将会开始评测，请使用端口8080。</span><br><span class="line"></span><br><span class="line">请参考示例git repo 2021-contest/demo/build下的zip包。</span><br><span class="line"></span><br><span class="line">评判标准</span><br><span class="line">评测分为两个阶段：分别为完成性验证阶段和性能测试阶段。</span><br><span class="line"></span><br><span class="line">完成性验证阶段，需要满足综合任务描述与环境要求中提到的数据落盘、数据持久化等要求（复赛环节注意新增要求），否则最终得分为0。</span><br><span class="line"></span><br><span class="line">性能测试阶段，通过接口完整性、API的QPS、API的延时情况，在选手提交zip包之后，计算性能测试的综合得分，其中：</span><br><span class="line"></span><br><span class="line">1、接口功能越完整正确，得分越高。</span><br><span class="line">2、综合API的QPS，QPS越高，得分越高。</span><br><span class="line">3、综合API的延时，延时越低，得分越高。</span><br><span class="line"></span><br><span class="line">计算性能测试的综合得分=n*10+50*(qps/10000)*k+50*n∗10+50∗(qps/10000)∗k+50∗(1/time_deplay)*m。∗m。</span><br><span class="line">其中，n为评测的接口个数，k是需要进行评测qps的接口个数，m是需要评测的延时接口个数。</span><br><span class="line"></span><br><span class="line">评测流程</span><br><span class="line">参赛者提交的服务，最终将部署在搭载最新一代英特尔®至强®可扩展处理器（代号Ice Lake）阿里云第七代ECS实例，4核8G （规格）上。</span><br><span class="line"></span><br><span class="line">评测系统将对该服务进行压测，压测时会使用多个场景进行压测，且场景可能会发生变化，但是都会是多个API的组合。</span><br><span class="line"></span><br><span class="line">大赛更多细节，包括API Spec、Demo和zip包示例，请参考以下链接，将持续更新：</span><br><span class="line"></span><br><span class="line">https://code.aliyun.com/ecs-contest-support/2021-contest/tree/master 。</span><br></pre></td></tr></table></figure>
 
 <h2 id="解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）"><a href="#解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）" class="headerlink" title="解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）"></a>解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）</h2><ol>
 <li>先使用<code>spring-boot</code> 快速写了一个baseline 的东东，把题目的样例都跑过了，结果：<code>api是满分190，性能分数只有0分</code>。然后拿wrk 压测发现<code>tps=1K</code>左右，然后就尝试写了一个返回字符串的方法去压测，最后拿到报告只有<code>tps=5K</code> 这样子。spring-boot 原来这就是你的极限了🐴，垃圾（小声BB，于是接下来就开始专注性能这块了。</li>
@@ -300,163 +225,148 @@
 <li>就介样儿吧，拜拜</li>
 </ol>
 
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
+    </div>
 
-<span class="category-chains">
-  
-  
     
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%BC%80%E5%8F%91/" class="category-chain-item">技术开发</a>
-  
-  
-
-      </span>
     
-  
-</span>
+    
 
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Java/" class="print-no-link">#Java</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>记一次天池比赛 - 性能挑战赛道</div>
-      <div>https://lewisbyte.github.io/2020/01/01/20250004/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>lewis</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2020年1月1日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
           </div>
-        </div>
-      
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/01/20250005/" rel="prev" title="【How-to】性能与扩展性的一点思考">
+      <i class="fa fa-chevron-left"></i> 【How-to】性能与扩展性的一点思考
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/04/01/20250010/" rel="next" title="低风险投资套利总结">
+      低风险投资套利总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
-    <div class="license-icon iconfont"></div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
+  <aside class="sidebar">
+    <div class="sidebar-inner">
 
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2025/04/01/20250010/" title="低风险投资套利总结">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">低风险投资套利总结</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2020/01/01/20250006/" title="【How to】浅谈 Java web应用的优化">
-                        <span class="hidden-mobile">【How to】浅谈 Java web应用的优化</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-          </article>
-        </div>
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%A8%E5%8F%A8"><span class="nav-number">1.</span> <span class="nav-text">叨叨</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%9B%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">赛题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF%EF%BC%88%E5%A3%B0%E6%98%8E%EF%BC%9A%E4%BB%A5%E4%B8%8B%E6%89%80%E6%9C%89%E7%9A%84%E6%B5%8B%E8%AF%95%E5%9D%87%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%914c8g%E7%9A%84ecs%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%BF%9B%E8%A1%8C%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">解题思路（声明：以下所有的测试均在阿里云4c8g的ecs环境下进行）</span></a></li></ol></div>
       </div>
-    </div>
+      <!--/noindex-->
 
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lewis</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
 </div>
 
 
 
+      </div>
+
+    </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-    </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lewis</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
-</div>
 
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
+        
 
 
 
@@ -464,241 +374,48 @@
 
 
 
-    
 
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
       </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
+    </footer>
   </div>
-</div>
-
-    
-
-    
-      <div class="col-lg-7 mx-auto nopadding-x-md">
-        <div class="container custom mx-auto">
-          <script src="https://utteranc.es/client.js" repo="lewisbyte/lewisbyte.github.io" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script>
-        </div>
-      </div>
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-    <div class="statistics">
-  
-  
 
   
-    
-      <span id="busuanzi_container_site_pv" style="display: none">
-        总访问量 
-        <span id="busuanzi_value_site_pv"></span>
-         次
-      </span>
-    
-    
-      <span id="busuanzi_container_site_uv" style="display: none">
-        总访客数 
-        <span id="busuanzi_value_site_uv"></span>
-         人
-      </span>
-    
-    
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-  
+<script src="/js/utils.js"></script>
 
-</div>
-
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
+<script src="/js/motion.js"></script>
 
 
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
+<script src="/js/schemes/muse.js"></script>
 
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
+<script src="/js/next-boot.js"></script>
 
 
 
 
   
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  <script  src="/js/local-search.js" ></script>
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
 
 
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
+
+
+
+
+
+
+
+
 
 
   
 
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
+  
+
 </body>
 </html>
