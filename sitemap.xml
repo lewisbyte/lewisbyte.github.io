@@ -51,6 +51,13 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://lewisbyte.github.io/tags/AI-%E9%9C%80%E6%B1%82%E6%8C%96%E6%8E%98/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
 </urlset>
